@@ -17,6 +17,7 @@ namespace PLManagement.Models
         }
 
         public virtual DbSet<Plstatus> Plstatuses { get; set; }
+        public virtual DbSet<ProposalApproval> ProposalApprovals { get; set; }
         public virtual DbSet<ProposalLetter> ProposalLetters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,13 +42,28 @@ namespace PLManagement.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<ProposalApproval>(entity =>
+            {
+                entity.ToTable("ProposalApproval");
+
+                entity.Property(e => e.ApprovedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Pdf).HasColumnName("pdf");
+
+                entity.Property(e => e.Plid).HasColumnName("PLId");
+
+                entity.HasOne(d => d.Pl)
+                    .WithMany(p => p.ProposalApprovals)
+                    .HasForeignKey(d => d.Plid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__ProposalAp__PLId__4AB81AF0");
+            });
+
             modelBuilder.Entity<ProposalLetter>(entity =>
             {
                 entity.ToTable("ProposalLetter");
 
                 entity.Property(e => e.AssessmentYear).HasMaxLength(20);
-
-                entity.Property(e => e.Pdf).HasColumnName("PDF");
 
                 entity.Property(e => e.PlstatusId).HasColumnName("PLStatusId");
             });

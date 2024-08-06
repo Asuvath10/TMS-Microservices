@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PLManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6355f3a7bf62244b84725fad747ebd24305f8fab")]
 [assembly: System.Reflection.AssemblyProductAttribute("PLManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PLManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

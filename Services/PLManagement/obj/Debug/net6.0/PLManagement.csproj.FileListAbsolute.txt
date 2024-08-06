@@ -65,3 +65,4 @@ C:\Users\asuvath.feroz\Documents\pip\TMS\Services\PLManagement\obj\Debug\net6.0\
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\PLManagement\obj\Debug\net6.0\PLManagement.pdb
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\PLManagement\obj\Debug\net6.0\PLManagement.genruntimeconfig.cache
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\PLManagement\obj\Debug\net6.0\ref\PLManagement.dll
+C:\Users\asuvath.feroz\Documents\pip\TMS\Services\PLManagement\obj\Debug\net6.0\PLManagement.sourcelink.json
