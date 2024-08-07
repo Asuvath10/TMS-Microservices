@@ -24,6 +24,6 @@ namespace PLManagement.Models
         public DateTime? UpdatedOn { get; set; }
         public int? UpdatedBy { get; set; }
 
-        public virtual ICollection<ProposalApproval> ProposalApprovals { get; set; }
+        public virtual ICollection<ProposalApproval>? ProposalApprovals { get; set; }
     }
 }

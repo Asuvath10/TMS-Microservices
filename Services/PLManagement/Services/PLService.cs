@@ -23,5 +23,8 @@ namespace PLManagement.Services
             return _repo.GetAllPL();
         }
 
+        public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter){
+            return await _repo.CreateProposalLetter(proposalLetter);
+        }
     }
 }

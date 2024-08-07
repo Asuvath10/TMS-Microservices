@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PLManagement.Interfaces;
+using PLManagement.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,9 +36,11 @@ namespace PLManagement
 
         // POST api/<PLController>
         [HttpPost]
-        public string Post([FromBody] string value)
+        public async Task<ActionResult<ProposalLetter>> Post([FromBody] ProposalLetter proposalLetter)
         {
-            return "Created";
+            if (proposalLetter == null){return BadRequest("Request is null");}
+            var CreatedProposalLetter= await _service.CreateProposalLetter(proposalLetter);
+            return Ok(CreatedProposalLetter);
         }
 
         // PUT api/<PLController>/5

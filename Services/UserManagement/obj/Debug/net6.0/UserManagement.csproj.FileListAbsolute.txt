@@ -65,3 +65,4 @@ C:\Users\asuvath.feroz\Documents\pip\TMS\Services\UserManagement\obj\Debug\net6.
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\UserManagement\obj\Debug\net6.0\UserManagement.pdb
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\UserManagement\obj\Debug\net6.0\UserManagement.genruntimeconfig.cache
 C:\Users\asuvath.feroz\Documents\pip\TMS\Services\UserManagement\obj\Debug\net6.0\ref\UserManagement.dll
+C:\Users\asuvath.feroz\Documents\pip\TMS\Services\UserManagement\obj\Debug\net6.0\UserManagement.sourcelink.json

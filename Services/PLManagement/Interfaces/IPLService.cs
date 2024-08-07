@@ -10,5 +10,6 @@ namespace PLManagement.Interfaces
     public interface IPLService
     {
         IEnumerable<ProposalLetter> GetAllPLservice();
+        Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter);
     }
 }
