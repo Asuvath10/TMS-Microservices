@@ -18,13 +18,29 @@ namespace PLManagement.Services
             _repo = repo;
         }
 
-        public IEnumerable<ProposalLetter> GetAllPLservice()
+        public async Task<IEnumerable<ProposalLetter>> GetAllPLservice()
         {
-            return _repo.GetAllPL();
+            return await _repo.GetAllProposalLetter();
         }
 
-        public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter){
+        public async Task<ProposalLetter> GetPLById(int id)
+        {
+            return await _repo.GetProposalLetterById(id);
+        }
+
+        public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter)
+        {
             return await _repo.CreateProposalLetter(proposalLetter);
+        }
+
+        public async Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter)
+        {
+            return await _repo.UpdateProposalLetter(proposalLetter);
+        }
+
+        public async Task<bool> DeleteProposalLetter(int id)
+        {
+            return await _repo.DeleteProposalLetter(id);
         }
     }
 }

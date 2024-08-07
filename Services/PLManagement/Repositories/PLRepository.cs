@@ -3,6 +3,7 @@ using PLManagement.Models;
 using PLManagement.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PLManagement.Repositories;
 
@@ -14,14 +15,39 @@ public class PLRepository : IPLRepository
         _dbContext = dbContext;
     }
 
-    public IEnumerable<ProposalLetter> GetAllPL()
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLetter()
     {
         return _dbContext.ProposalLetters;
     }
 
-    public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter){
+    public async Task<ProposalLetter> GetProposalLetterById(int id)
+    {
+        return await _dbContext.ProposalLetters.FirstOrDefaultAsync(p => p.Id == id);
+    }
+
+    public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter)
+    {
         _dbContext.ProposalLetters.Add(proposalLetter);
         await _dbContext.SaveChangesAsync();
         return proposalLetter;
+    }
+
+    public async Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter)
+    {
+        _dbContext.ProposalLetters.Update(proposalLetter);
+        await _dbContext.SaveChangesAsync();
+        return proposalLetter;
+    }
+
+    public async Task<bool> DeleteProposalLetter(int id)
+    {
+        var proposalLetter = await _dbContext.ProposalLetters.FindAsync(id);
+        if (proposalLetter == null)
+        {
+            return false;
+        }
+        _dbContext.ProposalLetters.Remove(proposalLetter);
+        await _dbContext.SaveChangesAsync();
+        return true;
     }
 }

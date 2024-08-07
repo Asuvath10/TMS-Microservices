@@ -20,39 +20,58 @@ namespace PLManagement
             _service = service;
         }
 
-        // GET: api/<PLController>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<IEnumerable<ProposalLetter>>> GetAllProposalLetters()
         {
-            return Ok(_service.GetAllPLservice());
+            var proposalLetters = await _service.GetAllPLservice();
+            return Ok(proposalLetters);
         }
 
-        // GET api/<PLController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ProposalLetter>> GetProposalLetterById(int id)
         {
-            return "value";
+            var proposalLetter = await _service.GetPLById(id);
+            if (proposalLetter == null)
+            {
+                return NotFound();
+            }
+            return Ok(proposalLetter);
         }
 
         // POST api/<PLController>
         [HttpPost]
         public async Task<ActionResult<ProposalLetter>> Post([FromBody] ProposalLetter proposalLetter)
         {
-            if (proposalLetter == null){return BadRequest("Request is null");}
-            var CreatedProposalLetter= await _service.CreateProposalLetter(proposalLetter);
+            if (proposalLetter == null) { return BadRequest("Request is null"); }
+            var CreatedProposalLetter = await _service.CreateProposalLetter(proposalLetter);
             return Ok(CreatedProposalLetter);
         }
 
-        // PUT api/<PLController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateProposalLetter(int id, ProposalLetter proposalLetter)
         {
+            if (id != proposalLetter.Id)
+            {
+                return BadRequest();
+            }
+
+            var updatedProposalLetter = await _service.UpdateProposalLetter(proposalLetter);
+            if (updatedProposalLetter == null)
+            {
+                return NotFound();
+            }
+            return Ok("Proposal Letter Updated Successfully");
         }
 
-        // DELETE api/<PLController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteProposalLetter(int id)
         {
+            var result = await _service.DeleteProposalLetter(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return Ok("Proposal Letter Deleted Successfully");
         }
     }
 }

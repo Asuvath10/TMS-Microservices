@@ -40,5 +40,55 @@ namespace PLservice.Tests.Services
             Assert.Equal(proposalLetter.PlstatusId, result.PlstatusId);
             Assert.Equal(proposalLetter.Content, result.Content);
         }
+
+        [Fact]
+        public async Task CanUpdateProposalLetter()
+        {
+            // Arrange
+            var existingProposalLetter = PLMockData.GetSingleProposalLetter();
+ 
+            _mockRepo.Setup(repo => repo.GetProposalLetterById(existingProposalLetter.Id))
+                     .ReturnsAsync(existingProposalLetter);
+ 
+            // Act
+            await _service.UpdateProposalLetter(existingProposalLetter);
+ 
+            // Assert
+            _mockRepo.Verify(repo => repo.UpdateProposalLetter(existingProposalLetter), Times.Once);
+        }
+ 
+        [Fact]
+        public async Task CanDeleteProposalLetter_ReturnsTrue_WhenProposalLetterExists()
+        {
+            // Arrange
+            var existingProposalLetterId = 1;
+ 
+            _mockRepo.Setup(repo => repo.DeleteProposalLetter(existingProposalLetterId))
+                     .ReturnsAsync(true);
+ 
+            // Act
+            var result = await _service.DeleteProposalLetter(existingProposalLetterId);
+ 
+            // Assert
+            Assert.True(result);
+            _mockRepo.Verify(repo => repo.DeleteProposalLetter(existingProposalLetterId), Times.Once);
+        }
+ 
+        [Fact]
+        public async Task DeleteProposalLetterAsync_ReturnsFalse_WhenProposalLetterDoesNotExist()
+        {
+            // Arrange
+            var nonExistingProposalLetterId = 99;
+ 
+            _mockRepo.Setup(repo => repo.DeleteProposalLetter(nonExistingProposalLetterId))
+                     .ReturnsAsync(false);
+ 
+            // Act
+            var result = await _service.DeleteProposalLetter(nonExistingProposalLetterId);
+ 
+            // Assert
+            Assert.False(result);
+            _mockRepo.Verify(repo => repo.DeleteProposalLetter(nonExistingProposalLetterId), Times.Once);
+        }
     }
 }

@@ -33,6 +33,7 @@ namespace PLManagement
         {
 
             services.AddControllers();
+            services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
             services.AddTransient<IPLRepository, PLRepository>();
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
