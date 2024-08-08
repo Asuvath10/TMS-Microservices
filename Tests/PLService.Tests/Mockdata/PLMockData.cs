@@ -5,7 +5,7 @@ namespace PLservice.Tests.MockData
 {
     public static class PLMockData
     {
-        public static List<ProposalLetter> GetProposalLetter()
+        public static List<ProposalLetter> GetProposalLetters()
         {
             return new List<ProposalLetter>(){
                 new ProposalLetter{

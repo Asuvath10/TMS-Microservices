@@ -15,43 +15,63 @@ namespace UserManagement
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
+
         public UserController(IUserService service)
         {
             _service = service;
         }
-        // GET: api/<UserController>
+
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<IEnumerable<UserTable>>> GetAllUsers()
         {
-            return Ok(_service.GetAllUserservice());
+            var Users = await _service.GetAllUsers();
+            return Ok(Users);
         }
 
-        // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<UserTable>> GetUserById(int id)
         {
-            return "User";
+            var User = await _service.GetUserById(id);
+            if (User == null)
+            {
+                return NotFound();
+            }
+            return Ok(User);
         }
 
-        // POST api/<UserController>
         [HttpPost]
-        public string Post([FromBody] string value)
+        public async Task<ActionResult<UserTable>> Post([FromBody] UserTable user)
         {
-            return "User Created";
+            if (user == null) { return BadRequest("Request is null"); }
+            var Createduser = await _service.CreateUser(user);
+            return Ok(Createduser);
         }
 
-        // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateProposalLetter(int id,UserTable user)
         {
-            return "User Updated";
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            var updatedUser = await _service.UpdateUser(user);
+            if (updatedUser == null)
+            {
+                return NotFound();
+            }
+            return Ok("User Updated Successfully");
         }
 
-        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public async Task<IActionResult> DeleteProposalLetter(int id)
         {
-            return "User deleted";
+            var result = await _service.DeleteUser(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return Ok("User Deleted Successfully");
         }
     }
 }

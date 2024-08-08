@@ -18,9 +18,29 @@ namespace UserManagement.Services
             _repo = repo;
         }
 
-        public IEnumerable<UserTable> GetAllUserservice()
+        public async Task<IEnumerable<UserTable>> GetAllUsers()
         {
-            return _repo.GetAllUser();
+            return await _repo.GetAllUsers();
+        }
+
+        public async Task<UserTable> GetUserById(int id)
+        {
+            return await _repo.GetUserById(id);
+        }
+
+        public async Task<UserTable> CreateUser(UserTable user)
+        {
+            return await _repo.CreateUser(user);
+        }
+
+        public async Task<UserTable> UpdateUser(UserTable user)
+        {
+            return await _repo.UpdateUser(user);
+        }
+
+        public async Task<bool> DeleteUser(int id)
+        {
+            return await _repo.DeleteUser(id);
         }
 
     }

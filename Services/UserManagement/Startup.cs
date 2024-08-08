@@ -33,6 +33,7 @@ namespace UserManagement
         {
 
             services.AddControllers();
+            services.AddHttpClient();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
             services.AddDbContext<UserManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));

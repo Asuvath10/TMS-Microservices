@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net6.0": {
       "Castle.Core/5.1.1": {
         "type": "package",
         "dependencies": {
@@ -1377,6 +1377,25 @@
         },
         "runtime": {
           "bin/placeholder/PLManagement.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "UserManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer.Design": "2.0.0-preview1-final",
+          "Swashbuckle.AspNetCore": "5.6.3"
+        },
+        "compile": {
+          "bin/placeholder/UserManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UserManagement.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -3432,13 +3451,19 @@
       "type": "project",
       "path": "../../Services/PLManagement/PLManagement.csproj",
       "msbuildProject": "../../Services/PLManagement/PLManagement.csproj"
+    },
+    "UserManagement/1.0.0": {
+      "type": "project",
+      "path": "../../Services/UserManagement/UserManagement.csproj",
+      "msbuildProject": "../../Services/UserManagement/UserManagement.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net6.0": [
       "Microsoft.NET.Test.Sdk >= 17.8.0",
       "Moq >= 4.20.70",
       "PLManagement >= 1.0.0",
+      "UserManagement >= 1.0.0",
       "coverlet.collector >= 6.0.0",
       "xunit >= 2.5.3",
       "xunit.runner.visualstudio >= 2.5.3"
@@ -3466,18 +3491,21 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Telerik UI for WPF.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {
             "C:\\Users\\asuvath.feroz\\Documents\\pip\\TMS\\Services\\PLManagement\\PLManagement.csproj": {
               "projectPath": "C:\\Users\\asuvath.feroz\\Documents\\pip\\TMS\\Services\\PLManagement\\PLManagement.csproj"
+            },
+            "C:\\Users\\asuvath.feroz\\Documents\\pip\\TMS\\Services\\UserManagement\\UserManagement.csproj": {
+              "projectPath": "C:\\Users\\asuvath.feroz\\Documents\\pip\\TMS\\Services\\UserManagement\\UserManagement.csproj"
             }
           }
         }
@@ -3494,8 +3522,8 @@
       }
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -3529,12 +3557,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.32, 6.0.32]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.32, 6.0.32]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.32, 6.0.32]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }

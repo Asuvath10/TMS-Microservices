@@ -9,6 +9,10 @@ namespace UserManagement.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<UserTable> GetAllUserservice();
+        Task<IEnumerable<UserTable>> GetAllUsers();
+        Task<UserTable> GetUserById(int id);
+        Task<UserTable> CreateUser(UserTable user);
+        Task<UserTable> UpdateUser(UserTable user);
+        Task<bool> DeleteUser(int id);
     }
 }

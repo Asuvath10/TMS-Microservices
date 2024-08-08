@@ -38,7 +38,6 @@ namespace PLManagement
             return Ok(proposalLetter);
         }
 
-        // POST api/<PLController>
         [HttpPost]
         public async Task<ActionResult<ProposalLetter>> Post([FromBody] ProposalLetter proposalLetter)
         {

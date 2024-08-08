@@ -1,0 +1,7 @@
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\bin\Debug\net6.0\CoverletSourceRootsMapping_TestService.Tests
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.csproj.AssemblyReference.cache
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.AssemblyInfoInputs.cache
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.AssemblyInfo.cs
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.csproj.CoreCompileInputs.cache
+C:\Users\asuvath.feroz\Documents\pip\TMS\Tests\TestService.Tests\obj\Debug\net6.0\TestService.Tests.sourcelink.json
