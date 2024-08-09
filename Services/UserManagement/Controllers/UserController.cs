@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using UserManagement.Models;
 using UserManagement.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace UserManagement
 {
     [Route("api/[controller]")]

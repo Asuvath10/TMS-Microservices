@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using PLManagement.Interfaces;
 using PLManagement.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace PLManagement
 {
     [Route("api/[controller]")]
@@ -47,7 +45,7 @@ namespace PLManagement
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProposalLetter(int id, ProposalLetter proposalLetter)
+        public async Task<IActionResult> UpdateProposalLetter(int id, [FromBody] ProposalLetter proposalLetter)
         {
             if (id != proposalLetter.Id)
             {
@@ -59,7 +57,7 @@ namespace PLManagement
             {
                 return NotFound();
             }
-            return Ok("Proposal Letter Updated Successfully");
+            return Ok(updatedProposalLetter);
         }
 
         [HttpDelete("{id}")]

@@ -9,5 +9,9 @@ namespace APIGateway.Interfaces
     public interface IProposalLetterManagement
     {
         Task<List<ProposalLetter>> GetAllProposals();
+        Task<ProposalLetter> GetProposalLetterById(int id);
+        Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter);
+        Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
+        Task<bool> DeleteProposalLetter(int id);
     }
 }
