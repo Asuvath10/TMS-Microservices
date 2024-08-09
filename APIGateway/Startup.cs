@@ -14,6 +14,11 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.Threading.Tasks;
 using System.Net.Http;
+using APIGateway.Interfaces;
+using APIGateway.Services;
+using Polly;
+using Microsoft.Extensions.Http;
+using Polly.Extensions.Http;
 
 namespace APIGateway
 {
@@ -29,13 +34,31 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-            services.AddHttpClient();
+            // Setting up services with httpclient
+            services.AddHttpClient<IProposalLetterManagement, ProposalLetterManagement>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5002");
+            })
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
+            // Added retrypolicy for overcome socket exception.
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
+            
+            // Adding Ocelot service
             services.AddOcelot();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APIGateway", Version = "v1" });
+            });
+
+            //Setting CORS
+            services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
             });
         }
 
@@ -48,7 +71,7 @@ namespace APIGateway
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIGateway v1"));
             }
-
+            app.UseCors("default");
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -61,6 +84,14 @@ namespace APIGateway
             });
 
             await app.UseOcelot();
+        }
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2,
+                                                                            retryAttempt)));
         }
     }
 }

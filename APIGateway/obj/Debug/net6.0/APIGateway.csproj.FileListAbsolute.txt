@@ -40,3 +40,7 @@ C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\obj\Debug\net6.0\refint\APIG
 C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\obj\Debug\net6.0\APIGateway.pdb
 C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\obj\Debug\net6.0\APIGateway.genruntimeconfig.cache
 C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\obj\Debug\net6.0\ref\APIGateway.dll
+C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\obj\Debug\net6.0\APIGateway.sourcelink.json
+C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\bin\Debug\net6.0\Microsoft.Extensions.Http.Polly.dll
+C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\bin\Debug\net6.0\Polly.dll
+C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway\bin\Debug\net6.0\Polly.Extensions.Http.dll

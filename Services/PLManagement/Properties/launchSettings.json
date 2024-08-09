@@ -19,7 +19,6 @@
     },
     "PLManagement": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5002",
       "environmentVariables": {
