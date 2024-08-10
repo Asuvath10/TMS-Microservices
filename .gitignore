@@ -1,0 +1,9 @@
+.vs
+.vscode
+Services/PLManagement/bin
+Services/UserManagement/bin
+Services/PLManagement/obj
+Services/UserManagement/obj
+APIGateway/bin
+APIGateway/obj
+
