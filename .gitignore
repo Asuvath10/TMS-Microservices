@@ -6,4 +6,7 @@ Services/PLManagement/obj
 Services/UserManagement/obj
 APIGateway/bin
 APIGateway/obj
-
+[Bb]in/
+[Oo}bj/
+Tests/PLService.Tests/bin
+Tests/PLService.Tests/obj

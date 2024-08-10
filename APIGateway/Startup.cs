@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System.Threading.Tasks;
 using System.Net.Http;
 using APIGateway.Interfaces;
 using APIGateway.Services;
@@ -43,7 +37,16 @@ namespace APIGateway
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
             // Added retrypolicy for overcome socket exception.
             .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
-            
+
+            // Setting up services with httpclient
+            services.AddHttpClient<IUserManagement, UserManagement>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:5001");
+            })
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
+            // Added retrypolicy for overcome socket exception.
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
+
             // Adding Ocelot service
             services.AddOcelot();
 
@@ -71,7 +74,9 @@ namespace APIGateway
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIGateway v1"));
             }
+
             app.UseCors("default");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -85,6 +90,7 @@ namespace APIGateway
 
             await app.UseOcelot();
         }
+
         private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
         {
             return HttpPolicyExtensions

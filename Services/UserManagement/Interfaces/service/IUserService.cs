@@ -1,11 +1,9 @@
-using System.Collections;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Models;
 
-namespace UserManagement.Interfaces
+namespace UserManagement.Interfaces.service
 {
     public interface IUserService
     {

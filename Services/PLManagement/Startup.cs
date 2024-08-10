@@ -1,21 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PLManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using PLManagement.Services;
-using PLManagement.Interfaces;
 using PLManagement.Repositories;
+using PLManagement.Interfaces.services;
+using PLManagement.Interfaces.Repos;
 
 namespace PLManagement
 {
@@ -35,7 +29,9 @@ namespace PLManagement
             services.AddControllers();
             services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
+            services.AddTransient<IPLStatusService, PLStatusService>();
             services.AddTransient<IPLRepository, PLRepository>();
+            services.AddTransient<IPLStatusRepository, PLStatusRepository>();
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddSwaggerGen(c =>

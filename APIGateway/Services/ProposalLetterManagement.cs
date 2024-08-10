@@ -26,6 +26,16 @@ namespace APIGateway.Services
             var proposalLetters = JsonConvert.DeserializeObject<List<ProposalLetter>>(content);
             return proposalLetters;
         }
+
+        //Get ALL PLStatuses
+        public async Task<List<Plstatus>> GetAllStatuses()
+        {
+            var response = await _httpClient.GetAsync("/api/PLStatus");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var plstatuses = JsonConvert.DeserializeObject<List<Plstatus>>(content);
+            return plstatuses;
+        }
         public async Task<ProposalLetter> GetProposalLetterById(int id)
         {
             var response = await _httpClient.GetAsync($"/api/PL/{id}");

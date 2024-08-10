@@ -2,7 +2,7 @@ using UserManagement.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace UserManagement.Interfaces;
+namespace UserManagement.Interfaces.Repo;
 
 public interface IUserRepository
 {

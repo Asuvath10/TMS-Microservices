@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PLManagement.Models;
 
-namespace PLManagement.Interfaces
+namespace PLManagement.Interfaces.services
 {
     public interface IPLService
     {

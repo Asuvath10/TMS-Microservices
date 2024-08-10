@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Models;
-using UserManagement.Interfaces;
+using UserManagement.Interfaces.service;
 
 namespace UserManagement
 {
@@ -46,7 +46,7 @@ namespace UserManagement
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProposalLetter(int id,UserTable user)
+        public async Task<IActionResult> UpdateProposalLetter(int id, UserTable user)
         {
             if (id != user.Id)
             {

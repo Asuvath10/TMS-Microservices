@@ -4,6 +4,7 @@ using PLManagement.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PLManagement.Interfaces.Repos;
 
 namespace PLManagement.Repositories;
 

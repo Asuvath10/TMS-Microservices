@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-using UserManagement.Interfaces;
 using UserManagement.Services;
 using PLservice.Tests.Mockdata;
 using Moq;
+using UserManagement.Interfaces.Repo;
 
 namespace PLservice.Tests.Services
 {

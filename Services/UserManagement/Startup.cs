@@ -12,10 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Models;
-using UserManagement.Interfaces;
 using UserManagement.Repositories;
 using UserManagement.Services;
 using Microsoft.EntityFrameworkCore;
+using UserManagement.Interfaces.service;
+using UserManagement.Interfaces.Repo;
 
 namespace UserManagement
 {
@@ -34,8 +35,10 @@ namespace UserManagement
 
             services.AddControllers();
             services.AddHttpClient();
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddDbContext<UserManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddSwaggerGen(c =>
             {

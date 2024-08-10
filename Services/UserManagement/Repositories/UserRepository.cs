@@ -3,6 +3,7 @@ using UserManagement.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using UserManagement.Interfaces.Repo;
 
 namespace UserManagement.Repositories;
 

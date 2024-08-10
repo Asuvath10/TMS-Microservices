@@ -9,6 +9,7 @@ namespace APIGateway.Interfaces
     public interface IProposalLetterManagement
     {
         Task<List<ProposalLetter>> GetAllProposals();
+        Task<List<Plstatus>> GetAllStatuses();
         Task<ProposalLetter> GetProposalLetterById(int id);
         Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);

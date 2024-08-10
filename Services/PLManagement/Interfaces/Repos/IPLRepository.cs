@@ -3,7 +3,7 @@ using PLManagement.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PLManagement.Interfaces;
+namespace PLManagement.Interfaces.Repos;
 
 public interface IPLRepository
 {

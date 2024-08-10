@@ -1,11 +1,8 @@
-using System.Collections;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using PLManagement.Models;
-using PLManagement.Interfaces;
-using PLManagement.Repositories;
+using PLManagement.Interfaces.Repos;
+using PLManagement.Interfaces.services;
 
 namespace PLManagement.Services
 {

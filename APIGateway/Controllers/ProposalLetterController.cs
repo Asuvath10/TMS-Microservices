@@ -28,6 +28,14 @@ namespace APIGateway.Controllers
             return Ok(proposalLetters);
         }
 
+        // Get: PL Statuses 
+        [HttpGet("PLStatuses")]
+        public async Task<IActionResult> GetAllStatuses()
+        {
+            var statuses = await _service.GetAllStatuses();
+            return Ok(statuses);
+        }
+
         // GET: ProposalLetter/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProposalLetterById(int id)
