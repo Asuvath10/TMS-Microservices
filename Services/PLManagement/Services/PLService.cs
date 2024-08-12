@@ -46,7 +46,7 @@ namespace PLManagement.Services
         {
             return await _repo.DeleteProposalLetter(id);
         }
-        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId)
+        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, Byte[] signature)
         {
             var proposalLetter = await _repo.GetProposalLetterById(proposalLetterId);
             // Statusid 4 is Pending Approval
@@ -54,8 +54,8 @@ namespace PLManagement.Services
             {
                 throw new InvalidOperationException("Proposal letter not found or status is not pending approval.");
             }
-            var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
-            var signature = await File.ReadAllBytesAsync(image);
+            // var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
+            // var signature = await File.ReadAllBytesAsync(image);
             var signatureUrl = await _storageService.UploadFileAsync("signatures", signature, "image/png");
             proposalLetter.ProposalApprovals.Add(new ProposalApproval
             {

@@ -34,6 +34,7 @@ namespace PLservice.Tests.MockData
                 }
             };
         }
+        
         public static ProposalLetter GetSingleProposalLetter()
         {
             return new ProposalLetter

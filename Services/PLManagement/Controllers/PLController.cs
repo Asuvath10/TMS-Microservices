@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using PLManagement.Models;
 using PLManagement.Interfaces.services;
 using System;
+using System.Security.Cryptography.Xml;
 
 namespace PLManagement
 {
@@ -72,11 +73,11 @@ namespace PLManagement
         }
 
         [HttpPut("{PLid}/signature")]
-        public async Task<IActionResult> AddSignature(int PLid)
+        public async Task<IActionResult> AddSignature(int PLid, Byte[] signature)
         {
             try
             {
-                var proposalLetter = await _service.AddSignatureAsync(PLid);
+                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
                 return Ok(proposalLetter);
             }
             catch (InvalidOperationException ex)
