@@ -56,7 +56,7 @@ namespace PLManagement.Models
                     .WithMany(p => p.ProposalApprovals)
                     .HasForeignKey(d => d.Plid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProposalAp__PLId__4AB81AF0");
+                    .HasConstraintName("FK__ProposalAp__PLId__4D94879B");
             });
 
             modelBuilder.Entity<ProposalLetter>(entity =>

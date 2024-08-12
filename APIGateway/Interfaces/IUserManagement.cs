@@ -8,11 +8,11 @@ namespace APIGateway.Interfaces
 {
     public interface IUserManagement
     {
-        Task<List<UserTable>> GetAllUsers();
+        Task<List<User>> GetAllUsers();
         Task<List<Role>> GetAllRoles();
-        Task<UserTable> GetUserById(int id);
-        Task<UserTable> CreateUser(UserTable User);
-        Task<UserTable> UpdateUser(UserTable User);
+        Task<User> GetUserById(int id);
+        Task<int> CreateUser(User User);
+        Task<User> UpdateUser(User User);
         Task<bool> DeleteUser(int id);
     }
 }

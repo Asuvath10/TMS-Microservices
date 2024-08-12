@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PLManagement.Interfaces.Repos;
+using System;
 
 namespace PLManagement.Repositories;
 
@@ -23,14 +24,14 @@ public class PLRepository : IPLRepository
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)
     {
-        return await _dbContext.ProposalLetters.FirstOrDefaultAsync(p => p.Id == id);
+        return await _dbContext.ProposalLetters.Include(p => p. ProposalApprovals).FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter)
+    public async Task<int> CreateProposalLetter(ProposalLetter proposalLetter)
     {
         _dbContext.ProposalLetters.Add(proposalLetter);
         await _dbContext.SaveChangesAsync();
-        return proposalLetter;
+        return proposalLetter.Id;
     }
 
     public async Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter)

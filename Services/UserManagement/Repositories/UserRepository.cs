@@ -15,38 +15,38 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<UserTable>> GetAllUsers()
+    public async Task<IEnumerable<User>> GetAllUsers()
     {
-        return _dbContext.UserTables;
+        return _dbContext.Users;
     }
 
-    public async Task<UserTable> GetUserById(int id)
+    public async Task<User> GetUserById(int id)
     {
-        return await _dbContext.UserTables.FirstOrDefaultAsync(p => p.Id == id);
+        return await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task<UserTable> CreateUser(UserTable user)
+    public async Task<int> CreateUser(User user)
     {
-        _dbContext.UserTables.Add(user);
+        _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
-        return user;
+        return user.Id;
     }
 
-    public async Task<UserTable> UpdateUser(UserTable user)
+    public async Task<User> UpdateUser(User user)
     {
-        _dbContext.UserTables.Update(user);
+        _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
         return user;
     }
 
     public async Task<bool> DeleteUser(int id)
     {
-        var User = await _dbContext.UserTables.FindAsync(id);
+        var User = await _dbContext.Users.FindAsync(id);
         if (User == null)
         {
             return false;
         }
-        _dbContext.UserTables.Remove(User);
+        _dbContext.Users.Remove(User);
         await _dbContext.SaveChangesAsync();
         return true;
     }

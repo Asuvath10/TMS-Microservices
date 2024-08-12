@@ -10,6 +10,7 @@ using PLManagement.Services;
 using PLManagement.Repositories;
 using PLManagement.Interfaces.services;
 using PLManagement.Interfaces.Repos;
+using PLManagement.UtilityFunctions;
 
 namespace PLManagement
 {
@@ -30,6 +31,8 @@ namespace PLManagement
             services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
             services.AddTransient<IPLStatusService, PLStatusService>();
+            services.AddTransient<IFirebaseStorageService, FirebaseStorageService>();
+            services.AddTransient<IPDFGenerationService, PdfGenerationService>();
             services.AddTransient<IPLRepository, PLRepository>();
             services.AddTransient<IPLStatusRepository, PLStatusRepository>();
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));

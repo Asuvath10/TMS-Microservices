@@ -18,12 +18,12 @@ namespace APIGateway.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<List<UserTable>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
             var response = await _httpClient.GetAsync("/api/User");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            var Users = JsonConvert.DeserializeObject<List<UserTable>>(content);
+            var Users = JsonConvert.DeserializeObject<List<User>>(content);
             return Users;
         }
         public async Task<List<Role>> GetAllRoles()
@@ -34,16 +34,16 @@ namespace APIGateway.Services
             var Roles = JsonConvert.DeserializeObject<List<Role>>(content);
             return Roles;
         }
-        public async Task<UserTable> GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
             var response = await _httpClient.GetAsync($"/api/User/{id}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
-            var User = JsonConvert.DeserializeObject<UserTable>(content);
+            var User = JsonConvert.DeserializeObject<User>(content);
             return User;
         }
 
-        public async Task<UserTable> CreateUser(UserTable User)
+        public async Task<int> CreateUser(User User)
         {
             var jsonContent = JsonConvert.SerializeObject(User);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -52,11 +52,11 @@ namespace APIGateway.Services
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var createdUser = JsonConvert.DeserializeObject<UserTable>(responseContent);
-            return createdUser;
+            int createdUserId = int.Parse(responseContent);
+            return createdUserId;
         }
 
-        public async Task<UserTable> UpdateUser(UserTable User)
+        public async Task<User> UpdateUser(User User)
         {
             var jsonContent = JsonConvert.SerializeObject(User);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -75,7 +75,7 @@ namespace APIGateway.Services
                 throw new Exception("Unexpected content type received from the server.");
             }
 
-            var updatedUser = JsonConvert.DeserializeObject<UserTable>(responseContent);
+            var updatedUser = JsonConvert.DeserializeObject<User>(responseContent);
 
             return updatedUser;
         }

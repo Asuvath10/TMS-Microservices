@@ -11,8 +11,10 @@ namespace PLManagement.Interfaces.services
     {
         Task<IEnumerable<ProposalLetter>> GetAllPLservice();
         Task<ProposalLetter> GetPLById(int id);
-        Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter);
+        Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
         Task<bool> DeleteProposalLetter(int id);
+        Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, Byte[] signature);
+        Task<ProposalLetter> AddPdf(int proposalLetterId);
     }
 }

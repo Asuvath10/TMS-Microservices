@@ -20,14 +20,14 @@ namespace UserManagement
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserTable>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var Users = await _service.GetAllUsers();
             return Ok(Users);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserTable>> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
             var User = await _service.GetUserById(id);
             if (User == null)
@@ -38,15 +38,15 @@ namespace UserManagement
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserTable>> Post([FromBody] UserTable user)
+        public async Task<ActionResult> Post([FromBody] User user)
         {
             if (user == null) { return BadRequest("Request is null"); }
-            var Createduser = await _service.CreateUser(user);
-            return Ok(Createduser);
+            int CreateduserId = await _service.CreateUser(user);
+            return Ok(CreateduserId);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProposalLetter(int id, UserTable user)
+        public async Task<IActionResult> UpdateProposalLetter(int id, User user)
         {
             if (id != user.Id)
             {

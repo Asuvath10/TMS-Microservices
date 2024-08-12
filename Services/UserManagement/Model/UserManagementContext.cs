@@ -17,7 +17,7 @@ namespace UserManagement.Models
         }
 
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<UserTable> UserTables { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,13 +36,14 @@ namespace UserManagement.Models
 
                 entity.Property(e => e.RoleName)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<UserTable>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("UserTable");
+                entity.HasIndex(e => e.Email, "UQ__Users__A9D10534568E3B48")
+                    .IsUnique();
 
                 entity.Property(e => e.Address).HasMaxLength(1000);
 
@@ -67,10 +68,10 @@ namespace UserManagement.Models
                 entity.Property(e => e.Password).IsRequired();
 
                 entity.HasOne(d => d.Role)
-                    .WithMany(p => p.UserTables)
+                    .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTable__RoleI__267ABA7A");
+                    .HasConstraintName("FK__Users__RoleId__398D8EEE");
             });
 
             OnModelCreatingPartial(modelBuilder);

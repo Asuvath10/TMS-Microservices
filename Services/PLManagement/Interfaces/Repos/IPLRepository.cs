@@ -9,7 +9,7 @@ public interface IPLRepository
 {
     Task<IEnumerable<ProposalLetter>> GetAllProposalLetter();
     Task<ProposalLetter> GetProposalLetterById(int id);
-    Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter);
+    Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
     Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
     Task<bool> DeleteProposalLetter(int id);
 }

@@ -57,8 +57,8 @@ namespace APIGateway.Controllers
                 return BadRequest("Proposal letter data is null.");
             }
 
-            var createdProposalLetter = await _service.CreateProposalLetter(proposalLetter);
-            return CreatedAtAction(nameof(GetProposalLetterById), new { id = createdProposalLetter.Id }, createdProposalLetter);
+            int createdProposalLetterId = await _service.CreateProposalLetter(proposalLetter);
+            return Ok(createdProposalLetterId);
         }
 
         // PUT: ProposalLetter/{id}
@@ -91,5 +91,37 @@ namespace APIGateway.Controllers
 
             return Ok("Proposal letter deleted successfully.");
         }
+
+        // POST: ProposalLetter/{PLid}/signature
+        [HttpPost("{PLid}/signature")]
+        public async Task<IActionResult> AddSignature(int PLid, [FromBody] byte[] signature)
+        {
+            try
+            {
+                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
+                return Ok(proposalLetter);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // GET: ProposalLetter/{PLid}/generate-pdf
+        [HttpPost("{PLid}/generate-pdf")]
+        public async Task<IActionResult> GeneratePdf(int PLid)
+        {
+            try
+            {
+                var proposalLetter = await _service.GeneratePdf(PLid);
+                return Ok(proposalLetter);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }

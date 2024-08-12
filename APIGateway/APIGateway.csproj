@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GemBox.Document" Version="35.0.1817" />
+    <PackageReference Include="Google.Apis.Storage.v1" Version="1.68.0.3474" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.24" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

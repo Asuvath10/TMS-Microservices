@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace APIGateway.Models
 {
-    public partial class UserTable
+    public partial class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +13,7 @@ namespace APIGateway.Models
         public int RoleId { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
+        public bool Disable { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }

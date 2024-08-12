@@ -4,10 +4,10 @@ namespace PLservice.Tests.Mockdata
 {
     public static class UserMockData
     {
-        public static List<UserTable> GetUsers()
+        public static List<User> GetUsers()
         {
-            return new List<UserTable>(){
-                new UserTable{
+            return new List<User>(){
+                new User{
                 Id = 1,
                 Name="John",
                 Address= "Chennai,India",
@@ -21,7 +21,7 @@ namespace PLservice.Tests.Mockdata
                 UpdatedOn= DateTime.Now,
                 UpdatedBy= 5
                 },
-                new UserTable{
+                new User{
                 Id = 2,
                 Name="steve",
                 Address= "Chennai,India",
@@ -37,9 +37,9 @@ namespace PLservice.Tests.Mockdata
                 }
             };
         }
-        public static UserTable GetSingleUser()
+        public static User GetSingleUser()
         {
-            return new UserTable
+            return new User
             {
                 Id = 1,
                 Name = "John",

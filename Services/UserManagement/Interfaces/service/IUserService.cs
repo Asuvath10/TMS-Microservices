@@ -7,10 +7,10 @@ namespace UserManagement.Interfaces.service
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserTable>> GetAllUsers();
-        Task<UserTable> GetUserById(int id);
-        Task<UserTable> CreateUser(UserTable user);
-        Task<UserTable> UpdateUser(UserTable user);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetUserById(int id);
+        Task<int> CreateUser(User user);
+        Task<User> UpdateUser(User user);
         Task<bool> DeleteUser(int id);
     }
 }

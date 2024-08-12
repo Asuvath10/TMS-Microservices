@@ -7,6 +7,7 @@ Services/UserManagement/obj
 APIGateway/bin
 APIGateway/obj
 [Bb]in/
-[Oo}bj/
+[Oo]bj/
 Tests/PLService.Tests/bin
 Tests/PLService.Tests/obj
+Services/PLManagement/Resources/Firebase.json

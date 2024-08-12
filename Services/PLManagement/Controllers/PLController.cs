@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using PLManagement.Models;
 using PLManagement.Interfaces.services;
+using System;
 
 namespace PLManagement
 {
@@ -35,11 +36,11 @@ namespace PLManagement
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProposalLetter>> Post([FromBody] ProposalLetter proposalLetter)
+        public async Task<IActionResult> Post([FromBody] ProposalLetter proposalLetter)
         {
             if (proposalLetter == null) { return BadRequest("Request is null"); }
-            var CreatedProposalLetter = await _service.CreateProposalLetter(proposalLetter);
-            return Ok(CreatedProposalLetter);
+            int CreatedProposalLetterId = await _service.CreateProposalLetter(proposalLetter);
+            return Ok(CreatedProposalLetterId);
         }
 
         [HttpPut("{id}")]
@@ -68,6 +69,34 @@ namespace PLManagement
                 return NotFound();
             }
             return Ok("Proposal Letter Deleted Successfully");
+        }
+
+        [HttpPost("{id}/signature")]
+        public async Task<IActionResult> AddSignature(int PLid, Byte[] signature)
+        {
+            try
+            {
+                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
+                return Ok(proposalLetter);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("{PLid}/generate-pdf")]
+        public async Task<IActionResult> GeneratePdf(int PLid)
+        {
+            try
+            {
+                var proposalLetter = await _service.AddPdf(PLid);
+                return Ok(proposalLetter);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

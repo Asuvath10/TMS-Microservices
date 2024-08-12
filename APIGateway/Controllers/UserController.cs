@@ -50,20 +50,20 @@ namespace APIGateway.Controllers
 
         // POST: User
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserTable User)
+        public async Task<IActionResult> CreateUser([FromBody] User User)
         {
             if (User == null)
             {
                 return BadRequest("Proposal letter data is null.");
             }
 
-            var createdUser = await _service.CreateUser(User);
-            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+            int createdUserId = await _service.CreateUser(User);
+            return Ok(createdUserId);
         }
 
         // PUT: User/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserTable User)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User User)
         {
             if (User == null || id != User.Id)
             {

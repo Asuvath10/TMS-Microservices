@@ -2,6 +2,7 @@ using PLservice.Tests.MockData;
 using PLManagement.Services;
 using Moq;
 using PLManagement.Interfaces.Repos;
+using PLManagement.Interfaces.services;
 
 namespace PLservice.Tests.Services
 {
@@ -9,11 +10,15 @@ namespace PLservice.Tests.Services
     {
         private readonly PLService _service;
         private readonly Mock<IPLRepository> _mockRepo;
+        private readonly Mock<IFirebaseStorageService> _mockcloudservice;
+        private readonly Mock<IPDFGenerationService> _mockpdfservice;
 
         public PLServiceTest()
         {
             _mockRepo = new Mock<IPLRepository>();
-            _service = new PLService(_mockRepo.Object);
+            _mockcloudservice = new Mock<IFirebaseStorageService>();
+            _mockpdfservice = new Mock<IPDFGenerationService>();
+            _service = new PLService(_mockRepo.Object, _mockcloudservice.Object, _mockpdfservice.Object);
         }
 
         [Fact]
@@ -58,18 +63,14 @@ namespace PLservice.Tests.Services
         {
             //Arrange
             var proposalLetter = PLMockData.GetSingleProposalLetter();
-            _mockRepo.Setup(repo => repo.CreateProposalLetter(proposalLetter)).ReturnsAsync(proposalLetter);
+            _mockRepo.Setup(repo => repo.CreateProposalLetter(proposalLetter)).ReturnsAsync(proposalLetter.Id);
 
             //ACT
             var result = await _service.CreateProposalLetter(proposalLetter);
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(proposalLetter.Id, result.Id);
-            Assert.Equal(proposalLetter.UserId, result.UserId);
-            Assert.Equal(proposalLetter.AssessmentYear, result.AssessmentYear);
-            Assert.Equal(proposalLetter.PlstatusId, result.PlstatusId);
-            Assert.Equal(proposalLetter.Content, result.Content);
+            Assert.Equal(proposalLetter.Id, result);
         }
 
         [Fact]

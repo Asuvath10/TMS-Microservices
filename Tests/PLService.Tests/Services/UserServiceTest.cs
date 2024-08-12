@@ -57,21 +57,15 @@ namespace PLservice.Tests.Services
         public async Task CanCreateUser()
         {
             //Arrange
-            var User = UserMockData.GetSingleUser();
-            _mockRepo.Setup(repo => repo.CreateUser(User)).ReturnsAsync(User);
+            var NewUser = UserMockData.GetSingleUser();
+            _mockRepo.Setup(repo => repo.CreateUser(NewUser)).ReturnsAsync(NewUser.Id);
 
             //ACT
-            var result = await _userService.CreateUser(User);
+            var result = await _userService.CreateUser(NewUser);
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(User.Id, result.Id);
-            Assert.Equal(User.Name, result.Name);
-            Assert.Equal(User.Address, result.Address);
-            Assert.Equal(User.Pan, result.Pan);
-            Assert.Equal(User.Password, result.Password);
-            Assert.Equal(User.Email, result.Email);
-            Assert.Equal(User.FullName, result.FullName);
+            Assert.Equal(NewUser.Id, result);
         }
 
         [Fact]

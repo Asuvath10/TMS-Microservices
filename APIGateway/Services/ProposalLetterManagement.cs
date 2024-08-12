@@ -45,7 +45,7 @@ namespace APIGateway.Services
             return proposalLetter;
         }
 
-        public async Task<ProposalLetter> CreateProposalLetter(ProposalLetter proposalLetter)
+        public async Task<int> CreateProposalLetter(ProposalLetter proposalLetter)
         {
             var jsonContent = JsonConvert.SerializeObject(proposalLetter);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
@@ -54,8 +54,8 @@ namespace APIGateway.Services
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var createdProposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
-            return createdProposalLetter;
+            int createdProposalLetterId =int.Parse(responseContent);
+            return createdProposalLetterId;
         }
 
         public async Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter)
@@ -87,5 +87,26 @@ namespace APIGateway.Services
             var response = await _httpClient.DeleteAsync($"/api/PL/{id}");
             return response.IsSuccessStatusCode;
         }
+        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, byte[] signature)
+        {
+            // Call to the PLManagement service to add signature
+            var content = new ByteArrayContent(signature);
+            var response = await _httpClient.PostAsync($"/api/PL/{proposalLetterId}/signature", content);
+            response.EnsureSuccessStatusCode();
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
+            return proposalLetter;
+        }
+
+        public async Task<ProposalLetter> GeneratePdf(int proposalLetterId)
+        {
+            // Call to the PLManagement service to generate PDF
+            var response = await _httpClient.PostAsync($"/api/PL/{proposalLetterId}/generate-pdf", null);
+            response.EnsureSuccessStatusCode();
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
+            return proposalLetter;
+        }
+
     }
 }
