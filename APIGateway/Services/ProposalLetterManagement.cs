@@ -54,7 +54,7 @@ namespace APIGateway.Services
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            int createdProposalLetterId =int.Parse(responseContent);
+            int createdProposalLetterId = int.Parse(responseContent);
             return createdProposalLetterId;
         }
 
@@ -91,7 +91,7 @@ namespace APIGateway.Services
         {
             // Call to the PLManagement service to add signature
             var content = new ByteArrayContent(signature);
-            var response = await _httpClient.PostAsync($"/api/PL/{proposalLetterId}/signature", content);
+            var response = await _httpClient.PutAsync($"/api/PL/{proposalLetterId}/signature", content);
             response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
@@ -101,7 +101,7 @@ namespace APIGateway.Services
         public async Task<ProposalLetter> GeneratePdf(int proposalLetterId)
         {
             // Call to the PLManagement service to generate PDF
-            var response = await _httpClient.PostAsync($"/api/PL/{proposalLetterId}/generate-pdf", null);
+            var response = await _httpClient.PutAsync($"/api/PL/{proposalLetterId}/generate-pdfurl", null);
             response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);

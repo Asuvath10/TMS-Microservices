@@ -13,10 +13,6 @@ namespace PLManagement.UtilityFunctions
 {
     public class PdfGenerationService : IPDFGenerationService
     {
-        public PdfGenerationService()
-        {
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-        }
         public byte[] GeneratePdf(ProposalLetter proposalLetter, string userName, string password, string signatureUrl = null)
         {
             // Create a new document.

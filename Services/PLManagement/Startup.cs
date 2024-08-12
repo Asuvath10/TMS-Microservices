@@ -11,6 +11,9 @@ using PLManagement.Repositories;
 using PLManagement.Interfaces.services;
 using PLManagement.Interfaces.Repos;
 using PLManagement.UtilityFunctions;
+using System;
+using Google.Cloud.Storage.V1;
+using GemBox.Document;
 
 namespace PLManagement
 {
@@ -26,16 +29,31 @@ namespace PLManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
             services.AddTransient<IPLStatusService, PLStatusService>();
-            services.AddTransient<IFirebaseStorageService, FirebaseStorageService>();
-            services.AddTransient<IPDFGenerationService, PdfGenerationService>();
             services.AddTransient<IPLRepository, PLRepository>();
             services.AddTransient<IPLStatusRepository, PLStatusRepository>();
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            //Firebase Configuration Settings.
+            services.AddSingleton<IFirebaseStorageService>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                string bucketName = configuration["Firebase:BucketName"];
+                string credentialsPath = configuration["Firebase:CredentialsFilePath"];
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsPath);
+                var storageClient = StorageClient.Create();
+                return new FirebaseStorageService(bucketName, storageClient);
+            });
+
+            //Settingup License for Gembox.Document
+            services.AddSingleton<IPDFGenerationService>(provider =>
+            {
+                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+                return new PdfGenerationService();
+            });
 
             services.AddSwaggerGen(c =>
             {

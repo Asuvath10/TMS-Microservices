@@ -5,20 +5,18 @@ using PLManagement.Interfaces.services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
- 
+
 public class FirebaseStorageService : IFirebaseStorageService
 {
     private readonly StorageClient _storageClient;
     private readonly string _bucketName;
- 
-    public FirebaseStorageService(IConfiguration configuration)
+
+    public FirebaseStorageService(string bucketName, StorageClient storageClient)
     {
-        _bucketName = configuration["Firebase:BucketName"]; 
-        string credentialsPath = configuration["Firebase:CredentialsFilePath"];
-        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsPath);
-        _storageClient = StorageClient.Create();
+        _bucketName = bucketName;
+        _storageClient = storageClient;
     }
- 
+
     public async Task<string> UploadFileAsync(string folderPath, byte[] fileContent, string contentType)
     {
         using (var stream = new MemoryStream(fileContent))

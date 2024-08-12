@@ -12,13 +12,13 @@ namespace PLManagement.Services
     public class PLService : IPLService
     {
         private readonly IPLRepository _repo;
-        
+
         private readonly IFirebaseStorageService _storageService;
         private readonly IPDFGenerationService _pdfGenerationService;
         public PLService(IPLRepository repo, IFirebaseStorageService storageService, IPDFGenerationService pdfGenerationService)
         {
             _repo = repo;
-             _storageService = storageService;
+            _storageService = storageService;
             _pdfGenerationService = pdfGenerationService;
         }
 
@@ -46,7 +46,7 @@ namespace PLManagement.Services
         {
             return await _repo.DeleteProposalLetter(id);
         }
-        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, Byte[] signature)
+        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId)
         {
             var proposalLetter = await _repo.GetProposalLetterById(proposalLetterId);
             // Statusid 4 is Pending Approval
@@ -54,7 +54,8 @@ namespace PLManagement.Services
             {
                 throw new InvalidOperationException("Proposal letter not found or status is not pending approval.");
             }
-
+            var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
+            var signature = await File.ReadAllBytesAsync(image);
             var signatureUrl = await _storageService.UploadFileAsync("signatures", signature, "image/png");
             proposalLetter.ProposalApprovals.Add(new ProposalApproval
             {
@@ -84,9 +85,18 @@ namespace PLManagement.Services
             // Upload PDF to Firebase
             var pdfUrl = await _storageService.UploadFileAsync("pdfs", pdfData, "application/pdf");
 
-            // Save PDF URL to the database
-            proposalLetter.ProposalApprovals.FirstOrDefault().Pdf = pdfUrl;
-            await _repo.UpdateProposalLetter(proposalLetter);
+            // Check for already it is approved
+            var Approval = proposalLetter.ProposalApprovals.FirstOrDefault();
+            if (Approval != null)
+            {
+                Approval.Pdf = pdfUrl;
+                //Save the PDF URL.
+                await _repo.UpdateProposalLetter(proposalLetter);
+            }
+            else
+            {
+                throw new InvalidOperationException($"No Proposal approval found for the Proposal Letter ID- {proposalLetterId}");
+            }
 
             return proposalLetter;
         }

@@ -71,12 +71,12 @@ namespace PLManagement
             return Ok("Proposal Letter Deleted Successfully");
         }
 
-        [HttpPost("{id}/signature")]
-        public async Task<IActionResult> AddSignature(int PLid, Byte[] signature)
+        [HttpPut("{PLid}/signature")]
+        public async Task<IActionResult> AddSignature(int PLid)
         {
             try
             {
-                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
+                var proposalLetter = await _service.AddSignatureAsync(PLid);
                 return Ok(proposalLetter);
             }
             catch (InvalidOperationException ex)
@@ -85,7 +85,7 @@ namespace PLManagement
             }
         }
 
-        [HttpPost("{PLid}/generate-pdf")]
+        [HttpPut("{PLid}/generate-pdfurl")]
         public async Task<IActionResult> GeneratePdf(int PLid)
         {
             try

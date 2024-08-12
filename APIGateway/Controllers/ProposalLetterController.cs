@@ -93,7 +93,7 @@ namespace APIGateway.Controllers
         }
 
         // POST: ProposalLetter/{PLid}/signature
-        [HttpPost("{PLid}/signature")]
+        [HttpPut("{PLid}/signature")]
         public async Task<IActionResult> AddSignature(int PLid, [FromBody] byte[] signature)
         {
             try
@@ -108,7 +108,7 @@ namespace APIGateway.Controllers
         }
 
         // GET: ProposalLetter/{PLid}/generate-pdf
-        [HttpPost("{PLid}/generate-pdf")]
+        [HttpPut("{PLid}/generate-pdfurl")]
         public async Task<IActionResult> GeneratePdf(int PLid)
         {
             try

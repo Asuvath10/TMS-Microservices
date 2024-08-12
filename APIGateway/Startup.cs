@@ -32,7 +32,7 @@ namespace APIGateway
             // Setting up services with httpclient
             services.AddHttpClient<IProposalLetterManagement, ProposalLetterManagement>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5002");
+                client.BaseAddress = new Uri(Configuration["ProposalService:BaseUrl"]);
             })
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
             // Added retrypolicy for overcome socket exception.
@@ -41,7 +41,7 @@ namespace APIGateway
             // Setting up services with httpclient
             services.AddHttpClient<IUserManagement, UserManagement>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:5001");
+                client.BaseAddress = new Uri(Configuration["UserService:BaseUrl"]);
             })
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
             // Added retrypolicy for overcome socket exception.
