@@ -25,6 +25,11 @@ public class UserRepository : IUserRepository
         return await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<User> GetUserByemail(string email)
+    {
+        return await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Email == email);
+    }
+
     public async Task<int> CreateUser(User user)
     {
         _dbContext.Users.Add(user);
@@ -46,7 +51,7 @@ public class UserRepository : IUserRepository
         {
             return false;
         }
-        User.Disable= true;
+        User.Disable = true;
         await _dbContext.SaveChangesAsync();
         return true;
     }

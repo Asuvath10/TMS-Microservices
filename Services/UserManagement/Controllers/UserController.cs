@@ -37,6 +37,17 @@ namespace UserManagement
             return Ok(User);
         }
 
+        [HttpGet("GetUserByEmail")]
+        public async Task<ActionResult<User>> GetUserByemail(string email)
+        {
+            var User = await _service.GetUserByEmail(email);
+            if (User == null)
+            {
+                return NotFound();
+            }
+            return Ok(User);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromBody] User user)
         {

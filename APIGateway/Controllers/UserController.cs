@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using APIGateway.Interfaces;
 using APIGateway.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIGateway.Controllers
 {
-    [Route("[controller]")]
-    public class UserController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
         private readonly IUserManagement _service;
 

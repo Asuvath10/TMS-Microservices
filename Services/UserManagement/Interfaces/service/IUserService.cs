@@ -9,6 +9,7 @@ namespace UserManagement.Interfaces.service
     {
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(int id);
+        Task<User> GetUserByEmail(string email);
         Task<int> CreateUser(User user);
         Task<User> UpdateUser(User user);
         Task<bool> DisableUser(int id);

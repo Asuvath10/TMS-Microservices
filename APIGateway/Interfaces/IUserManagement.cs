@@ -11,6 +11,7 @@ namespace APIGateway.Interfaces
         Task<List<User>> GetAllUsers();
         Task<List<Role>> GetAllRoles();
         Task<User> GetUserById(int id);
+        Task<User> GetUserByEmail(string email);
         Task<int> CreateUser(User User);
         Task<User> UpdateUser(User User);
         Task<bool> DisableUser(int id);

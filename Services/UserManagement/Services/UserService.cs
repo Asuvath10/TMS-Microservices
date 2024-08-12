@@ -27,6 +27,11 @@ namespace UserManagement.Services
             return await _repo.GetUserById(id);
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _repo.GetUserByemail(email);
+        }
+
         public async Task<int> CreateUser(User user)
         {
             int UserId = await _repo.CreateUser(user);

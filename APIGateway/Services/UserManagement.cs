@@ -42,6 +42,14 @@ namespace APIGateway.Services
             var User = JsonConvert.DeserializeObject<User>(content);
             return User;
         }
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var response = await _httpClient.GetAsync($"/api/User/GetUserByEmail");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var User = JsonConvert.DeserializeObject<User>(content);
+            return User;
+        }
 
         public async Task<int> CreateUser(User User)
         {

@@ -107,6 +107,5 @@ namespace APIGateway.Services
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
             return proposalLetter;
         }
-
     }
 }

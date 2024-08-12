@@ -13,6 +13,9 @@ using APIGateway.Services;
 using Polly;
 using Microsoft.Extensions.Http;
 using Polly.Extensions.Http;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace APIGateway
 {
@@ -29,12 +32,39 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                };
+            });
+            services.AddTransient<AuthenticationService>();
+            services.AddAuthorization();
+
             // Setting up services with httpclient
             services.AddHttpClient<IProposalLetterManagement, ProposalLetterManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["ProposalService:BaseUrl"]);
             })
-            .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
+            //Set lifetime to five minutes
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
             // Added retrypolicy for overcome socket exception.
             .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
 
@@ -43,7 +73,8 @@ namespace APIGateway
             {
                 client.BaseAddress = new Uri(Configuration["UserService:BaseUrl"]);
             })
-            .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
+            //Set lifetime to five minutes
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
             // Added retrypolicy for overcome socket exception.
             .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
 
@@ -80,6 +111,8 @@ namespace APIGateway
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
