@@ -38,9 +38,9 @@ namespace UserManagement.Services
             return await _repo.UpdateUser(user);
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DisableUser(int id)
         {
-            return await _repo.DeleteUser(id);
+            return await _repo.DisableUser(id);
         }
 
     }

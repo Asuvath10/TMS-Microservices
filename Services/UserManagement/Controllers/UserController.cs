@@ -38,7 +38,7 @@ namespace UserManagement
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] User user)
+        public async Task<ActionResult> CreateUser([FromBody] User user)
         {
             if (user == null) { return BadRequest("Request is null"); }
             int CreateduserId = await _service.CreateUser(user);
@@ -46,7 +46,7 @@ namespace UserManagement
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProposalLetter(int id, User user)
+        public async Task<IActionResult> UpdateUser(int id, User user)
         {
             if (id != user.Id)
             {
@@ -61,15 +61,15 @@ namespace UserManagement
             return Ok("User Updated Successfully");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProposalLetter(int id)
+        [HttpPut("{id}/DisableUser")]
+        public async Task<IActionResult> DisableUser(int id)
         {
-            var result = await _service.DeleteUser(id);
+            var result = await _service.DisableUser(id);
             if (!result)
             {
                 return NotFound();
             }
-            return Ok("User Deleted Successfully");
+            return Ok("User Disabled Successfully");
         }
     }
 }

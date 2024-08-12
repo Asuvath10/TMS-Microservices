@@ -85,37 +85,36 @@ namespace PLservice.Tests.Services
         }
 
         [Fact]
-        public async Task CanDeleteUser_ReturnsTrue_WhenUserExists()
+        public async Task CanDisableUser_ReturnsTrue_WhenUserExists()
         {
             // Arrange
             var existingUserId = 1;
-
-            _mockRepo.Setup(repo => repo.DeleteUser(existingUserId))
+            _mockRepo.Setup(repo => repo.DisableUser(existingUserId))
                      .ReturnsAsync(true);
 
             // Act
-            var result = await _userService.DeleteUser(existingUserId);
+            var result = await _userService.DisableUser(existingUserId);
 
             // Assert
             Assert.True(result);
-            _mockRepo.Verify(repo => repo.DeleteUser(existingUserId), Times.Once);
+            _mockRepo.Verify(repo => repo.DisableUser(existingUserId), Times.Once);
         }
 
         [Fact]
-        public async Task DeleteUser_ReturnsFalse_WhenUserDoesNotExist()
+        public async Task DisableUser_ReturnsFalse_WhenUserDoesNotExist()
         {
             // Arrange
             var nonExistingUserId = 99;
 
-            _mockRepo.Setup(repo => repo.DeleteUser(nonExistingUserId))
+            _mockRepo.Setup(repo => repo.DisableUser(nonExistingUserId))
                      .ReturnsAsync(false);
 
             // Act
-            var result = await _userService.DeleteUser(nonExistingUserId);
+            var result = await _userService.DisableUser(nonExistingUserId);
 
             // Assert
             Assert.False(result);
-            _mockRepo.Verify(repo => repo.DeleteUser(nonExistingUserId), Times.Once);
+            _mockRepo.Verify(repo => repo.DisableUser(nonExistingUserId), Times.Once);
         }
     }
 }

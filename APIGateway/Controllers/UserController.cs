@@ -54,7 +54,7 @@ namespace APIGateway.Controllers
         {
             if (User == null)
             {
-                return BadRequest("Proposal letter data is null.");
+                return BadRequest("User data is null.");
             }
 
             int createdUserId = await _service.CreateUser(User);
@@ -67,7 +67,7 @@ namespace APIGateway.Controllers
         {
             if (User == null || id != User.Id)
             {
-                return BadRequest("Invalid proposal letter data.");
+                return BadRequest("Invalid User data.");
             }
 
             var updatedUser = await _service.UpdateUser(User);
@@ -76,20 +76,20 @@ namespace APIGateway.Controllers
                 return NotFound();
             }
 
-            return Ok("Proposal letter updated successfully.");
+            return Ok("User updated successfully.");
         }
 
         // DELETE: User/{id}
-        [HttpDelete("{id}")]
+        [HttpPut("{id}/DisableUser")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var result = await _service.DeleteUser(id);
+            var result = await _service.DisableUser(id);
             if (!result)
             {
                 return NotFound();
             }
 
-            return Ok("Proposal letter deleted successfully.");
+            return Ok("User Disabled successfully.");
         }
     }
 }

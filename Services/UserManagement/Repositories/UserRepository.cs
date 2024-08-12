@@ -39,14 +39,14 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<bool> DeleteUser(int id)
+    public async Task<bool> DisableUser(int id)
     {
         var User = await _dbContext.Users.FindAsync(id);
         if (User == null)
         {
             return false;
         }
-        _dbContext.Users.Remove(User);
+        User.Disable= true;
         await _dbContext.SaveChangesAsync();
         return true;
     }

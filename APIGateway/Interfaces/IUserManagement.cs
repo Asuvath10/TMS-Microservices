@@ -13,6 +13,6 @@ namespace APIGateway.Interfaces
         Task<User> GetUserById(int id);
         Task<int> CreateUser(User User);
         Task<User> UpdateUser(User User);
-        Task<bool> DeleteUser(int id);
+        Task<bool> DisableUser(int id);
     }
 }

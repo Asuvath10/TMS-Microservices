@@ -80,9 +80,9 @@ namespace APIGateway.Services
             return updatedUser;
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DisableUser(int id)
         {
-            var response = await _httpClient.DeleteAsync($"/api/User/{id}");
+            var response = await _httpClient.PutAsync($"/api/User/{id}/DisableUser", null);
             return response.IsSuccessStatusCode;
         }
     }

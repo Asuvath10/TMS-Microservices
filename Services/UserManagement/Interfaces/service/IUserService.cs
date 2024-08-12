@@ -11,6 +11,6 @@ namespace UserManagement.Interfaces.service
         Task<User> GetUserById(int id);
         Task<int> CreateUser(User user);
         Task<User> UpdateUser(User user);
-        Task<bool> DeleteUser(int id);
+        Task<bool> DisableUser(int id);
     }
 }
