@@ -57,11 +57,7 @@ namespace PLManagement.Services
             // var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
             // var signature = await File.ReadAllBytesAsync(image);
             var signatureUrl = await _storageService.UploadFileAsync("signatures", signature, "image/png");
-            proposalLetter.ProposalApprovals.Add(new ProposalApproval
-            {
-                ApproverSign = signatureUrl,
-                ApprovedOn = DateTime.UtcNow
-            });
+            proposalLetter.ApproverSignUrl = signatureUrl;
 
             proposalLetter.PlstatusId = 5;
 
@@ -80,16 +76,15 @@ namespace PLManagement.Services
             }
 
             // Generate Password-Protected PDF using the user's password
-            var pdfData = _pdfGenerationService.GeneratePdf(proposalLetter, "userName", "abcd", proposalLetter.ProposalApprovals.FirstOrDefault()?.ApproverSign);
+            var pdfData = _pdfGenerationService.GeneratePdf(proposalLetter, "userName", "abcd", proposalLetter.ApproverSignUrl);
 
             // Upload PDF to Firebase
             var pdfUrl = await _storageService.UploadFileAsync("pdfs", pdfData, "application/pdf");
 
             // Check for already it is approved
-            var Approval = proposalLetter.ProposalApprovals.FirstOrDefault();
-            if (Approval != null)
+            if (proposalLetter.ApproverSignUrl != null)
             {
-                Approval.Pdf = pdfUrl;
+                proposalLetter.PdfUrl = pdfUrl;
                 //Save the PDF URL.
                 await _repo.UpdateProposalLetter(proposalLetter);
             }

@@ -7,7 +7,7 @@ namespace PLManagement.Models
     {
         public ProposalLetter()
         {
-            ProposalApprovals = new HashSet<ProposalApproval>();
+            Forms = new HashSet<Form>();
         }
 
         public int Id { get; set; }
@@ -17,12 +17,14 @@ namespace PLManagement.Models
         public int? ApproverId { get; set; }
         public string AssessmentYear { get; set; }
         public int PlstatusId { get; set; }
-        public string Content { get; set; }
         public bool? Draft { get; set; }
+        public string ApproverSignUrl { get; set; }
+        public string PdfUrl { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public int? UpdatedBy { get; set; }
-        public virtual ICollection<ProposalApproval> ProposalApprovals { get; set; }
+
+        public virtual ICollection<Form> Forms { get; set; }
     }
 }

@@ -27,8 +27,6 @@ namespace PLManagement.UtilityFunctions
 
             paragraph.Inlines.Add(new Run(document, $"User: {userName}"));
             paragraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
-            paragraph.Inlines.Add(new Run(document, $"Proposal Content: {proposalLetter.Content}"));
-            paragraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
 
             // if (!string.IsNullOrEmpty(signatureUrl))
             // {

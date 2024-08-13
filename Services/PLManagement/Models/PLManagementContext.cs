@@ -16,8 +16,8 @@ namespace PLManagement.Models
         {
         }
 
+        public virtual DbSet<Form> Forms { get; set; }
         public virtual DbSet<Plstatus> Plstatuses { get; set; }
-        public virtual DbSet<ProposalApproval> ProposalApprovals { get; set; }
         public virtual DbSet<ProposalLetter> ProposalLetters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,6 +31,17 @@ namespace PLManagement.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Form>(entity =>
+            {
+                entity.Property(e => e.Plid).HasColumnName("PLId");
+
+                entity.HasOne(d => d.Pl)
+                    .WithMany(p => p.Forms)
+                    .HasForeignKey(d => d.Plid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Forms__PLId__5535A963");
+            });
+
             modelBuilder.Entity<Plstatus>(entity =>
             {
                 entity.ToTable("PLStatus");
@@ -42,28 +53,13 @@ namespace PLManagement.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<ProposalApproval>(entity =>
-            {
-                entity.ToTable("ProposalApproval");
-
-                entity.Property(e => e.ApprovedOn).HasColumnType("datetime");
-
-                entity.Property(e => e.Pdf).HasColumnName("pdf");
-
-                entity.Property(e => e.Plid).HasColumnName("PLId");
-
-                entity.HasOne(d => d.Pl)
-                    .WithMany(p => p.ProposalApprovals)
-                    .HasForeignKey(d => d.Plid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ProposalAp__PLId__4D94879B");
-            });
-
             modelBuilder.Entity<ProposalLetter>(entity =>
             {
                 entity.ToTable("ProposalLetter");
 
                 entity.Property(e => e.AssessmentYear).HasMaxLength(20);
+
+                entity.Property(e => e.PdfUrl).HasColumnName("pdfUrl");
 
                 entity.Property(e => e.PlstatusId).HasColumnName("PLStatusId");
             });

@@ -132,7 +132,7 @@ namespace PLservice.Tests.Services
             proposalLetter.PlstatusId = 4;
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync(proposalLetter);
-            var signature=new Byte[] {1,2,3,4,5};
+            var signature = new Byte[] { 1, 2, 3, 4, 5 };
             var signatureUrl = "https://storage.googleapis.com/fake-bucket/signatures/some-signature";
             _mockcloudservice.Setup(s => s.UploadFileAsync(It.IsAny<string>(), It.IsAny<byte[]>(), "image/png"))
                 .ReturnsAsync(signatureUrl);
@@ -142,8 +142,7 @@ namespace PLservice.Tests.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Single(result.ProposalApprovals);
-            Assert.Equal(signatureUrl, result.ProposalApprovals.First().ApproverSign);
+            Assert.NotNull(result.ApproverSignUrl);
             Assert.Equal(5, result.PlstatusId);
             _mockRepo.Verify(repo => repo.UpdateProposalLetter(result), Times.Once);
         }
@@ -153,12 +152,12 @@ namespace PLservice.Tests.Services
         {
             // Arrange
             var proposalLetterId = 1;
-            var signature=new Byte[] {1,2,3,};
+            var signature = new Byte[] { 1, 2, 3, };
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync((ProposalLetter)null);
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId,signature));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId, signature));
         }
 
         [Fact]
@@ -168,12 +167,12 @@ namespace PLservice.Tests.Services
             var proposalLetterId = 1;
             var proposalLetter = PLMockData.GetSingleProposalLetter();
             proposalLetter.PlstatusId = 3; // Status is not pending approval
-            var signature = new Byte[] {1,2,3};
+            var signature = new Byte[] { 1, 2, 3 };
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync(proposalLetter);
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId,signature));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId, signature));
         }
 
         [Fact]
@@ -191,11 +190,8 @@ namespace PLservice.Tests.Services
                 .Returns(pdfData);
 
             var pdfUrl = "https://storage.googleapis.com/fake-bucket/pdfs/some-pdf";
-            proposalLetter.ProposalApprovals.Add(new ProposalApproval
-            {
-                ApproverSign = pdfUrl,
-                ApprovedOn = DateTime.UtcNow
-            });
+            //Sample url for approver sign
+            proposalLetter.ApproverSignUrl = pdfUrl;
             _mockcloudservice.Setup(s => s.UploadFileAsync("pdfs", pdfData, "application/pdf"))
                 .ReturnsAsync(pdfUrl);
 
@@ -204,7 +200,7 @@ namespace PLservice.Tests.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(pdfUrl, result.ProposalApprovals.First().Pdf);
+            Assert.Equal(pdfUrl, result.PdfUrl);
             _mockRepo.Verify(repo => repo.UpdateProposalLetter(result), Times.Once);
         }
 

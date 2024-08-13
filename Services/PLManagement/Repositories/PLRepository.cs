@@ -24,7 +24,7 @@ public class PLRepository : IPLRepository
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)
     {
-        return await _dbContext.ProposalLetters.Include(p => p. ProposalApprovals).FirstOrDefaultAsync(p => p.Id == id);
+        return await _dbContext.ProposalLetters.FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<int> CreateProposalLetter(ProposalLetter proposalLetter)
