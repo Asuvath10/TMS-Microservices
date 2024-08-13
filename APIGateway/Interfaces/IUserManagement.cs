@@ -15,5 +15,6 @@ namespace APIGateway.Interfaces
         Task<int> CreateUser(User User);
         Task<User> UpdateUser(User User);
         Task<bool> DisableUser(int id);
+        Task<(bool IsValid, User? User)> ValidateUserCredentials(string email, string password);
     }
 }

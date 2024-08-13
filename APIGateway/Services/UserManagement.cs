@@ -44,7 +44,7 @@ namespace APIGateway.Services
         }
         public async Task<User> GetUserByEmail(string email)
         {
-            var response = await _httpClient.GetAsync($"/api/User/GetUserByEmail");
+            var response = await _httpClient.GetAsync($"/api/User/GetUserByEmail?email={email}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var User = JsonConvert.DeserializeObject<User>(content);
@@ -92,6 +92,17 @@ namespace APIGateway.Services
         {
             var response = await _httpClient.PutAsync($"/api/User/{id}/DisableUser", null);
             return response.IsSuccessStatusCode;
+        }
+        public async Task<(bool IsValid, User? User)> ValidateUserCredentials(string email, string password)
+        {
+            var user = await GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return (false, null);
+            }
+            bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            return (isValid, isValid ? user : null);
         }
     }
 }

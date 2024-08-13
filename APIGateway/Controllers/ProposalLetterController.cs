@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using APIGateway.Interfaces;
 using APIGateway.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIGateway.Controllers
 {
-    [Route("[controller]")]
-    public class ProposalLetterController : Controller
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProposalLetterController : ControllerBase
     {
         private readonly IProposalLetterManagement _service;
 

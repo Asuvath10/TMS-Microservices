@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace APIGateway.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase

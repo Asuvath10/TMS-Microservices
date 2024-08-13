@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 public class AuthenticationService
 {
     private readonly IConfiguration _configuration;
-    private readonly IUserManagement _userService;
 
     public AuthenticationService(IConfiguration configuration)
     {
@@ -41,17 +40,5 @@ public class AuthenticationService
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
-    }
-
-    public async Task<(bool IsValid, User? User)> ValidateUserCredentials(string email, string password)
-    {
-        var user = await _userService.GetUserByEmail(email);
-
-        if (user == null)
-        {
-            return (false, null);
-        }
-        bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
-        return (isValid, isValid ? user : null);
     }
 }
