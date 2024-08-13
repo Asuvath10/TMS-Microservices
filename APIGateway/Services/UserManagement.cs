@@ -45,10 +45,13 @@ namespace APIGateway.Services
         public async Task<User> GetUserByEmail(string email)
         {
             var response = await _httpClient.GetAsync($"/api/User/GetUserByEmail?email={email}");
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
             var content = await response.Content.ReadAsStringAsync();
-            var User = JsonConvert.DeserializeObject<User>(content);
-            return User;
+            var user = JsonConvert.DeserializeObject<User>(content);
+            return user;
         }
 
         public async Task<int> CreateUser(User User)
@@ -102,6 +105,18 @@ namespace APIGateway.Services
                 return (false, null);
             }
             bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            return (isValid, isValid ? user : null);
+        }
+        public async Task<(bool IsValid, User? User)> CheckEmailavailability(string email)
+        {
+            var user = await GetUserByEmail(email);
+
+            if (user == null)
+            {
+                //email is taken (user exists)
+                return (false, null);
+            }
+            bool isValid = true;
             return (isValid, isValid ? user : null);
         }
     }

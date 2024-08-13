@@ -184,7 +184,7 @@ namespace PLservice.Tests.Services
             proposalLetter.PlstatusId = 5; // Ensure status is approved
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync(proposalLetter);
-
+            
             var pdfData = new byte[] { 1, 2, 3, 4 };
             _mockpdfservice.Setup(ps => ps.GeneratePdf(It.IsAny<ProposalLetter>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(pdfData);
