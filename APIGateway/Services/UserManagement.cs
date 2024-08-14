@@ -8,6 +8,7 @@ using APIGateway.Interfaces;
 using APIGateway.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace APIGateway.Services
 {
@@ -45,10 +46,7 @@ namespace APIGateway.Services
         public async Task<User> GetUserByEmail(string email)
         {
             var response = await _httpClient.GetAsync($"/api/User/GetUserByEmail?email={email}");
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return null;
-            }
+            response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var user = JsonConvert.DeserializeObject<User>(content);
             return user;
@@ -107,17 +105,17 @@ namespace APIGateway.Services
             bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
             return (isValid, isValid ? user : null);
         }
-        public async Task<(bool IsValid, User? User)> CheckEmailavailability(string email)
+        public async Task<bool> CheckEmailavailability(string email)
         {
             var user = await GetUserByEmail(email);
 
             if (user == null)
-            {
-                //email is taken (user exists)
-                return (false, null);
+            {   
+                //Email is available
+                return true;
             }
-            bool isValid = true;
-            return (isValid, isValid ? user : null);
+            //email is taken (user exists)
+            return false;
         }
     }
 }

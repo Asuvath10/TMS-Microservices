@@ -16,6 +16,9 @@ using Polly.Extensions.Http;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.IO;
+using System.Linq;
 
 namespace APIGateway
 {
@@ -81,8 +84,13 @@ namespace APIGateway
             // Adding Ocelot service
             services.AddOcelot();
 
+            //services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.IgnoreObsoleteActions();
+                c.IgnoreObsoleteProperties();
+                c.CustomSchemaIds(type => type.FullName);
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APIGateway", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {

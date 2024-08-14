@@ -43,7 +43,7 @@ namespace UserManagement
             var User = await _service.GetUserByEmail(email);
             if (User == null)
             {
-                return NotFound();
+                return Ok(null);
             }
             return Ok(User);
         }

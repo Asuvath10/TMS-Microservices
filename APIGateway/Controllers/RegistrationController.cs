@@ -29,8 +29,8 @@ namespace APIGateway.Controllers
             }
             try
             {
-                var (isValid, user) = await _userService.CheckEmailavailability(register.Email);
-                if (!isValid || user != null)
+                bool emailAvailable = await _userService.CheckEmailavailability(register.Email);
+                if (!emailAvailable)
                 {
                     return BadRequest("Email is already taken");
                 }
@@ -40,7 +40,7 @@ namespace APIGateway.Controllers
                     Address = register.Address,
                     Pan = register.Pan,
                     //encrypting the password
-                    Password = "abcd",
+                    Password = BCrypt.Net.BCrypt.HashPassword(register.Password),
                     RoleId = 2,
                     Email = register.Email,
                     FullName = register.FullName,
@@ -48,7 +48,7 @@ namespace APIGateway.Controllers
                     CreatedOn = DateTime.Now,
                     CreatedBy = 2
                 };
-                int CreateUser = await _userService.CreateUser(user);
+                int CreateUser = await _userService.CreateUser(newuser);
                 return Ok(CreateUser);
             }
             catch (Exception ex)
