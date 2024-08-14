@@ -16,8 +16,6 @@ using Polly.Extensions.Http;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
-using System.IO;
 using System.Linq;
 
 namespace APIGateway
@@ -134,6 +132,8 @@ namespace APIGateway
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIGateway v1"));
             }
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
+            
             app.UseCors("default");
 
             app.UseHttpsRedirection();

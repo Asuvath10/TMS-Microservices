@@ -1,0 +1,151 @@
+2024-08-14 14:02:22.328 +05:30 [INF] User profile is available. Using 'C:\Users\asuvath.feroz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-14 14:02:22.733 +05:30 [INF] Now listening on: http://localhost:5000
+2024-08-14 14:02:22.736 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-14 14:02:22.743 +05:30 [INF] Hosting environment: Development
+2024-08-14 14:02:22.745 +05:30 [INF] Content root path: C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway
+2024-08-14 14:03:21.570 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html - -
+2024-08-14 14:03:21.768 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/index.html - - - 200 - text/html;charset=utf-8 200.5614ms
+2024-08-14 14:03:21.929 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - -
+2024-08-14 14:03:22.041 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 111.9390ms
+2024-08-14 14:03:29.800 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/ProposalLetter - -
+2024-08-14 14:03:29.809 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-08-14 14:03:29.927 +05:30 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-08-14 14:03:29.935 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2024-08-14 14:03:29.938 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/ProposalLetter - - - 401 0 - 138.1496ms
+2024-08-14 14:04:24.653 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 46
+2024-08-14 14:04:24.657 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:04:24.678 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:04:24.717 +05:30 [INF] Route matched with {action = "Login", controller = "Authentication"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(APIGateway.Models.Login) on controller APIGateway.Controllers.AuthenticationController (APIGateway).
+2024-08-14 14:04:24.928 +05:30 [INF] Executing action method APIGateway.Controllers.AuthenticationController.Login (APIGateway) - Validation state: "Valid"
+2024-08-14 14:04:24.952 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=kevin@gmail.com"
+2024-08-14 14:04:24.968 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=kevin@gmail.com"
+2024-08-14 14:04:27.524 +05:30 [INF] Received HTTP response headers after 2550.1131ms - 200
+2024-08-14 14:04:27.531 +05:30 [INF] End processing HTTP request after 2584.0982ms - 200
+2024-08-14 14:04:28.106 +05:30 [INF] Executed action method APIGateway.Controllers.AuthenticationController.Login (APIGateway), returned result Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult in 3167.4234ms.
+2024-08-14 14:04:28.122 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'System.String'.
+2024-08-14 14:04:28.152 +05:30 [INF] Executed action APIGateway.Controllers.AuthenticationController.Login (APIGateway) in 3416.8563ms
+2024-08-14 14:04:28.155 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:04:28.166 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 46 - 401 - text/plain;+charset=utf-8 3513.6093ms
+2024-08-14 14:05:46.878 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45
+2024-08-14 14:05:46.894 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:05:46.905 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:05:46.910 +05:30 [INF] Route matched with {action = "Login", controller = "Authentication"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(APIGateway.Models.Login) on controller APIGateway.Controllers.AuthenticationController (APIGateway).
+2024-08-14 14:05:46.921 +05:30 [INF] Executing action method APIGateway.Controllers.AuthenticationController.Login (APIGateway) - Validation state: "Valid"
+2024-08-14 14:05:46.923 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=kevin@gmail.com"
+2024-08-14 14:05:46.926 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=kevin@gmail.com"
+2024-08-14 14:05:46.961 +05:30 [INF] Received HTTP response headers after 32.647ms - 200
+2024-08-14 14:05:46.963 +05:30 [INF] End processing HTTP request after 39.1902ms - 200
+2024-08-14 14:05:47.582 +05:30 [INF] Executed action method APIGateway.Controllers.AuthenticationController.Login (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 658.8272ms.
+2024-08-14 14:05:47.591 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-08-14 14:05:47.632 +05:30 [INF] Executed action APIGateway.Controllers.AuthenticationController.Login (APIGateway) in 712.022ms
+2024-08-14 14:05:47.645 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:05:47.665 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45 - 200 555 application/json;+charset=utf-8 787.0875ms
+2024-08-14 14:06:16.821 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113
+2024-08-14 14:06:16.824 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:06:16.825 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:06:16.844 +05:30 [INF] Route matched with {action = "Registration", controller = "Registration"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Registration(APIGateway.Models.Register) on controller APIGateway.Controllers.RegistrationController (APIGateway).
+2024-08-14 14:06:16.862 +05:30 [INF] Executing action method APIGateway.Controllers.RegistrationController.Registration (APIGateway) - Validation state: "Valid"
+2024-08-14 14:06:16.877 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=white@gmail.com"
+2024-08-14 14:06:16.879 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=white@gmail.com"
+2024-08-14 14:06:16.961 +05:30 [INF] Received HTTP response headers after 74.693ms - 200
+2024-08-14 14:06:16.965 +05:30 [INF] End processing HTTP request after 88.4482ms - 200
+2024-08-14 14:06:16.968 +05:30 [INF] Executed action method APIGateway.Controllers.RegistrationController.Registration (APIGateway), returned result Microsoft.AspNetCore.Mvc.BadRequestObjectResult in 92.8576ms.
+2024-08-14 14:06:16.970 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2024-08-14 14:06:16.972 +05:30 [INF] Executed action APIGateway.Controllers.RegistrationController.Registration (APIGateway) in 112.2477ms
+2024-08-14 14:06:16.974 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:06:16.975 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113 - 400 - text/plain;+charset=utf-8 154.3398ms
+2024-08-14 14:06:37.966 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113
+2024-08-14 14:06:37.968 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:06:37.969 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:06:37.972 +05:30 [INF] Route matched with {action = "Registration", controller = "Registration"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Registration(APIGateway.Models.Register) on controller APIGateway.Controllers.RegistrationController (APIGateway).
+2024-08-14 14:06:37.988 +05:30 [INF] Executing action method APIGateway.Controllers.RegistrationController.Registration (APIGateway) - Validation state: "Valid"
+2024-08-14 14:06:37.991 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:06:37.999 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:06:38.008 +05:30 [INF] Received HTTP response headers after 6.8254ms - 204
+2024-08-14 14:06:38.010 +05:30 [INF] End processing HTTP request after 18.6453ms - 204
+2024-08-14 14:06:38.202 +05:30 [INF] Start processing HTTP request POST "http://localhost:5001/api/User"
+2024-08-14 14:06:38.203 +05:30 [INF] Sending HTTP request POST "http://localhost:5001/api/User"
+2024-08-14 14:06:38.367 +05:30 [INF] Received HTTP response headers after 163.1207ms - 200
+2024-08-14 14:06:38.369 +05:30 [INF] End processing HTTP request after 167.0502ms - 200
+2024-08-14 14:06:38.370 +05:30 [INF] Executed action method APIGateway.Controllers.RegistrationController.Registration (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 378.5332ms.
+2024-08-14 14:06:38.372 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Int32'.
+2024-08-14 14:06:38.374 +05:30 [INF] Executed action APIGateway.Controllers.RegistrationController.Registration (APIGateway) in 386.8283ms
+2024-08-14 14:06:38.376 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:06:38.384 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113 - 200 2 application/json;+charset=utf-8 418.4707ms
+2024-08-14 14:07:33.979 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45
+2024-08-14 14:07:33.981 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:07:33.983 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:07:33.996 +05:30 [INF] Route matched with {action = "Login", controller = "Authentication"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(APIGateway.Models.Login) on controller APIGateway.Controllers.AuthenticationController (APIGateway).
+2024-08-14 14:07:34.001 +05:30 [INF] Executing action method APIGateway.Controllers.AuthenticationController.Login (APIGateway) - Validation state: "Valid"
+2024-08-14 14:07:34.003 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:07:34.010 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:07:34.018 +05:30 [INF] Received HTTP response headers after 6.1595ms - 200
+2024-08-14 14:07:34.020 +05:30 [INF] End processing HTTP request after 17.1265ms - 200
+2024-08-14 14:07:34.209 +05:30 [INF] Executed action method APIGateway.Controllers.AuthenticationController.Login (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 206.1401ms.
+2024-08-14 14:07:34.211 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-08-14 14:07:34.212 +05:30 [INF] Executed action APIGateway.Controllers.AuthenticationController.Login (APIGateway) in 212.0667ms
+2024-08-14 14:07:34.214 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:07:34.216 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45 - 200 548 application/json;+charset=utf-8 237.3031ms
+2024-08-14 14:07:39.246 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45
+2024-08-14 14:07:39.266 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:07:39.276 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:07:39.278 +05:30 [INF] Route matched with {action = "Login", controller = "Authentication"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(APIGateway.Models.Login) on controller APIGateway.Controllers.AuthenticationController (APIGateway).
+2024-08-14 14:07:39.285 +05:30 [INF] Executing action method APIGateway.Controllers.AuthenticationController.Login (APIGateway) - Validation state: "Valid"
+2024-08-14 14:07:39.287 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:07:39.296 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=black@gmail.com"
+2024-08-14 14:07:39.303 +05:30 [INF] Received HTTP response headers after 5.4585ms - 200
+2024-08-14 14:07:39.307 +05:30 [INF] End processing HTTP request after 20.1974ms - 200
+2024-08-14 14:07:39.490 +05:30 [INF] Executed action method APIGateway.Controllers.AuthenticationController.Login (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 203.267ms.
+2024-08-14 14:07:39.492 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-08-14 14:07:39.494 +05:30 [INF] Executed action APIGateway.Controllers.AuthenticationController.Login (APIGateway) in 209.9005ms
+2024-08-14 14:07:39.502 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.AuthenticationController.Login (APIGateway)'
+2024-08-14 14:07:39.504 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Authentication/login application/json-patch+json 45 - 200 548 application/json;+charset=utf-8 257.2975ms
+2024-08-14 14:08:05.677 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/User/Users - -
+2024-08-14 14:08:05.746 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.UserController.GetAllUsers (APIGateway)'
+2024-08-14 14:08:05.749 +05:30 [INF] Route matched with {action = "GetAllUsers", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller APIGateway.Controllers.UserController (APIGateway).
+2024-08-14 14:08:05.751 +05:30 [INF] Executing action method APIGateway.Controllers.UserController.GetAllUsers (APIGateway) - Validation state: "Valid"
+2024-08-14 14:08:05.758 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User"
+2024-08-14 14:08:05.759 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User"
+2024-08-14 14:08:05.783 +05:30 [INF] Received HTTP response headers after 22.602ms - 200
+2024-08-14 14:08:05.785 +05:30 [INF] End processing HTTP request after 26.3204ms - 200
+2024-08-14 14:08:05.795 +05:30 [INF] Executed action method APIGateway.Controllers.UserController.GetAllUsers (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 37.3742ms.
+2024-08-14 14:08:05.797 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[APIGateway.Models.User, APIGateway, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-08-14 14:08:05.804 +05:30 [INF] Executed action APIGateway.Controllers.UserController.GetAllUsers (APIGateway) in 53.6654ms
+2024-08-14 14:08:05.807 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.UserController.GetAllUsers (APIGateway)'
+2024-08-14 14:08:05.808 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/User/Users - - - 200 3980 application/json;+charset=utf-8 131.3409ms
+2024-08-14 14:09:28.814 +05:30 [INF] Application is shutting down...
+2024-08-14 14:09:33.488 +05:30 [INF] User profile is available. Using 'C:\Users\asuvath.feroz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-14 14:09:33.835 +05:30 [INF] Now listening on: http://localhost:5000
+2024-08-14 14:09:33.840 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-14 14:09:33.849 +05:30 [INF] Hosting environment: Development
+2024-08-14 14:09:33.850 +05:30 [INF] Content root path: C:\Users\asuvath.feroz\Documents\pip\TMS\APIGateway
+2024-08-14 14:10:31.435 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113
+2024-08-14 14:10:31.475 +05:30 [INF] CORS policy execution successful.
+2024-08-14 14:10:31.478 +05:30 [WRN] Failed to determine the https port for redirect.
+2024-08-14 14:10:31.733 +05:30 [INF] Executing endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:10:31.780 +05:30 [INF] Route matched with {action = "Registration", controller = "Registration"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Registration(APIGateway.Models.Register) on controller APIGateway.Controllers.RegistrationController (APIGateway).
+2024-08-14 14:10:31.958 +05:30 [INF] Executing action method APIGateway.Controllers.RegistrationController.Registration (APIGateway) - Validation state: "Valid"
+2024-08-14 14:10:31.976 +05:30 [INF] Start processing HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:10:31.996 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:10:34.157 +05:30 [INF] Received HTTP response headers after 2153.2369ms - 404
+2024-08-14 14:10:36.178 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:10:36.230 +05:30 [INF] Received HTTP response headers after 50.1066ms - 404
+2024-08-14 14:10:40.251 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:10:40.325 +05:30 [INF] Received HTTP response headers after 68.4512ms - 404
+2024-08-14 14:10:48.331 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:10:48.359 +05:30 [INF] Received HTTP response headers after 11.1533ms - 404
+2024-08-14 14:11:04.395 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:11:04.674 +05:30 [INF] Received HTTP response headers after 184.7839ms - 404
+2024-08-14 14:11:36.685 +05:30 [INF] Sending HTTP request GET "http://localhost:5001/api/User/GetUserByEmail?email=lassk@gmail.com"
+2024-08-14 14:11:38.394 +05:30 [INF] Received HTTP response headers after 1704.699ms - 204
+2024-08-14 14:11:38.398 +05:30 [INF] End processing HTTP request after 66430.1164ms - 204
+2024-08-14 14:11:38.604 +05:30 [INF] Start processing HTTP request POST "http://localhost:5001/api/User"
+2024-08-14 14:11:38.606 +05:30 [INF] Sending HTTP request POST "http://localhost:5001/api/User"
+2024-08-14 14:11:38.880 +05:30 [INF] Received HTTP response headers after 273.5026ms - 200
+2024-08-14 14:11:38.882 +05:30 [INF] End processing HTTP request after 277.6731ms - 200
+2024-08-14 14:11:38.888 +05:30 [INF] Executed action method APIGateway.Controllers.RegistrationController.Registration (APIGateway), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 66921.6022ms.
+2024-08-14 14:11:38.893 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Int32'.
+2024-08-14 14:11:38.909 +05:30 [INF] Executed action APIGateway.Controllers.RegistrationController.Registration (APIGateway) in 67122.0725ms
+2024-08-14 14:11:38.911 +05:30 [INF] Executed endpoint 'APIGateway.Controllers.RegistrationController.Registration (APIGateway)'
+2024-08-14 14:11:38.917 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Registration application/json-patch+json 113 - 200 2 application/json;+charset=utf-8 67485.1476ms
