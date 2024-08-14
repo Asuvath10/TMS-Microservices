@@ -77,6 +77,7 @@ namespace PLManagement
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PLManagement v1"));
             }
+            app.UseMiddleware<GlobalExceptionMiddleware>();
             app.UseCors("default");
             app.UseHttpsRedirection();
 

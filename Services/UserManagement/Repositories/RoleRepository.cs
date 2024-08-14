@@ -17,7 +17,7 @@ namespace UserManagement.Repositories
 
         public async Task<IEnumerable<Role>> GetRoles()
         {
-            return _dbContext.Roles;
+            return _dbContext.Roles.AsNoTracking();
         }
     }
 }

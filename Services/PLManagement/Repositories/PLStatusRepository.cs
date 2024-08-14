@@ -18,7 +18,7 @@ namespace PLManagement.Repositories
 
         public async Task<IEnumerable<Plstatus>> GetPLStatuses()
         {
-            return _dbContext.Plstatuses;
+            return _dbContext.Plstatuses.AsNoTracking();
         }
 
     }

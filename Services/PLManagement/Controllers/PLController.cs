@@ -75,29 +75,15 @@ namespace PLManagement
         [HttpPut("{PLid}/signature")]
         public async Task<IActionResult> AddSignature(int PLid, Byte[] signature)
         {
-            try
-            {
-                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
-                return Ok(proposalLetter);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
+            return Ok(proposalLetter);
         }
 
         [HttpPut("{PLid}/generate-pdfurl")]
         public async Task<IActionResult> GeneratePdf(int PLid)
         {
-            try
-            {
-                var proposalLetter = await _service.AddPdf(PLid);
-                return Ok(proposalLetter);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var proposalLetter = await _service.AddPdf(PLid);
+            return Ok(proposalLetter);
         }
     }
 }
