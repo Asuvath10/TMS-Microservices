@@ -5,5 +5,6 @@ namespace DocumentManagement.Interfaces
     public interface IFirebaseStorageService
     {
         Task<string> UploadFileAsync(string folderPath, byte[] fileContent, string contentType);
+        Task<byte[]> DownloadFileAsync(string fileurl);
     }
 }

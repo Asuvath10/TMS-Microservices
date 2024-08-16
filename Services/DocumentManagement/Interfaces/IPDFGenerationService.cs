@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using PLManagement.Models;
+using DocumentManagement.Models;
 
 namespace DocumentManagement.Interfaces
 {
     public interface IPDFGenerationService
     {
-        Byte[] GeneratePdf(ProposalLetter proposalLetter, string userName, string password, string signatureUrl = null);
+        Task<byte[]> GeneratePdf(ProposalLetter proposalLetter, string password, string signatureUrl);
+
     }
 }

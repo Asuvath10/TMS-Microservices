@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PLManagement.Interfaces.Repos;
+using TMS.Models;
 using PLManagement.Models;
+
 
 namespace PLManagement.Repositories
 {

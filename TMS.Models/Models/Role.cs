@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace UserManagement.Models
+namespace TMS.Models
 {
-    public partial class Role
+    public class Role
     {
         public Role()
         {

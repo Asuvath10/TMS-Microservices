@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PLManagement.Models;
 using PLManagement.Interfaces.Repos;
 using PLManagement.Interfaces.services;
 using System;
 using System.IO;
 using System.Linq;
+using TMS.Models;
 
 namespace PLManagement.Services
 {
@@ -56,6 +56,7 @@ namespace PLManagement.Services
             }
             // var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
             // var signature = await File.ReadAllBytesAsync(image);
+            
             var signatureUrl = await _storageService.UploadFileAsync("signatures", signature, "image/png");
             proposalLetter.ApproverSignUrl = signatureUrl;
 
@@ -69,6 +70,7 @@ namespace PLManagement.Services
         public async Task<ProposalLetter> AddPdf(int proposalLetterId)
         {
             var proposalLetter = await _repo.GetProposalLetterById(proposalLetterId);
+            
 
             if (proposalLetter == null || proposalLetter.PlstatusId != 5)
             {
@@ -76,7 +78,7 @@ namespace PLManagement.Services
             }
 
             // Generate Password-Protected PDF using the user's password
-            var pdfData = _pdfGenerationService.GeneratePdf(proposalLetter, "userName", "abcd", proposalLetter.ApproverSignUrl);
+            var pdfData = _pdfGenerationService.GeneratePdf(proposalLetter, "abcd");
 
             // Upload PDF to Firebase
             var pdfUrl = await _storageService.UploadFileAsync("pdfs", pdfData, "application/pdf");

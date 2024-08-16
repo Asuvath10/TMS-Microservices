@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UserManagement.Models;
+using TMS.Models;
 
 namespace UserManagement.Interfaces.service
 {

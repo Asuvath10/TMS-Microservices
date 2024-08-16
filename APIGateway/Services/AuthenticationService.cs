@@ -8,8 +8,9 @@ using APIGateway.Interfaces;
 using APIGateway.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TMS.Models;
 
-public class AuthenticationService
+public class AuthenticationService : IAuthenticationService
 {
     private readonly IConfiguration _configuration;
 

@@ -11,3 +11,10 @@ APIGateway/obj
 Tests/PLService.Tests/bin
 Tests/PLService.Tests/obj
 Services/PLManagement/Resources/Firebase.json
+APIGateway/Logs
+Services/DocumentManagement/bin
+Services/DocumentManagement/obj
+
+Services/DocumentManagement/Resources/Firebase.json
+APIGateway/Logs/log-20240814.txt
+APIGateway/Logs/log20240814.txt

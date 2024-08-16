@@ -23,4 +23,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.24.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TMS.Models\TMS.Models.csproj" />
+    <ProjectReference Include="..\GlobalException\GlobalException.csproj" />
+  </ItemGroup>
+
 </Project>

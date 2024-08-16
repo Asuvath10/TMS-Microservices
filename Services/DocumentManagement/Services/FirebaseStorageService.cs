@@ -1,10 +1,9 @@
 using Google.Cloud.Storage.V1;
 using Microsoft.Extensions.Configuration;
-using PLManagement.Interfaces;
-using PLManagement.Interfaces.services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using DocumentManagement.Interfaces;
 
 namespace DocumentManagement.Services
 {
@@ -23,9 +22,19 @@ namespace DocumentManagement.Services
         {
             using (var stream = new MemoryStream(fileContent))
             {
-                var objectName = $"{folderPath}/{Guid.NewGuid()}"; // Unique file name
+                var objectName = $"{folderPath}/{Guid.NewGuid()}"; 
                 var storageObject = await _storageClient.UploadObjectAsync(_bucketName, objectName, contentType, stream);
                 return $"https://storage.googleapis.com/{_bucketName}/{objectName}";
+            }
+        }
+
+        public async Task<byte[]> DownloadFileAsync(string fileurl){
+            var uri = new Uri(fileurl);
+            var objectName = uri.AbsolutePath.TrimStart('/');
+            using (var stream = new MemoryStream())
+            {
+                await _storageClient.DownloadObjectAsync(_bucketName, objectName, stream);
+                return stream.ToArray();
             }
         }
     }

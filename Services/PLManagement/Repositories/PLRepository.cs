@@ -1,11 +1,13 @@
 using System.Security.AccessControl;
-using PLManagement.Models;
 using PLManagement.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PLManagement.Interfaces.Repos;
 using System;
+using TMS.Models;
+using PLManagement.Models;
+using System.Linq;
 
 namespace PLManagement.Repositories;
 
@@ -19,7 +21,8 @@ public class PLRepository : IPLRepository
 
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLetter()
     {
-        return _dbContext.ProposalLetters;
+        var proposal = _dbContext.ProposalLetters;
+        return proposal;
     }
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)

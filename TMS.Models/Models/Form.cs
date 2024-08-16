@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace APIGateway.Models
+namespace TMS.Models
 {
-    public partial class Form
+    public class Form
     {
         public int Id { get; set; }
         public int Plid { get; set; }

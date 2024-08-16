@@ -1,5 +1,5 @@
 using System;
-using PLManagement.Models;
+using TMS.Models;
 
 namespace PLservice.Tests.MockData
 {
@@ -36,7 +36,7 @@ namespace PLservice.Tests.MockData
                 }
             };
         }
-        
+
         public static ProposalLetter GetSingleProposalLetter()
         {
             return new ProposalLetter
@@ -47,7 +47,7 @@ namespace PLservice.Tests.MockData
                 PlstatusId = 1,
                 Draft = false,
                 ApproverSignUrl = null,
-                PdfUrl =null,
+                PdfUrl = null,
                 CreatedOn = DateTime.Now,
                 CreatedBy = 20,
                 PreparerId = 21,

@@ -17,6 +17,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
+using GlobalException;
 
 namespace APIGateway
 {
@@ -56,7 +57,7 @@ namespace APIGateway
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
-            services.AddTransient<AuthenticationService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddAuthorization();
 
             // Setting up services with httpclient
@@ -133,7 +134,7 @@ namespace APIGateway
             }
 
             app.UseMiddleware<GlobalExceptionMiddleware>();
-            
+
             app.UseCors("default");
 
             app.UseHttpsRedirection();

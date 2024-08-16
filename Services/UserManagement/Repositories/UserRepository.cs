@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UserManagement.Interfaces.Repo;
+using TMS.Models;
 
 namespace UserManagement.Repositories;
 

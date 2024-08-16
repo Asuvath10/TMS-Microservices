@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using UserManagement.Models;
+using TMS.Models;
 using UserManagement.Interfaces.service;
 using UserManagement.Interfaces.Repo;
 using System.Collections;

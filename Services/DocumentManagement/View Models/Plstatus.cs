@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace APIGateway.Models
+namespace DocumentManagement.Models
 {
     public partial class Plstatus
     {

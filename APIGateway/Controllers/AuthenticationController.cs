@@ -14,10 +14,10 @@ namespace APIGateway.Controllers
     [Route("api/[controller]")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly AuthenticationService _authService;
+        private readonly IAuthenticationService _authService;
         private readonly IUserManagement _userService;
 
-        public AuthenticationController(AuthenticationService authService, IUserManagement userService)
+        public AuthenticationController(IAuthenticationService authService, IUserManagement userService)
         {
             _authService = authService;
             _userService = userService;

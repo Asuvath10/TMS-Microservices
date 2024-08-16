@@ -3,7 +3,7 @@ using PLManagement.Services;
 using Moq;
 using PLManagement.Interfaces.Repos;
 using PLManagement.Interfaces.services;
-using PLManagement.Models;
+using TMS.Models;
 
 namespace PLservice.Tests.Services
 {
@@ -184,9 +184,9 @@ namespace PLservice.Tests.Services
             proposalLetter.PlstatusId = 5; // Ensure status is approved
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync(proposalLetter);
-            
+
             var pdfData = new byte[] { 1, 2, 3, 4 };
-            _mockpdfservice.Setup(ps => ps.GeneratePdf(It.IsAny<ProposalLetter>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            _mockpdfservice.Setup(ps => ps.GeneratePdf(It.IsAny<ProposalLetter>(), It.IsAny<string>()))
                 .Returns(pdfData);
 
             var pdfUrl = "https://storage.googleapis.com/fake-bucket/pdfs/some-pdf";

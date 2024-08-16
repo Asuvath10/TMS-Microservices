@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PLManagement.Models
+namespace DocumentManagement.Models
 {
     public partial class Form
     {

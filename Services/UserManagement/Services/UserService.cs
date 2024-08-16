@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserManagement.Models;
+using TMS.Models;
 using UserManagement.Interfaces.service;
 using UserManagement.Interfaces.Repo;
 

@@ -19,4 +19,8 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TMS.Models\TMS.Models.csproj" />
+    <ProjectReference Include="..\..\GlobalException\GlobalException.csproj" />
+  </ItemGroup>
 </Project>

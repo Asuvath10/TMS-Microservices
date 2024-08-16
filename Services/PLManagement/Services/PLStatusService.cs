@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PLManagement.Models;
+using TMS.Models;
 using PLManagement.Interfaces.Repos;
 using PLManagement.Interfaces.services;
 

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using GemBox.Document;
 using PLManagement.Interfaces;
 using PLManagement.Interfaces.services;
-using PLManagement.Models;
+using TMS.Models;
 
 
 namespace PLManagement.UtilityFunctions
 {
     public class PdfGenerationService : IPDFGenerationService
     {
-        public byte[] GeneratePdf(ProposalLetter proposalLetter, string userName, string password, string signatureUrl = null)
+        public byte[] GeneratePdf(ProposalLetter proposalLetter, string password)
         {
             // Create a new document.
             var document = new DocumentModel();
@@ -25,7 +25,7 @@ namespace PLManagement.UtilityFunctions
             var paragraph = new Paragraph(document);
             section.Blocks.Add(paragraph);
 
-            paragraph.Inlines.Add(new Run(document, $"User: {userName}"));
+            paragraph.Inlines.Add(new Run(document, $"User: {proposalLetter.UserId}"));
             paragraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
 
             // if (!string.IsNullOrEmpty(signatureUrl))

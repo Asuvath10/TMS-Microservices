@@ -17,6 +17,7 @@ using UserManagement.Services;
 using Microsoft.EntityFrameworkCore;
 using UserManagement.Interfaces.service;
 using UserManagement.Interfaces.Repo;
+using GlobalException;
 
 namespace UserManagement
 {
