@@ -1,4 +1,4 @@
-using DocumentManagement.Models;
+using TMS.Models;
 
 namespace DocumentManagement.Interfaces
 {

@@ -51,9 +51,10 @@ builder.Services.AddSingleton<IFirebaseStorageService>(provider =>
 builder.Services.AddSingleton<IPDFGenerationService>(provider =>
 {
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
+    var apiGatewayService = provider.GetRequiredService<IApiGatewayService>();
     var http = provider.GetRequiredService<HttpClient>();
     ComponentInfo.SetLicense("Gembox:License");
-    return new PdfGenerationService(FirebaseStorageService, http);
+    return new PdfGenerationService(FirebaseStorageService, http, apiGatewayService);
 });
 
 var app = builder.Build();

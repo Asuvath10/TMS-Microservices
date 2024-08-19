@@ -4,8 +4,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using DocumentManagement.Interfaces;
-using DocumentManagement.Models;
 using Newtonsoft.Json;
+using TMS.Models;
 
 namespace DocumentManagement.Services
 {
@@ -24,6 +24,9 @@ namespace DocumentManagement.Services
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(content);
+            if (proposalLetter == null){
+                throw new InvalidOperationException("ProposalLetter is null");
+            }
             return proposalLetter;
         }
     }

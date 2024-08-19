@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\GlobalException\GlobalException.csproj" />
+    <ProjectReference Include="..\..\TMS.Models\TMS.Models.csproj" />
   </ItemGroup>
 
 </Project>

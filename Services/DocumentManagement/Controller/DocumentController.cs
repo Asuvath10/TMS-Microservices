@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocumentManagement.Interfaces;
-using DocumentManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace DocumentManagement.Controller
 {
@@ -22,11 +22,11 @@ namespace DocumentManagement.Controller
         }
 
         [HttpPut("upload")]
-        public async Task<IActionResult> UploadFile(string foldername, Byte[] file, string contentType)
+        public async Task<IActionResult> UploadFile(string folderpath, Byte[] file, string contentType)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
-            string fileUrl = await _storageService.UploadFileAsync(foldername, file, contentType);
+            string fileUrl = await _storageService.UploadFileAsync(folderpath, file, contentType);
             return Ok(new { Url = fileUrl });
         }
 

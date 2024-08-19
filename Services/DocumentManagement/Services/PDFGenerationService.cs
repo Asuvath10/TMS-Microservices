@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using GemBox.Document;
 using DocumentManagement.Interfaces;
-using DocumentManagement.Models;
 using SixLabors.ImageSharp;
 using Newtonsoft.Json;
 
@@ -25,7 +24,7 @@ namespace DocumentManagement.Services
         }
         public async Task<byte[]> GeneratePdf(int plId)
         {
-            var proposalLetter = _apiGatewayService.GetPLbyAPIGateway(plId);
+            var proposalLetter = await _apiGatewayService.GetPLbyAPIGateway(plId);
 
             // Create a new document.
             var document = new DocumentModel();

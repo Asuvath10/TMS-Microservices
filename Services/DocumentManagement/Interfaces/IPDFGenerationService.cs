@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using DocumentManagement.Models;
 
 namespace DocumentManagement.Interfaces
 {
