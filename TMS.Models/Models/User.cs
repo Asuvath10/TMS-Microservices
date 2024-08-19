@@ -19,6 +19,6 @@ namespace TMS.Models
         public DateTime? UpdatedOn { get; set; }
         public int? UpdatedBy { get; set; }
 
-        public virtual Role Role { get; set; }
+        public virtual Role? Role { get; set; }
     }
 }

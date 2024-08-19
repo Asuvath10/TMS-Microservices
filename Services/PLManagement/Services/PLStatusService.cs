@@ -19,5 +19,9 @@ namespace PLManagement.Services
         {
             return await _repo.GetPLStatuses();
         }
+        public async Task<Plstatus> GetPLStatusById(int id)
+        {
+            return await _repo.GetPLStatusById(id);
+        }
     }
 }

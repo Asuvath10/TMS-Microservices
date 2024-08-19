@@ -24,6 +24,11 @@ public class PLRepository : IPLRepository
         var proposal = _dbContext.ProposalLetters;
         return proposal;
     }
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByUserId(int userId)
+    {
+        var proposal = _dbContext.ProposalLetters.Where(p => p.UserId == userId).ToList();
+        return proposal;
+    }
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)
     {

@@ -26,6 +26,13 @@ namespace PLManagement
             return Ok(proposalLetters);
         }
 
+        [HttpGet("GetallPLsByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<ProposalLetter>>> GetAllProposalLetters(int userId)
+        {
+            var proposalLetters = await _service.GetAllPLsByUserId(userId);
+            return Ok(proposalLetters);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ProposalLetter>> GetProposalLetterById(int id)
         {

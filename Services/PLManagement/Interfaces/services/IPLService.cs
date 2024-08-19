@@ -9,6 +9,7 @@ namespace PLManagement.Interfaces.services
     public interface IPLService
     {
         Task<IEnumerable<ProposalLetter>> GetAllPLservice();
+        Task<IEnumerable<ProposalLetter>> GetAllPLsByUserId(int userId);
         Task<ProposalLetter> GetPLById(int id);
         Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);

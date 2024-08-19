@@ -26,5 +26,16 @@ namespace PLManagement
             }
             return Ok(pLStatuses);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Plstatus>> GetPLStatusById(int id)
+        {
+            var pLStatus = await _service.GetPLStatusById(id);
+            if (pLStatus == null)
+            {
+                return NotFound();
+            }
+            return Ok(pLStatus);
+        }
     }
 }

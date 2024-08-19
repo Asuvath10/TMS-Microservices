@@ -7,5 +7,6 @@ namespace PLManagement.Interfaces.services
     public interface IPLStatusService
     {
         Task<IEnumerable<Plstatus>> GetPLStatuses();
+        Task<Plstatus> GetPLStatusById(int id);
     }
 }

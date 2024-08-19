@@ -18,3 +18,5 @@ Services/DocumentManagement/obj
 Services/DocumentManagement/Resources/Firebase.json
 APIGateway/Logs/log-20240814.txt
 APIGateway/Logs/log20240814.txt
+GlobalException/bin
+GlobalException/obj

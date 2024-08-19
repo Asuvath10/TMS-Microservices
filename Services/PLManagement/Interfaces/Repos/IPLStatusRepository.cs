@@ -8,4 +8,5 @@ namespace PLManagement.Interfaces.Repos;
 public interface IPLStatusRepository
 {
     Task<IEnumerable<Plstatus>> GetPLStatuses();
+    Task<Plstatus> GetPLStatusById(int id);
 }

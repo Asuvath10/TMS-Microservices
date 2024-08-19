@@ -34,8 +34,10 @@ namespace PLManagement
             services.AddControllers();
             services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
+            services.AddTransient<IFormService, FormService>();
             services.AddTransient<IPLStatusService, PLStatusService>();
             services.AddTransient<IPLRepository, PLRepository>();
+            services.AddTransient<IFormRepository, FormRepository>();
             services.AddTransient<IPLStatusRepository, PLStatusRepository>();
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 

@@ -22,6 +22,10 @@ namespace PLManagement.Repositories
         {
             return _dbContext.Plstatuses.AsNoTracking();
         }
+        public async Task<Plstatus> GetPLStatusById(int id)
+        {
+            return _dbContext.Plstatuses.FirstOrDefault(p => p.Id == id);
+        }
 
     }
 }
