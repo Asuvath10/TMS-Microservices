@@ -1,8 +1,13 @@
+using System.Net;
 using DocumentManagement.Interfaces;
 using DocumentManagement.Services;
 using GemBox.Document;
+using Google.Apis.Storage.v1.Data;
 using Google.Cloud.Storage.V1;
+using Microsoft.Extensions.Http;
 using Microsoft.OpenApi.Models;
+using policy;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +27,16 @@ builder.Services.AddCors((setup) =>
         options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     });
 });
+
+builder.Services.AddHttpClient<IApiGatewayService, ApiGatewayService>(client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["APIGateWay:BaseUrl"]);
+            })
+            //Set lifetime to five minutes
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+            // Added retrypolicy for overcome socket exception.
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
+
 //Firebase Configuration Settings.
 builder.Services.AddSingleton<IFirebaseStorageService>(provider =>
 {
@@ -36,8 +51,9 @@ builder.Services.AddSingleton<IFirebaseStorageService>(provider =>
 builder.Services.AddSingleton<IPDFGenerationService>(provider =>
 {
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
+    var http = provider.GetRequiredService<HttpClient>();
     ComponentInfo.SetLicense("Gembox:License");
-    return new PdfGenerationService(FirebaseStorageService);
+    return new PdfGenerationService(FirebaseStorageService, http);
 });
 
 var app = builder.Build();

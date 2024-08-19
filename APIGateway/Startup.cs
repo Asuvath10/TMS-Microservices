@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using GlobalException;
+using policy;
 
 namespace APIGateway
 {
@@ -68,7 +69,7 @@ namespace APIGateway
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
             // Added retrypolicy for overcome socket exception.
-            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
 
             // Setting up services with httpclient
             services.AddHttpClient<IUserManagement, UserManagement>(client =>
@@ -78,7 +79,17 @@ namespace APIGateway
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
             // Added retrypolicy for overcome socket exception.
-            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(GetRetryPolicy()));
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
+
+            // Setting up document services with httpclient
+            services.AddHttpClient<IDocumentManagement, DocumentManagement>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["DocumentService:BaseUrl"]);
+            })
+            //Set lifetime to five minutes
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+            // Added retrypolicy for overcome socket exception.
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
 
             // Adding Ocelot service
             services.AddOcelot();
@@ -151,15 +162,6 @@ namespace APIGateway
             });
 
             await app.UseOcelot();
-        }
-
-        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
-        {
-            return HttpPolicyExtensions
-                .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2,
-                                                                            retryAttempt)));
         }
     }
 }

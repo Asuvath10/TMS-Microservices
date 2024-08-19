@@ -6,7 +6,7 @@ namespace DocumentManagement.Interfaces
 {
     public interface IPDFGenerationService
     {
-        Task<byte[]> GeneratePdf(ProposalLetter proposalLetter, string password, string signatureUrl);
+        Task<byte[]> GeneratePdf(int plId);
 
     }
 }

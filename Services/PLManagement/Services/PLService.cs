@@ -12,14 +12,9 @@ namespace PLManagement.Services
     public class PLService : IPLService
     {
         private readonly IPLRepository _repo;
-
-        private readonly IFirebaseStorageService _storageService;
-        private readonly IPDFGenerationService _pdfGenerationService;
-        public PLService(IPLRepository repo, IFirebaseStorageService storageService, IPDFGenerationService pdfGenerationService)
+        public PLService(IPLRepository repo)
         {
             _repo = repo;
-            _storageService = storageService;
-            _pdfGenerationService = pdfGenerationService;
         }
 
         public async Task<IEnumerable<ProposalLetter>> GetAllPLservice()
