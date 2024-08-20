@@ -7,5 +7,6 @@ namespace PLManagement.Interfaces
     public interface IApiGatewayService
     {
         Task<string> UploadFile(string folderpath, Byte[] file, string contentType);
+        Task<Byte[]> GeneratePDF(int plId);
     }
 }

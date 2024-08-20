@@ -14,7 +14,7 @@ namespace PLManagement.Services
     {
         private readonly IPLRepository _repo;
         private readonly IApiGatewayService _apigatewayService;
-        public PLService(IPLRepository repo, ApiGatewayService apiGatewayService)
+        public PLService(IPLRepository repo, IApiGatewayService apiGatewayService)
         {
             _repo = repo;
             _apigatewayService = apiGatewayService;
@@ -57,10 +57,10 @@ namespace PLManagement.Services
             {
                 throw new InvalidOperationException("Proposal letter not found or status is not pending approval.");
             }
-            var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
-            var signatured = await File.ReadAllBytesAsync(image);
+            // var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
+            // var signatured = await File.ReadAllBytesAsync(image);
 
-            var signatureUrl = await _apigatewayService.UploadFile("signatures", signatured, "image/png");
+            var signatureUrl = await _apigatewayService.UploadFile("signatures", signature, "image/png");
             proposalLetter.ApproverSignUrl = signatureUrl;
 
             proposalLetter.PlstatusId = 5;
@@ -81,15 +81,15 @@ namespace PLManagement.Services
             }
 
             // // Generate Password-Protected PDF using the user's password
-            // var pdfData = _pdfGenerationService.GeneratePdf(proposalLetter, "abcd");
+            var pdfData = await _apigatewayService.GeneratePDF(proposalLetterId);
 
             // Upload PDF to Firebase
-            // var pdfUrl = await _apigatewayService.UploadFile("pdfs", pdfData, "application/pdf");
+            var pdfUrl = await _apigatewayService.UploadFile("pdfs", pdfData, "application/pdf");
 
             // Check for already it is approved
             if (proposalLetter.ApproverSignUrl != null)
             {
-                // proposalLetter.PdfUrl = pdfUrl;
+                proposalLetter.PdfUrl = pdfUrl;
                 //Save the PDF URL.
                 await _repo.UpdateProposalLetter(proposalLetter);
             }

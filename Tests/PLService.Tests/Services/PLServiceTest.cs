@@ -2,8 +2,8 @@ using PLservice.Tests.MockData;
 using PLManagement.Services;
 using Moq;
 using PLManagement.Interfaces.Repos;
-using PLManagement.Interfaces.services;
 using TMS.Models;
+using PLManagement.Interfaces;
 
 namespace PLservice.Tests.Services
 {
@@ -11,15 +11,14 @@ namespace PLservice.Tests.Services
     {
         private readonly PLService _service;
         private readonly Mock<IPLRepository> _mockRepo;
-        private readonly Mock<IFirebaseStorageService> _mockcloudservice;
-        private readonly Mock<IPDFGenerationService> _mockpdfservice;
+        private readonly Mock<IApiGatewayService> _mockapigatewayservice;
 
         public PLServiceTest()
         {
             _mockRepo = new Mock<IPLRepository>();
-            _mockcloudservice = new Mock<IFirebaseStorageService>();
-            _mockpdfservice = new Mock<IPDFGenerationService>();
-            _service = new PLService(_mockRepo.Object, _mockcloudservice.Object, _mockpdfservice.Object);
+            _mockapigatewayservice = new Mock<IApiGatewayService>();
+
+            _service = new PLService(_mockRepo.Object, _mockapigatewayservice.Object);
         }
 
         [Fact]
@@ -134,7 +133,7 @@ namespace PLservice.Tests.Services
                 .ReturnsAsync(proposalLetter);
             var signature = new Byte[] { 1, 2, 3, 4, 5 };
             var signatureUrl = "https://storage.googleapis.com/fake-bucket/signatures/some-signature";
-            _mockcloudservice.Setup(s => s.UploadFileAsync(It.IsAny<string>(), It.IsAny<byte[]>(), "image/png"))
+            _mockapigatewayservice.Setup(s => s.UploadFile(It.IsAny<string>(), It.IsAny<byte[]>(), "image/png"))
                 .ReturnsAsync(signatureUrl);
 
             // Act
@@ -185,14 +184,14 @@ namespace PLservice.Tests.Services
             _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
                 .ReturnsAsync(proposalLetter);
 
-            var pdfData = new byte[] { 1, 2, 3, 4 };
-            _mockpdfservice.Setup(ps => ps.GeneratePdf(It.IsAny<ProposalLetter>(), It.IsAny<string>()))
-                .Returns(pdfData);
+            Byte[] pdfData = new byte[] { 1, 2, 3, 4 };
+            _mockapigatewayservice.Setup(ps => ps.GeneratePDF(It.IsAny<int>()))
+                .ReturnsAsync(pdfData);
 
             var pdfUrl = "https://storage.googleapis.com/fake-bucket/pdfs/some-pdf";
             //Sample url for approver sign
             proposalLetter.ApproverSignUrl = pdfUrl;
-            _mockcloudservice.Setup(s => s.UploadFileAsync("pdfs", pdfData, "application/pdf"))
+            _mockapigatewayservice.Setup(s => s.UploadFile("pdfs", pdfData, "application/pdf"))
                 .ReturnsAsync(pdfUrl);
 
             // Act

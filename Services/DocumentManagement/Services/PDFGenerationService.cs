@@ -14,13 +14,11 @@ namespace DocumentManagement.Services
     {
         private readonly IFirebaseStorageService _storageService;
         private readonly IApiGatewayService _apiGatewayService;
-        private readonly HttpClient _httpClient;
 
-        public PdfGenerationService(IFirebaseStorageService storageService, HttpClient httpClient, IApiGatewayService apiGatewayService)
+        public PdfGenerationService(IFirebaseStorageService storageService, IApiGatewayService apiGatewayService)
         {
             _storageService = storageService;
             _apiGatewayService = apiGatewayService;
-            _httpClient = httpClient;
         }
         public async Task<byte[]> GeneratePdf(int plId)
         {

@@ -27,5 +27,13 @@ namespace PLManagement.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             return responseContent;
         }
+
+        public async Task<Byte[]> GeneratePDF(int plId)
+        {
+            var response = await _httpClient.GetAsync($"/api/Document/generate?plId={plId}");
+            response.EnsureSuccessStatusCode();
+            byte[] file = await response.Content.ReadAsByteArrayAsync();
+            return file;
+        }
     }
 }

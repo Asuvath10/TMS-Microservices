@@ -36,5 +36,13 @@ namespace APIGateway.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             return responseContent;
         }
+
+        public async Task<Byte[]> GeneratePDF(int plId)
+        {
+            var response = await _httpClient.GetAsync($"/api/Document/GeneratePdf?plId={plId}");
+            response.EnsureSuccessStatusCode();
+            byte[] file = await response.Content.ReadAsByteArrayAsync();
+            return file;
+        }
     }
 }

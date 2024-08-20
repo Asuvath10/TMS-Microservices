@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Services\PLManagement\PLManagement.csproj" />
     <ProjectReference Include="..\..\Services\UserManagement\UserManagement.csproj" />
     <ProjectReference Include="..\..\TMS.Models\TMS.Models.csproj" />
+    <ProjectReference Include="..\..\Services\DocumentManagement\DocumentManagement.csproj" />
   </ItemGroup>
 
 </Project>

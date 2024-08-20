@@ -27,8 +27,16 @@ namespace APIGateway.Controllers
         [HttpGet("downloadFile")]
         public async Task<IActionResult> DownloadFile(string fileUrl)
         {
-            var Users = await _service.DownloadFile(fileUrl);
-            return Ok(Users);
+            var File = await _service.DownloadFile(fileUrl);
+            return Ok(File);
+        }
+
+        // Get: generatepdf
+        [HttpGet("GeneratePdf")]
+        public async Task<IActionResult> GeneratePdf(int plId)
+        {
+            var File = await _service.GeneratePDF(plId);
+            return Ok(File);
         }
 
         // Upload file
@@ -38,6 +46,7 @@ namespace APIGateway.Controllers
             var url = await _service.UploadFile(folderpath, file, contentType);
             return Ok(url);
         }
-        
+
+
     }
 }
