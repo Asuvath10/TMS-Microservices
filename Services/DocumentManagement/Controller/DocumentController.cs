@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocumentManagement.Interfaces;
+using GemBox.Document;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DocumentManagement.Controller
+namespace DocumentManagement.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -34,7 +35,7 @@ namespace DocumentManagement.Controller
         public async Task<IActionResult> downloadFile(string fileUrl)
         {
             if (fileUrl == null)
-            return BadRequest("No URL is detected for the file path");
+                return BadRequest("No URL is detected for the file path");
             var file = await _storageService.DownloadFileAsync(fileUrl);
             return Ok(file);
         }
@@ -42,6 +43,10 @@ namespace DocumentManagement.Controller
         [HttpGet("generate")]
         public async Task<IActionResult> GenerateDocument(int plId)
         {
+            if (plId == 0)
+            {
+                return BadRequest("No URL is detected for the file path");
+            }
             var pdfData = await _pdfService.GeneratePdf(plId);
             return File(pdfData, "application/pdf", "Document.pdf");
         }

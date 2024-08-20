@@ -2,6 +2,7 @@ using System.Net;
 using DocumentManagement.Interfaces;
 using DocumentManagement.Services;
 using GemBox.Document;
+using GlobalException;
 using Google.Apis.Storage.v1.Data;
 using Google.Cloud.Storage.V1;
 using Microsoft.Extensions.Http;
@@ -14,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(c =>
@@ -52,7 +54,7 @@ builder.Services.AddSingleton<IPDFGenerationService>(provider =>
 {
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
     var apiGatewayService = provider.GetRequiredService<IApiGatewayService>();
-    ComponentInfo.SetLicense("Gembox:License");
+    ComponentInfo.SetLicense("FREE-LIMITED-KEY");
     return new PdfGenerationService(FirebaseStorageService, apiGatewayService);
 });
 
@@ -65,6 +67,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentManagement v1"));
 }
 app.UseCors("default");
+app.UseRouting();
+// app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseHttpsRedirection();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
-app.Run();
+await app.RunAsync();

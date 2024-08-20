@@ -42,12 +42,12 @@ namespace DocumentManagement.Services
             if (!string.IsNullOrEmpty(proposalLetter.ApproverSignUrl))
             {
                 paragraph.Inlines.Add(new Run(document, $"Signature: "));
-                var signature = await _storageService.DownloadFileAsync(proposalLetter.ApproverSignUrl);
-                using (var imagestream = new MemoryStream(signature))
-                {
-                    var image = new Picture(document, imagestream);
-                    paragraph.Inlines.Add(image);
-                }
+                // var signature = await _storageService.DownloadFileAsync(proposalLetter.ApproverSignUrl);
+                // using (var imagestream = new MemoryStream(signature))
+                // {
+                //     var image = new Picture(document, imagestream);
+                //     paragraph.Inlines.Add(image);
+                // }
             }
 
             // Save document to a stream.

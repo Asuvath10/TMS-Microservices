@@ -20,11 +20,12 @@ namespace DocumentManagement.Services
         public async Task<ProposalLetter> GetPLbyAPIGateway(int plId)
         {
             //Get PL from the API Gateway
-            var response = await _httpClient.GetAsync($"/api/Proposal/{plId}");
+            var response = await _httpClient.GetAsync($"/api/ProposalLetter/{plId}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(content);
-            if (proposalLetter == null){
+            if (proposalLetter == null)
+            {
                 throw new InvalidOperationException("ProposalLetter is null");
             }
             return proposalLetter;

@@ -39,7 +39,7 @@ namespace APIGateway.Services
 
         public async Task<Byte[]> GeneratePDF(int plId)
         {
-            var response = await _httpClient.GetAsync($"/api/Document/GeneratePdf?plId={plId}");
+            var response = await _httpClient.GetAsync($"/api/Document/generate?plId={plId}");
             response.EnsureSuccessStatusCode();
             byte[] file = await response.Content.ReadAsByteArrayAsync();
             return file;
