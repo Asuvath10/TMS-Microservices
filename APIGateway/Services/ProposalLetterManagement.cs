@@ -67,14 +67,14 @@ namespace APIGateway.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to update ProposalLetter. Status Code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
+                throw new InvalidOperationException($"Failed to update ProposalLetter. Status Code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
 
             if (response.Content.Headers.ContentType.MediaType != "application/json")
             {
-                throw new Exception("Unexpected content type received from the server.");
+                throw new InvalidOperationException("Unexpected content type received from the server.");
             }
 
             var updatedProposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
@@ -106,6 +106,75 @@ namespace APIGateway.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
             return proposalLetter;
+        }
+
+        //Form calls 
+        public async Task<List<Form>> GetAllForms()
+        {
+            var response = await _httpClient.GetAsync("/api/Form/Forms");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var forms = JsonConvert.DeserializeObject<List<Form>>(content);
+            return forms;
+        }
+        public async Task<List<Form>> GetallFormsByPLId(int PLid)
+        {
+            var response = await _httpClient.GetAsync($"/api/Form/GetallFormsByPLId/{PLid}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var forms = JsonConvert.DeserializeObject<List<Form>>(content);
+            return forms;
+        }
+        public async Task<Form> GetFormById(int id)
+        {
+            var response = await _httpClient.GetAsync($"/api/Form/GetForm/{id}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var form = JsonConvert.DeserializeObject<Form>(content);
+            return form;
+        }
+
+        public async Task<int> CreateForm(Form form)
+        {
+            var jsonContent = JsonConvert.SerializeObject(form);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("/api/Form/CreateForm", content);
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            int createdFormId = int.Parse(responseContent);
+            return createdFormId;
+        }
+
+        public async Task<Form> UpdateForm(Form form)
+        {
+            var jsonContent = JsonConvert.SerializeObject(form);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"/api/Form/UpdateForm/{form.Id}", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException($"Failed to update ProposalLetter. Status Code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (response.Content.Headers.ContentType.MediaType != "application/json")
+            {
+                throw new InvalidOperationException("Unexpected content type received from the server.");
+            }
+
+            var updatedform = JsonConvert.DeserializeObject<Form>(responseContent);
+
+            return updatedform;
+        }
+
+        public async Task<bool> DeleteForm(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/Form/DeleteForm/{id}");
+            return response.IsSuccessStatusCode;
         }
     }
 }

@@ -124,7 +124,76 @@ namespace APIGateway.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        // Get: Forms
+        [HttpGet("FormByPLId/{PLid}")]
+        public async Task<IActionResult> GetAllFormsByPLId(int PLid)
+        {
+            var proposalLetters = await _service.GetallFormsByPLId(PLid);
+            return Ok(proposalLetters);
+        }
 
+        [HttpGet("GetallForms")]
+        public async Task<IActionResult> GetAllForms()
+        {
+            var statuses = await _service.GetAllForms();
+            return Ok(statuses);
+        }
+
+        // GET: form/{id}
+        [HttpGet("Form/{id}")]
+        public async Task<IActionResult> GetFormById(int id)
+        {
+            var proposalLetter = await _service.GetFormById(id);
+            if (proposalLetter == null)
+            {
+                return NotFound();
+            }
+            return Ok(proposalLetter);
+        }
+
+        // POST: Form
+        [HttpPost("CreateForm")]
+        public async Task<IActionResult> CreateForm([FromBody] Form form)
+        {
+            if (form == null)
+            {
+                return BadRequest("form data is null.");
+            }
+
+            int createdformId = await _service.CreateForm(form);
+            return Ok(createdformId);
+        }
+
+        // PUT: Form/{id}
+        [HttpPut("UpdateForm/{id}")]
+        public async Task<IActionResult> UpdateForm(int id, [FromBody] Form form)
+        {
+            if (form == null || id != form.Id)
+            {
+                return BadRequest("Invalid form data.");
+            }
+
+            var updatedProposalLetter = await _service.UpdateForm(form);
+            if (updatedProposalLetter == null)
+            {
+                return NotFound();
+            }
+
+            return Ok("Form updated successfully.");
+        }
+
+        // DELETE: Form/{id}
+        [HttpDelete("DeleteForm/{id}")]
+        public async Task<IActionResult> DeleteForm(int id)
+        {
+            var result = await _service.DeleteForm(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return Ok("Form deleted successfully.");
+        }
 
     }
 }

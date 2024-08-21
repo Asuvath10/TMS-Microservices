@@ -20,11 +20,11 @@ namespace PLManagement.Repositories
 
         public async Task<IEnumerable<Plstatus>> GetPLStatuses()
         {
-            return _dbContext.Plstatuses.AsNoTracking();
+            return await _dbContext.Plstatuses.AsNoTracking().ToListAsync();
         }
         public async Task<Plstatus> GetPLStatusById(int id)
         {
-            return _dbContext.Plstatuses.FirstOrDefault(p => p.Id == id);
+            return await _dbContext.Plstatuses.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
 
     }

@@ -25,7 +25,7 @@ public class AuthenticationService : IAuthenticationService
         {
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Name, user.Name),
-            new Claim(ClaimTypes.Role, user.Role!.RoleName!),
+            new Claim("Role", user.Role!.RoleName!),
             new Claim("RoleId", user.RoleId.ToString()),
             new Claim("UserId", user.Id.ToString()),
             new Claim("FullName", user.FullName!)

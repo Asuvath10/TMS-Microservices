@@ -81,15 +81,15 @@ namespace PLManagement.Services
             }
 
             // // Generate Password-Protected PDF using the user's password
-            var pdfData = await _apigatewayService.GeneratePDF(proposalLetterId);
+            // var pdfData = await _apigatewayService.GeneratePDF(proposalLetterId);
 
             // Upload PDF to Firebase
-            var pdfUrl = await _apigatewayService.UploadFile("pdfs", pdfData, "application/pdf");
+            // var pdfUrl = await _apigatewayService.UploadFile("pdfs", pdfData, "application/pdf");
 
             // Check for already it is approved
             if (proposalLetter.ApproverSignUrl != null)
             {
-                proposalLetter.PdfUrl = pdfUrl;
+                // proposalLetter.PdfUrl = pdfUrl;
                 //Save the PDF URL.
                 await _repo.UpdateProposalLetter(proposalLetter);
             }

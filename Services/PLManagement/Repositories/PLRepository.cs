@@ -21,12 +21,12 @@ public class PLRepository : IPLRepository
 
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLetter()
     {
-        var proposal = _dbContext.ProposalLetters;
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().ToListAsync();
         return proposal;
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByUserId(int userId)
     {
-        var proposal = _dbContext.ProposalLetters.Where(p => p.UserId == userId).ToList();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.UserId == userId).ToListAsync();
         return proposal;
     }
 

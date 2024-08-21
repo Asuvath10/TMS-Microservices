@@ -83,7 +83,7 @@ namespace APIGateway.Controllers
         }
 
         // DELETE: User/{id}
-        [HttpPut("{id}/DisableUser")]
+        [HttpPut("DisableUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var result = await _service.DisableUser(id);

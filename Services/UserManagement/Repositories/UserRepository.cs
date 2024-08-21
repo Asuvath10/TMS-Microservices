@@ -18,7 +18,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsers()
     {
-        return _dbContext.Users;
+        return _dbContext.Users.AsNoTracking();
     }
 
     public async Task<User> GetUserById(int id)

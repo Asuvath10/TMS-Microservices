@@ -19,21 +19,21 @@ namespace PLManagement
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("Forms")]
         public async Task<ActionResult<IEnumerable<Form>>> GetAllForms()
         {
             var Forms = await _service.GetAllForms();
             return Ok(Forms);
         }
 
-        [HttpGet("GetallPLsByPLId/{PLId}")]
+        [HttpGet("GetallFormsByPLId/{PLId}")]
         public async Task<ActionResult<IEnumerable<Form>>> GetAllFormsByPLId(int PLId)
         {
             var Forms = await _service.GetAllFormsByPLId(PLId);
             return Ok(Forms);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetForm/{id}")]
         public async Task<ActionResult<Form>> GetFormById(int id)
         {
             var Form = await _service.GetFormById(id);
@@ -44,7 +44,7 @@ namespace PLManagement
             return Ok(Form);
         }
 
-        [HttpPost]
+        [HttpPost("CreateForm")]
         public async Task<IActionResult> Post([FromBody] Form Form)
         {
             if (Form == null) { return BadRequest("Request is null"); }
@@ -52,7 +52,7 @@ namespace PLManagement
             return Ok(CreatedFormId);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateForm/{id}")]
         public async Task<IActionResult> UpdateForm(int id, [FromBody] Form Form)
         {
             if (id != Form.Id)
@@ -69,7 +69,7 @@ namespace PLManagement
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteForm/{id}")]
         public async Task<IActionResult> DeleteForm(int id)
         {
             var result = await _service.DeleteForm(id);
@@ -77,7 +77,7 @@ namespace PLManagement
             {
                 return NotFound();
             }
-            return Ok("Proposal Letter Deleted Successfully");
+            return Ok("Form Deleted Successfully");
         }
     }
 }

@@ -21,42 +21,42 @@ public class FormRepository : IFormRepository
 
     public async Task<IEnumerable<Form>> GetAllForm()
     {
-        var forms = _dbContext.Forms;
+        var forms = _dbContext.Forms.AsNoTracking();
         return forms;
     }
-    public async Task<IEnumerable<Form>> GetAllFormsByPLId(int PLId)
+    public async Task<IEnumerable<Form>> GetAllFormsByPLId(int PLid)
     {
-        var forms = _dbContext.Forms.Where(p => p.Id == PLId).ToList();
+        var forms = await _dbContext.Forms.AsNoTracking().Where(p => p.Id == PLid).ToListAsync();
         return forms;
     }
 
     public async Task<Form> GetFormById(int id)
     {
-        return await _dbContext.Forms.FirstOrDefaultAsync(p => p.Id == id);
+        return await _dbContext.Forms.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<int> CreateForm(Form Form)
+    public async Task<int> CreateForm(Form form)
     {
-        _dbContext.Forms.Add(Form);
+        _dbContext.Forms.Add(form);
         await _dbContext.SaveChangesAsync();
-        return Form.Id;
+        return form.Id;
     }
 
-    public async Task<Form> UpdateForm(Form Form)
+    public async Task<Form> UpdateForm(Form form)
     {
-        _dbContext.Forms.Update(Form);
+        _dbContext.Forms.Update(form);
         await _dbContext.SaveChangesAsync();
-        return Form;
+        return form;
     }
 
     public async Task<bool> DeleteForm(int id)
     {
-        var Form = await _dbContext.Forms.FindAsync(id);
-        if (Form == null)
+        var form = await _dbContext.Forms.FindAsync(id);
+        if (form == null)
         {
             return false;
         }
-        _dbContext.Forms.Remove(Form);
+        _dbContext.Forms.Remove(form);
         await _dbContext.SaveChangesAsync();
         return true;
     }
