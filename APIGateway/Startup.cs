@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using GlobalException;
 using policy;
+using System.Threading.Tasks;
 
 namespace APIGateway
 {
@@ -65,6 +66,7 @@ namespace APIGateway
             services.AddHttpClient<IProposalLetterManagement, ProposalLetterManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["ProposalService:BaseUrl"]);
+                client.Timeout= TimeSpan.FromSeconds(30);
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -75,6 +77,7 @@ namespace APIGateway
             services.AddHttpClient<IUserManagement, UserManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["UserService:BaseUrl"]);
+                client.Timeout= TimeSpan.FromSeconds(30);
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -85,6 +88,8 @@ namespace APIGateway
             services.AddHttpClient<IDocumentManagement, DocumentManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["DocumentService:BaseUrl"]);
+                client.Timeout= TimeSpan.FromSeconds(30);
+
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))

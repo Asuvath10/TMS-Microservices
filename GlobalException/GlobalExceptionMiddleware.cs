@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Net.Sockets;
 
 namespace GlobalException
 {
@@ -42,6 +43,12 @@ namespace GlobalException
             {
                 _logger.LogWarning(ex, "Invalid Operation : {Message}", ex.Message);
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await context.Response.WriteAsJsonAsync(new { message = ex.Message });
+            }
+            catch (SocketException ex)
+            {
+                _logger.LogWarning(ex, "Socket Exception : {Message}", ex.Message);
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 await context.Response.WriteAsJsonAsync(new { message = ex.Message });
             }
             catch (Exception ex)

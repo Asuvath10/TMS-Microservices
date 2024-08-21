@@ -27,7 +27,7 @@ namespace PLManagement
             return Ok(pLStatuses);
         }
 
-        [HttpGet("PLStatus/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Plstatus>> GetPLStatusById(int id)
         {
             var pLStatus = await _service.GetPLStatusById(id);

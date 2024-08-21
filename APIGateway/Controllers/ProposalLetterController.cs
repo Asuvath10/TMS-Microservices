@@ -23,15 +23,7 @@ namespace APIGateway.Controllers
             _service = service;
         }
 
-        // Get: ProposalLetters
-        [HttpGet]
-        public async Task<IActionResult> GetAllProposalLetters()
-        {
-            var proposalLetters = await _service.GetAllProposals();
-            return Ok(proposalLetters);
-        }
-
-        // Get: PL Statuses 
+        // PL Statuses Endpoint
         [HttpGet("PLStatuses")]
         public async Task<IActionResult> GetAllStatuses()
         {
@@ -39,7 +31,31 @@ namespace APIGateway.Controllers
             return Ok(statuses);
         }
 
-        // GET: ProposalLetter/{id}
+        [HttpGet("PLStatus/{id}")]
+        public async Task<IActionResult> GetPLStatusById(int id)
+        {
+            var PLStatus = await _service.GetPLStatusById(id);
+            if (PLStatus == null)
+            {
+                return NotFound();
+            }
+            return Ok(PLStatus);
+        }
+
+        //ProposalLetter End points
+        [HttpGet]
+        public async Task<IActionResult> GetAllProposalLetters()
+        {
+            var proposalLetters = await _service.GetAllProposals();
+            return Ok(proposalLetters);
+        }
+        [HttpGet("GetallPLByUserId")]
+        public async Task<IActionResult> GetAllProposalLettersByUserId(int userid)
+        {
+            var proposalLetters = await _service.GetProposalLettersByUserId(userid);
+            return Ok(proposalLetters);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProposalLetterById(int id)
         {
@@ -51,7 +67,6 @@ namespace APIGateway.Controllers
             return Ok(proposalLetter);
         }
 
-        // POST: ProposalLetter
         [HttpPost]
         public async Task<IActionResult> CreateProposalLetter([FromBody] ProposalLetter proposalLetter)
         {
@@ -64,7 +79,6 @@ namespace APIGateway.Controllers
             return Ok(createdProposalLetterId);
         }
 
-        // PUT: ProposalLetter/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProposalLetter(int id, [FromBody] ProposalLetter proposalLetter)
         {
@@ -82,7 +96,6 @@ namespace APIGateway.Controllers
             return Ok("Proposal letter updated successfully.");
         }
 
-        // DELETE: ProposalLetter/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProposalLetter(int id)
         {
@@ -110,7 +123,7 @@ namespace APIGateway.Controllers
             }
         }
 
-        // GET: ProposalLetter/{PLid}/generate-pdf
+        // put: ProposalLetter/{PLid}/generate-pdf
         [HttpPut("{PLid}/generate-pdfurl")]
         public async Task<IActionResult> GeneratePdf(int PLid)
         {
@@ -124,7 +137,8 @@ namespace APIGateway.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        // Get: Forms
+
+        // Forms Endpoint
         [HttpGet("FormByPLId/{PLid}")]
         public async Task<IActionResult> GetAllFormsByPLId(int PLid)
         {

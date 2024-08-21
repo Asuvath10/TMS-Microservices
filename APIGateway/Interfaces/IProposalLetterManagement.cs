@@ -10,7 +10,9 @@ namespace APIGateway.Interfaces
     {
         Task<List<ProposalLetter>> GetAllProposals();
         Task<List<Plstatus>> GetAllStatuses();
+        Task<Plstatus> GetPLStatusById(int id);
         Task<ProposalLetter> GetProposalLetterById(int id);
+        Task<List<ProposalLetter>> GetProposalLettersByUserId(int userid);
         Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
         Task<bool> DeleteProposalLetter(int id);
