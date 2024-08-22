@@ -9,7 +9,9 @@ namespace APIGateway.Interfaces
     public interface IUserManagement
     {
         Task<List<User>> GetAllUsers();
+        Task<List<User>> GetAllUsersByRoleId(int roleId);
         Task<List<Role>> GetAllRoles();
+        Task<Role> GetRoleById(int id);
         Task<User> GetUserById(int id);
         Task<User> GetUserByEmail(string email);
         Task<int> CreateUser(User User);

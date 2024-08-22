@@ -20,5 +20,9 @@ namespace UserManagement.Services
         {
             return await _repo.GetRoles();
         }
+        public async Task<Role> GetRoleById(int id)
+        {
+            return await _repo.GetRolebyId(id);
+        }
     }
 }

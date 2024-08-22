@@ -47,7 +47,7 @@ namespace APIGateway.Controllers
                     FullName = register.FullName,
                     Disable = false,
                     CreatedOn = DateTime.Now,
-                    CreatedBy = 2
+                    CreatedBy = register.CreatedBy
                 };
                 int CreateUser = await _userService.CreateUser(newuser);
                 return Ok(CreateUser);

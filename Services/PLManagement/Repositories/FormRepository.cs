@@ -26,7 +26,7 @@ public class FormRepository : IFormRepository
     }
     public async Task<IEnumerable<Form>> GetAllFormsByPLId(int PLid)
     {
-        var forms = await _dbContext.Forms.AsNoTracking().Where(p => p.Id == PLid).ToListAsync();
+        var forms = await _dbContext.Forms.AsNoTracking().Where(p => p.Plid == PLid).ToListAsync();
         return forms;
     }
 

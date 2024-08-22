@@ -55,6 +55,12 @@ namespace APIGateway.Controllers
             var proposalLetters = await _service.GetProposalLettersByUserId(userid);
             return Ok(proposalLetters);
         }
+        [HttpGet("GetallPLByStatusId/{statusid}")]
+        public async Task<IActionResult> GetAllProposalLettersByStatusId(int statusid)
+        {
+            var proposalLetters = await _service.GetProposalLettersByStatusId(statusid);
+            return Ok(proposalLetters);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProposalLetterById(int id)

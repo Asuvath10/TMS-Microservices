@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UserManagement.Interfaces.Repo;
 using TMS.Models;
+using System.Linq;
 
 namespace UserManagement.Repositories;
 
@@ -19,6 +20,10 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<User>> GetAllUsers()
     {
         return _dbContext.Users.AsNoTracking();
+    }
+    public async Task<IEnumerable<User>> GetAllUsersByRoleId(int roleid)
+    {
+        return await _dbContext.Users.AsNoTracking().Where(u => u.RoleId == roleid).ToListAsync();
     }
 
     public async Task<User> GetUserById(int id)

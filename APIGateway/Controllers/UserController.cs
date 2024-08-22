@@ -30,12 +30,25 @@ namespace APIGateway.Controllers
             var Users = await _service.GetAllUsers();
             return Ok(Users);
         }
+        [HttpGet("GetAllUsersByRoleId/{roleId}")]
+        public async Task<IActionResult> GetAllUsersByroleId(int roleId)
+        {
+            var Users = await _service.GetAllUsersByRoleId(roleId);
+            return Ok(Users);
+        }
 
         // Get: Users
         [HttpGet("Roles")]
         public async Task<IActionResult> GetAllRoles()
         {
             var Users = await _service.GetAllRoles();
+            return Ok(Users);
+        }
+
+        [HttpGet("RoleById/{id}")]
+        public async Task<IActionResult> GetRoleById(int id)
+        {
+            var Users = await _service.GetRoleById(id);
             return Ok(Users);
         }
 

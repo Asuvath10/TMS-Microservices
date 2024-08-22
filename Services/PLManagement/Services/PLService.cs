@@ -29,6 +29,10 @@ namespace PLManagement.Services
         {
             return await _repo.GetAllProposalLettersByUserId(userId);
         }
+        public async Task<IEnumerable<ProposalLetter>> GetAllPLsByStatusId(int statusId)
+        {
+            return await _repo.GetAllProposalLettersByStatusId(statusId);
+        }
 
         public async Task<ProposalLetter> GetPLById(int id)
         {

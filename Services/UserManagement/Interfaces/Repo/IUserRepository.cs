@@ -7,6 +7,7 @@ namespace UserManagement.Interfaces.Repo;
 public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllUsers();
+    Task<IEnumerable<User>> GetAllUsersByRoleId(int roleid);
     Task<User> GetUserById(int id);
     Task<User> GetUserByemail(string email);
     Task<int> CreateUser(User user);

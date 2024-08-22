@@ -25,6 +25,12 @@ namespace UserManagement
             var Users = await _service.GetAllUsers();
             return Ok(Users);
         }
+        [HttpGet("GetAllUsersByRoleId/{roleId}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsersByRoleId(int roleId)
+        {
+            var Users = await _service.GetAllUsersByRoleId(roleId);
+            return Ok(Users);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById(int id)

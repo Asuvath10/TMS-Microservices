@@ -11,5 +11,6 @@ namespace APIGateway.Models
         public string Password { get; set; }
         public string Address { get; set; }
         public string Pan { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace PLManagement.Interfaces.services
         Task<bool> DeleteProposalLetter(int id);
         Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, Byte[] signature);
         Task<ProposalLetter> AddPdf(int proposalLetterId);
+        Task<IEnumerable<ProposalLetter>> GetAllPLsByStatusId(int statusId);
     }
 }

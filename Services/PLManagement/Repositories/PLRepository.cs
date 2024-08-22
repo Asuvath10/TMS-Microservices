@@ -29,6 +29,11 @@ public class PLRepository : IPLRepository
         var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.UserId == userId).ToListAsync();
         return proposal;
     }
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByStatusId(int statusId)
+    {
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.PlstatusId == statusId).ToListAsync();
+        return proposal;
+    }
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)
     {
@@ -37,6 +42,7 @@ public class PLRepository : IPLRepository
 
     public async Task<int> CreateProposalLetter(ProposalLetter proposalLetter)
     {
+        proposalLetter.CreatedOn = DateTime.Now;
         _dbContext.ProposalLetters.Add(proposalLetter);
         await _dbContext.SaveChangesAsync();
         return proposalLetter.Id;

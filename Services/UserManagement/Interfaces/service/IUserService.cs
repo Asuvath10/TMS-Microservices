@@ -8,6 +8,7 @@ namespace UserManagement.Interfaces.service
     public interface IUserService
     {
         Task<IEnumerable<User>> GetAllUsers();
+        Task<IEnumerable<User>> GetAllUsersByRoleId(int roleId);
         Task<User> GetUserById(int id);
         Task<User> GetUserByEmail(string email);
         Task<int> CreateUser(User user);

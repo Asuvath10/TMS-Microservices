@@ -27,6 +27,14 @@ namespace APIGateway.Services
             var Users = JsonConvert.DeserializeObject<List<User>>(content);
             return Users;
         }
+        public async Task<List<User>> GetAllUsersByRoleId(int roleId)
+        {
+            var response = await _httpClient.GetAsync($"/api/User/GetAllUsersByRoleId/{roleId}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var Users = JsonConvert.DeserializeObject<List<User>>(content);
+            return Users;
+        }
         public async Task<List<Role>> GetAllRoles()
         {
             var response = await _httpClient.GetAsync("/Role");
@@ -42,6 +50,14 @@ namespace APIGateway.Services
             var content = await response.Content.ReadAsStringAsync();
             var User = JsonConvert.DeserializeObject<User>(content);
             return User;
+        }
+        public async Task<Role> GetRoleById(int id)
+        {
+            var response = await _httpClient.GetAsync($"/Role/GetRoleByid?id={id}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var Role = JsonConvert.DeserializeObject<Role>(content);
+            return Role;
         }
         public async Task<User> GetUserByEmail(string email)
         {
@@ -110,7 +126,7 @@ namespace APIGateway.Services
             var user = await GetUserByEmail(email);
 
             if (user == null)
-            {   
+            {
                 //Email is available
                 return true;
             }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using UserManagement.Interfaces.Repo;
 using UserManagement.Models;
 using TMS.Models;
+using System.Linq;
 
 namespace UserManagement.Repositories
 {
@@ -19,6 +20,10 @@ namespace UserManagement.Repositories
         public async Task<IEnumerable<Role>> GetRoles()
         {
             return _dbContext.Roles.AsNoTracking();
+        }
+        public async Task<Role> GetRolebyId(int id)
+        {
+            return await _dbContext.Roles.AsNoTracking().FirstOrDefaultAsync(r=> r.Id == id);
         }
     }
 }

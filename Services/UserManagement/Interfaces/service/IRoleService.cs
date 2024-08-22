@@ -7,5 +7,6 @@ namespace UserManagement.Interfaces.service
     public interface IRoleService
     {
         Task<IEnumerable<Role>> GetRoles();
+        Task<Role> GetRoleById(int id);
     }
 }

@@ -25,6 +25,12 @@ namespace UserManagement.Controllers
             return Ok(Roles);
         }
 
+        [HttpGet("GetRoleByid")]
+        public async Task<ActionResult> GetRoleById(int id)
+        {
+            var Roles = await _service.GetRoleById(id);
+            return Ok(Roles);
+        }
 
     }
 }

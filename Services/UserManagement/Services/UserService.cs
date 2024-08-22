@@ -21,6 +21,10 @@ namespace UserManagement.Services
         {
             return await _repo.GetAllUsers();
         }
+        public async Task<IEnumerable<User>> GetAllUsersByRoleId(int roleId)
+        {
+            return await _repo.GetAllUsersByRoleId(roleId);
+        }
 
         public async Task<User> GetUserById(int id)
         {
