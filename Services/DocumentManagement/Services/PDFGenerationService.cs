@@ -7,22 +7,24 @@ using GemBox.Document;
 using DocumentManagement.Interfaces;
 using SixLabors.ImageSharp;
 using Newtonsoft.Json;
+using TMS.Models;
 
 namespace DocumentManagement.Services
 {
     public class PdfGenerationService : IPDFGenerationService
     {
         private readonly IFirebaseStorageService _storageService;
-        private readonly IApiGatewayService _apiGatewayService;
+        private readonly IPLCallService _PLService;
 
-        public PdfGenerationService(IFirebaseStorageService storageService, IApiGatewayService apiGatewayService)
+        public PdfGenerationService(IFirebaseStorageService storageService, IPLCallService PLService)
         {
             _storageService = storageService;
-            _apiGatewayService = apiGatewayService;
+            _PLService = PLService;
         }
         public async Task<byte[]> GeneratePdf(int plId)
         {
-            var proposalLetter = await _apiGatewayService.GetPLbyAPIGateway(plId);
+            var proposalLetter = await _PLService.GetPLbyAPIGateway(plId);
+            List<Form> forms = await _PLService.GetallFormsByPLId(plId);
 
             // Create a new document.
             var document = new DocumentModel();
@@ -31,24 +33,59 @@ namespace DocumentManagement.Services
             var section = new Section(document);
             document.Sections.Add(section);
 
-            var paragraph = new Paragraph(document);
-            section.Blocks.Add(paragraph);
+            var header = new HeaderFooter(document, HeaderFooterType.HeaderDefault);
+            var headerParagraph = new Paragraph(document);
+            headerParagraph.Inlines.Add(new Run(document, "User: UserName"));
+            headerParagraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
+            headerParagraph.Inlines.Add(new Run(document, $"Assessment Year: {proposalLetter.AssessmentYear}"));
 
-            paragraph.Inlines.Add(new Run(document, $"User: UserName"));
-            paragraph.Inlines.Add(new Run(document, $"Asssessment year: {proposalLetter.AssessmentYear}"));
-            paragraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
-            // paragraph.Inlines.Add(new Run(document, signature, Image));
+            header.Blocks.Add(headerParagraph);
+            section.HeadersFooters.Add(header);
+            // foreach (var form in forms)
+            // {
+            //     // Create a paragraph for the form name with bold formatting.
+            //     var formParagraph = new Paragraph(document);
+            //     formParagraph.Inlines.Add(new Run(document, form.Name)
+            //     {
+            //         CharacterFormat = new CharacterFormat() { Bold = true }
+            //     });
+            //     formParagraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
+            //     formParagraph.Inlines.Add(new Run(document, form.Content));
 
+            //     section.Blocks.Add(formParagraph);
+            // }
+
+            //add the approver's signature in the footer if available.
             if (!string.IsNullOrEmpty(proposalLetter.ApproverSignUrl))
             {
-                paragraph.Inlines.Add(new Run(document, $"Signature: "));
+
+                // section.HeadersFooters.Add(
+                // new HeaderFooter(document, HeaderFooterType.FooterDefault,
+                // new Paragraph(document, "Signature: ")));
+
                 // var signature = await _storageService.DownloadFileAsync(proposalLetter.ApproverSignUrl);
-                // using (var imagestream = new MemoryStream(signature))
+                // using (var imageStream = new MemoryStream(signature))
                 // {
-                //     var image = new Picture(document, imagestream);
-                //     paragraph.Inlines.Add(image);
+
+                //     var image = new Picture(document, imageStream);
+                //     section.HeadersFooters[HeaderFooterType.FooterDefault].Blocks.Add(new Paragraph(document, image));
                 // }
             }
+            var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
+            var signatureBytes = await File.ReadAllBytesAsync(image);
+            var imageStream = new MemoryStream(signatureBytes);
+
+            var signatureImage = new Picture(document, imageStream);
+
+            // Create a new footer.
+            var footer = new HeaderFooter(document, HeaderFooterType.FooterDefault);
+            var footerParagraph = new Paragraph(document);
+            footerParagraph.Inlines.Add(new Run(document, "Signature: "));
+            footerParagraph.Inlines.Add(signatureImage);
+            footer.Blocks.Add(footerParagraph);
+
+            // Add the footer to the section.
+            section.HeadersFooters.Add(footer);
 
             // Save document to a stream.
             var stream = new MemoryStream();

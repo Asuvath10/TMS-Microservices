@@ -9,10 +9,10 @@ using TMS.Models;
 
 namespace DocumentManagement.Services
 {
-    public class ApiGatewayService : IApiGatewayService
+    public class PLCallService : IPLCallService
     {
         private readonly HttpClient _httpClient;
-        public ApiGatewayService(HttpClient httpClient)
+        public PLCallService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -20,7 +20,7 @@ namespace DocumentManagement.Services
         public async Task<ProposalLetter> GetPLbyAPIGateway(int plId)
         {
             //Get PL from the API Gateway
-            var response = await _httpClient.GetAsync($"/api/ProposalLetter/{plId}");
+            var response = await _httpClient.GetAsync($"/api/PL/{plId}");
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(content);
@@ -29,6 +29,18 @@ namespace DocumentManagement.Services
                 throw new InvalidOperationException("ProposalLetter is null");
             }
             return proposalLetter;
+        }
+        public async Task<List<Form>> GetallFormsByPLId(int PLid)
+        {
+            var response = await _httpClient.GetAsync($"/api/Form/GetallFormsByPLId/{PLid}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var forms = JsonConvert.DeserializeObject<List<Form>>(content);
+            if (forms == null)
+            {
+                throw new InvalidOperationException("form is null");
+            }
+            return forms;
         }
     }
 }

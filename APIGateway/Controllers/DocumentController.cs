@@ -35,8 +35,8 @@ namespace APIGateway.Controllers
         [HttpGet("GeneratePdf")]
         public async Task<IActionResult> GeneratePdf(int plId)
         {
-            var File = await _service.GeneratePDF(plId);
-            return Ok(File);
+            var pdfData = await _service.GeneratePDF(plId);
+            return File(pdfData, "application/pdf", "Document.pdf");
         }
 
         // Upload file

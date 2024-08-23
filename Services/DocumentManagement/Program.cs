@@ -30,7 +30,7 @@ builder.Services.AddCors((setup) =>
     });
 });
 
-builder.Services.AddHttpClient<IApiGatewayService, ApiGatewayService>(client =>
+builder.Services.AddHttpClient<IPLCallService, PLCallService>(client =>
             {
                 client.BaseAddress = new Uri(builder.Configuration["APIGateWay:BaseUrl"]);
             })
@@ -53,9 +53,9 @@ builder.Services.AddSingleton<IFirebaseStorageService>(provider =>
 builder.Services.AddSingleton<IPDFGenerationService>(provider =>
 {
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
-    var apiGatewayService = provider.GetRequiredService<IApiGatewayService>();
+    var plService = provider.GetRequiredService<IPLCallService>();
     ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-    return new PdfGenerationService(FirebaseStorageService, apiGatewayService);
+    return new PdfGenerationService(FirebaseStorageService, plService);
 });
 
 var app = builder.Build();
