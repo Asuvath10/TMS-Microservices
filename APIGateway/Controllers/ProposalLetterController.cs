@@ -202,22 +202,17 @@ namespace APIGateway.Controllers
             return Ok(createdformId);
         }
 
-        // PUT: Form/{id}
-        [HttpPut("UpdateForm/{id}")]
-        public async Task<IActionResult> UpdateForm(int id, [FromBody] Form form)
+        // PUT: Form
+        [HttpPut("UpdateForm")]
+        public async Task<IActionResult> UpdateForm([FromBody] Form form)
         {
-            if (form == null || id != form.Id)
+            if (form == null)
             {
                 return BadRequest("Invalid form data.");
             }
 
-            var updatedProposalLetter = await _service.UpdateForm(form);
-            if (updatedProposalLetter == null)
-            {
-                return NotFound();
-            }
-
-            return Ok("Form updated successfully.");
+            int formId = await _service.UpdateForm(form);
+            return Ok(formId);
         }
 
         // DELETE: Form/{id}
@@ -230,7 +225,7 @@ namespace APIGateway.Controllers
                 return NotFound();
             }
 
-            return Ok("Form deleted successfully.");
+            return Ok();
         }
 
     }

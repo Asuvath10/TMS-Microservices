@@ -12,7 +12,7 @@ namespace PLManagement.Interfaces.services
         Task<IEnumerable<Form>> GetAllFormsByPLId(int PLId);
         Task<Form> GetFormById(int id);
         Task<int> CreateForm(Form Form);
-        Task<Form> UpdateForm(Form Form);
+        Task<int> UpdateForm(Form Form);
         Task<bool> DeleteForm(int id);
     }
 }

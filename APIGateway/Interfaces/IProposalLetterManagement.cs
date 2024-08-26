@@ -26,7 +26,7 @@ namespace APIGateway.Interfaces
         Task<List<Form>> GetallFormsByPLId(int PLid);
         Task<Form> GetFormById(int id);
         Task<int> CreateForm(Form form);
-        Task<Form> UpdateForm(Form form);
+        Task<int> UpdateForm(Form form);
         Task<bool> DeleteForm(int id);
     }
 }

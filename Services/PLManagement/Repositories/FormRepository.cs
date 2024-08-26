@@ -42,11 +42,18 @@ public class FormRepository : IFormRepository
         return form.Id;
     }
 
-    public async Task<Form> UpdateForm(Form form)
+    public async Task<int> UpdateForm(Form form)
     {
-        _dbContext.Forms.Update(form);
+        if (form.Id == 0 || form.Id == null)
+        {
+            _dbContext.Forms.Add(form);
+        }
+        else
+        {
+            _dbContext.Forms.Update(form);
+        }
         await _dbContext.SaveChangesAsync();
-        return form;
+        return form.Id;
     }
 
     public async Task<bool> DeleteForm(int id)

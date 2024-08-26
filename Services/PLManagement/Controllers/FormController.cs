@@ -52,20 +52,16 @@ namespace PLManagement
             return Ok(CreatedFormId);
         }
 
-        [HttpPut("UpdateForm/{id}")]
-        public async Task<IActionResult> UpdateForm(int id, [FromBody] Form Form)
+        [HttpPut("UpdateForm")]
+        public async Task<IActionResult> UpdateForm([FromBody] Form Form)
         {
-            if (id != Form.Id)
+            if (Form == null)
             {
                 return BadRequest();
             }
 
-            var updatedForm = await _service.UpdateForm(Form);
-            if (updatedForm == null)
-            {
-                return NotFound();
-            }
-            return Ok(updatedForm);
+            int formId = await _service.UpdateForm(Form);
+            return Ok(formId);
 
         }
 

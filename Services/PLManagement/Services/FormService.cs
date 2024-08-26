@@ -37,7 +37,7 @@ namespace PLManagement.Services
             return await _repo.CreateForm(Form);
         }
 
-        public async Task<Form> UpdateForm(Form Form)
+        public async Task<int> UpdateForm(Form Form)
         {
             return await _repo.UpdateForm(Form);
         }

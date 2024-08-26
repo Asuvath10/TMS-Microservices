@@ -195,28 +195,18 @@ namespace APIGateway.Services
             return createdFormId;
         }
 
-        public async Task<Form> UpdateForm(Form form)
+        public async Task<int> UpdateForm(Form form)
         {
             var jsonContent = JsonConvert.SerializeObject(form);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"/api/Form/UpdateForm/{form.Id}", content);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new InvalidOperationException($"Failed to update ProposalLetter. Status Code: {response.StatusCode}, Reason: {response.ReasonPhrase}");
-            }
+            var response = await _httpClient.PutAsync("/api/Form/UpdateForm", content);
+            response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
+            int updatedformId = int.Parse(responseContent);
 
-            if (response.Content.Headers.ContentType.MediaType != "application/json")
-            {
-                throw new InvalidOperationException("Unexpected content type received from the server.");
-            }
-
-            var updatedform = JsonConvert.DeserializeObject<Form>(responseContent);
-
-            return updatedform;
+            return updatedformId;
         }
 
         public async Task<bool> DeleteForm(int id)
