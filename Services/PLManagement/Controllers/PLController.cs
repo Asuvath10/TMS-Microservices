@@ -38,6 +38,24 @@ namespace PLManagement
             var proposalLetters = await _service.GetAllPLsByStatusId(statusId);
             return Ok(proposalLetters);
         }
+        [HttpGet("GetallPLsByReviewerId/{reviewerId}")]
+        public async Task<ActionResult<IEnumerable<ProposalLetter>>> GetAllPLbyReviewerId(int reviewerId)
+        {
+            var proposalLetters = await _service.GetAllPLsByReviewerId(reviewerId);
+            return Ok(proposalLetters);
+        }
+        [HttpGet("GetallPLsByPreparerId/{preparerId}")]
+        public async Task<ActionResult<IEnumerable<ProposalLetter>>> GetAllPLbyPreparerId(int preparerId)
+        {
+            var proposalLetters = await _service.GetAllPLsByPreparerId(preparerId);
+            return Ok(proposalLetters);
+        }
+        [HttpGet("GetallPLsByApproverId/{approverId}")]
+        public async Task<ActionResult<IEnumerable<ProposalLetter>>> GetAllPLbyApproverId(int approverId)
+        {
+            var proposalLetters = await _service.GetAllPLsByApproverId(approverId);
+            return Ok(proposalLetters);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProposalLetter>> GetProposalLetterById(int id)

@@ -61,6 +61,24 @@ namespace APIGateway.Controllers
             var proposalLetters = await _service.GetProposalLettersByStatusId(statusid);
             return Ok(proposalLetters);
         }
+        [HttpGet("GetallPLByReviewerId/{reviewerId}")]
+        public async Task<IActionResult> GetAllProposalLettersByReviewerId(int reviewerId)
+        {
+            var proposalLetters = await _service.GetProposalLettersByReviewerId(reviewerId);
+            return Ok(proposalLetters);
+        }
+        [HttpGet("GetallPLByPreparerId/{preparerId}")]
+        public async Task<IActionResult> GetAllProposalLettersByPreparerId(int preparerId)
+        {
+            var proposalLetters = await _service.GetProposalLettersByPreparerId(preparerId);
+            return Ok(proposalLetters);
+        }
+        [HttpGet("GetallPLByApproverId/{approverId}")]
+        public async Task<IActionResult> GetAllProposalLettersByApproverId(int approverId)
+        {
+            var proposalLetters = await _service.GetProposalLettersByApproverId(approverId);
+            return Ok(proposalLetters);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProposalLetterById(int id)
@@ -99,7 +117,7 @@ namespace APIGateway.Controllers
                 return NotFound();
             }
 
-            return Ok("Proposal letter updated successfully.");
+            return Ok();
         }
 
         [HttpDelete("{id}")]

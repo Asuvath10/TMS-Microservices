@@ -15,4 +15,7 @@ public interface IPLRepository
     Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
     Task<bool> DeleteProposalLetter(int id);
     Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByStatusId(int statusId);
+    Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByReviewerId(int reviewerId);
+    Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByPreparerId(int preparerId);
+    Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByApproverId(int approverId);
 }

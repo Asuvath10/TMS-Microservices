@@ -34,6 +34,21 @@ public class PLRepository : IPLRepository
         var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.PlstatusId == statusId).ToListAsync();
         return proposal;
     }
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByReviewerId(int reviewerId)
+    {
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ReviewerId == reviewerId).ToListAsync();
+        return proposal;
+    }
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByPreparerId(int preparerId)
+    {
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.PreparerId == preparerId).ToListAsync();
+        return proposal;
+    }
+    public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByApproverId(int approverId)
+    {
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ApproverId == approverId).ToListAsync();
+        return proposal;
+    }
 
     public async Task<ProposalLetter> GetProposalLetterById(int id)
     {

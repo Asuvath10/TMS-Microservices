@@ -33,6 +33,18 @@ namespace PLManagement.Services
         {
             return await _repo.GetAllProposalLettersByStatusId(statusId);
         }
+        public async Task<IEnumerable<ProposalLetter>> GetAllPLsByPreparerId(int preparerId)
+        {
+            return await _repo.GetAllProposalLettersByPreparerId(preparerId);
+        }
+        public async Task<IEnumerable<ProposalLetter>> GetAllPLsByReviewerId(int reviewerId)
+        {
+            return await _repo.GetAllProposalLettersByReviewerId(reviewerId);
+        }
+        public async Task<IEnumerable<ProposalLetter>> GetAllPLsByApproverId(int approverId)
+        {
+            return await _repo.GetAllProposalLettersByApproverId(approverId);
+        }
 
         public async Task<ProposalLetter> GetPLById(int id)
         {

@@ -55,13 +55,7 @@ namespace GlobalException
             {
                 _logger.LogError(ex, "An unhandled exception occurred.");
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Response.ContentType = "application/json";
-
-                await context.Response.WriteAsync(new
-                {
-                    StatusCode = context.Response.StatusCode,
-                    Message = "Internal Server Error. Please try again later."
-                }.ToString());
+                await context.Response.WriteAsJsonAsync(new { message = ex.Message });
             }
         }
     }

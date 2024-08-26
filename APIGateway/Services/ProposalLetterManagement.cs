@@ -68,6 +68,30 @@ namespace APIGateway.Services
             var proposalLetter = JsonConvert.DeserializeObject<List<ProposalLetter>>(content);
             return proposalLetter;
         }
+        public async Task<List<ProposalLetter>> GetProposalLettersByPreparerId(int preparerId)
+        {
+            var response = await _httpClient.GetAsync($"/api/PL/GetallPLsByPreparerId/{preparerId}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var proposalLetter = JsonConvert.DeserializeObject<List<ProposalLetter>>(content);
+            return proposalLetter;
+        }
+        public async Task<List<ProposalLetter>> GetProposalLettersByReviewerId(int reviewerId)
+        {
+            var response = await _httpClient.GetAsync($"/api/PL/GetallPLsByReviewerId/{reviewerId}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var proposalLetter = JsonConvert.DeserializeObject<List<ProposalLetter>>(content);
+            return proposalLetter;
+        }
+        public async Task<List<ProposalLetter>> GetProposalLettersByApproverId(int approverId)
+        {
+            var response = await _httpClient.GetAsync($"/api/PL/GetallPLsByApproverId/{approverId}");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var proposalLetter = JsonConvert.DeserializeObject<List<ProposalLetter>>(content);
+            return proposalLetter;
+        }
 
         public async Task<int> CreateProposalLetter(ProposalLetter proposalLetter)
         {
