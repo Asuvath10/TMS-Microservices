@@ -9,6 +9,9 @@ using TMS.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net;
+using System.Net.Http.Headers;
+using System.IO;
+using System.Net.Mime;
 
 namespace APIGateway.Services
 {
@@ -27,14 +30,22 @@ namespace APIGateway.Services
             return file;
         }
 
-        public async Task<string> UploadFile(string folderpath, Byte[] file, string contentType)
+        public async Task<string> UploadFile(Byte[] file)
         {
-            var content = new ByteArrayContent(file);
-            var response = await _httpClient.PutAsync($"/api/Document/upload?foldername={folderpath}&contentType={contentType}", content);
-            response.EnsureSuccessStatusCode();
+            using (var memoryStream = new MemoryStream(file))
+            {
+                // Create the content with the memory stream
+                var content = new StreamContent(memoryStream);
 
-            var responseContent = await response.Content.ReadAsStringAsync();
-            return responseContent;
+                // Set the content type header
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/image");
+
+                var response = await _httpClient.PutAsync("/api/Document/upload", content);
+                response.EnsureSuccessStatusCode();
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return responseContent;
+            }
         }
 
         public async Task<Byte[]> GeneratePDF(int plId)

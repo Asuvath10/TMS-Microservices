@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using DocumentManagement.Interfaces;
-using GemBox.Document;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -23,12 +22,19 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPut("upload")]
-        public async Task<IActionResult> UploadFile(string folderpath, Byte[] file, string contentType)
+        public async Task<IActionResult> UploadFile()
         {
-            if (file == null || file.Length == 0)
-                return BadRequest("No file uploaded.");
-            string fileUrl = await _storageService.UploadFileAsync(folderpath, file, contentType);
-            return Ok(new { Url = fileUrl });
+            using (var memoryStream = new MemoryStream())
+            {
+                await Request.Body.CopyToAsync(memoryStream);
+                var fileBytes = memoryStream.ToArray();
+                // var fileBytes = MemoryStream.ToArray();
+                // var signatured = await File.ReadAllBytesAsync(file);
+                if (fileBytes == null || fileBytes.Length == 0)
+                    return BadRequest("No file uploaded.");
+                string fileUrl = await _storageService.UploadFileAsync("signatures", fileBytes, "image/png");
+                return Ok(new { Url = fileUrl });
+            }
         }
 
         [HttpGet("download")]
@@ -37,7 +43,7 @@ namespace DocumentManagement.Controllers
             if (fileUrl == null)
                 return BadRequest("No URL is detected for the file path");
             var file = await _storageService.DownloadFileAsync(fileUrl);
-            return Ok(file);
+            return File(file, "image/png", "image.png");
         }
 
         [HttpGet("generate")]

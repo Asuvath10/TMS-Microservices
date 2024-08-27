@@ -9,7 +9,7 @@ namespace APIGateway.Interfaces
     public interface IDocumentManagement
     {
         Task<Byte[]> DownloadFile(string fileUrl);
-        Task<string> UploadFile(string folderpath, Byte[] file, string contentType);
+        Task<string> UploadFile(Byte[] file);
         Task<Byte[]> GeneratePDF(int plId);
     }
 }

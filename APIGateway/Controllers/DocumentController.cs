@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using APIGateway.Interfaces;
 using TMS.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace APIGateway.Controllers
 {
@@ -27,8 +28,8 @@ namespace APIGateway.Controllers
         [HttpGet("downloadFile")]
         public async Task<IActionResult> DownloadFile(string fileUrl)
         {
-            var File = await _service.DownloadFile(fileUrl);
-            return Ok(File);
+            var image = await _service.DownloadFile(fileUrl);
+            return File(image, "application/image", "sign.png");
         }
 
         // Get: generatepdf
@@ -41,10 +42,17 @@ namespace APIGateway.Controllers
 
         // Upload file
         [HttpPut("UploadFile")]
-        public async Task<IActionResult> UploadFile(string folderpath, Byte[] file, string contentType)
+        public async Task<IActionResult> UploadFile()
         {
-            var url = await _service.UploadFile(folderpath, file, contentType);
-            return Ok(url);
+            using (var memoryStream = new MemoryStream())
+            {
+                await Request.Body.CopyToAsync(memoryStream);
+                var fileBytes = memoryStream.ToArray();
+                if (fileBytes == null || fileBytes.Length == 0)
+                    return BadRequest("No file uploaded.");
+                var url = await _service.UploadFile(fileBytes);
+                return Ok(url);
+            }
         }
 
 

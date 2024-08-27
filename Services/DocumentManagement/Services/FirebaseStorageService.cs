@@ -22,15 +22,16 @@ namespace DocumentManagement.Services
         {
             using (var stream = new MemoryStream(fileContent))
             {
-                var objectName = $"{folderPath}/{Guid.NewGuid()}"; 
+                var objectName = $"{folderPath}/{Guid.NewGuid()}";
                 var storageObject = await _storageClient.UploadObjectAsync(_bucketName, objectName, contentType, stream);
                 return $"https://storage.googleapis.com/{_bucketName}/{objectName}";
             }
         }
 
-        public async Task<byte[]> DownloadFileAsync(string fileurl){
-            var uri = new Uri(fileurl);
-            var objectName = uri.AbsolutePath.TrimStart('/');
+        public async Task<byte[]> DownloadFileAsync(string fileurl)
+        {
+            string trimmed = fileurl.Substring(fileurl.LastIndexOf('/') + 1);
+            var objectName = $"signatures/{trimmed}";
             using (var stream = new MemoryStream())
             {
                 await _storageClient.DownloadObjectAsync(_bucketName, objectName, stream);

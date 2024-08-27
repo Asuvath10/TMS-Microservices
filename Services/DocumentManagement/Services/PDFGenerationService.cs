@@ -35,26 +35,24 @@ namespace DocumentManagement.Services
 
             var header = new HeaderFooter(document, HeaderFooterType.HeaderDefault);
             var headerParagraph = new Paragraph(document);
+            headerParagraph.Inlines.Add(new Run(document, "Proposal Letter"));
             headerParagraph.Inlines.Add(new Run(document, "User: UserName"));
             headerParagraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
             headerParagraph.Inlines.Add(new Run(document, $"Assessment Year: {proposalLetter.AssessmentYear}"));
 
+            foreach (var form in forms)
+            {
+                // Create a paragraph for the form name with bold formatting.
+                headerParagraph.Inlines.Add(new Run(document, form.Name)
+                {
+                    CharacterFormat = new CharacterFormat() { Bold = true }
+                });
+                headerParagraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
+                headerParagraph.Inlines.Add(new Run(document, form.Content));
+            }
+
             header.Blocks.Add(headerParagraph);
             section.HeadersFooters.Add(header);
-            // foreach (var form in forms)
-            // {
-            //     // Create a paragraph for the form name with bold formatting.
-            //     var formParagraph = new Paragraph(document);
-            //     formParagraph.Inlines.Add(new Run(document, form.Name)
-            //     {
-            //         CharacterFormat = new CharacterFormat() { Bold = true }
-            //     });
-            //     formParagraph.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
-            //     formParagraph.Inlines.Add(new Run(document, form.Content));
-
-            //     section.Blocks.Add(formParagraph);
-            // }
-
             //add the approver's signature in the footer if available.
             if (!string.IsNullOrEmpty(proposalLetter.ApproverSignUrl))
             {
