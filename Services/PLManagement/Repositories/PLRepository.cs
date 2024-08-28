@@ -21,12 +21,12 @@ public class PLRepository : IPLRepository
 
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLetter()
     {
-        var proposal = await _dbContext.ProposalLetters.AsNoTracking().ToListAsync();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().OrderByDescending(p => p.CreatedOn).ToListAsync();
         return proposal;
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByUserId(int userId)
     {
-        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.UserId == userId).ToListAsync();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Include(p => p.PLStatus).Where(p => p.UserId == userId).OrderByDescending(p => p.CreatedOn).ToListAsync();
         return proposal;
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByStatusId(int statusId)
@@ -36,17 +36,17 @@ public class PLRepository : IPLRepository
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByReviewerId(int reviewerId)
     {
-        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ReviewerId == reviewerId).ToListAsync();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ReviewerId == reviewerId).OrderByDescending(p => p.CreatedOn).ToListAsync();
         return proposal;
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByPreparerId(int preparerId)
     {
-        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.PreparerId == preparerId).ToListAsync();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.PreparerId == preparerId).OrderByDescending(p => p.CreatedOn).ToListAsync();
         return proposal;
     }
     public async Task<IEnumerable<ProposalLetter>> GetAllProposalLettersByApproverId(int approverId)
     {
-        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ApproverId == approverId).ToListAsync();
+        var proposal = await _dbContext.ProposalLetters.AsNoTracking().Where(p => p.ApproverId == approverId).OrderByDescending(p => p.CreatedOn).ToListAsync();
         return proposal;
     }
 

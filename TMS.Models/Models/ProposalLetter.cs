@@ -25,5 +25,6 @@ namespace TMS.Models
         public int? UpdatedBy { get; set; }
 
         public virtual ICollection<Form>? Forms { get; set; }
+        public virtual Plstatus? PLStatus { get; set; }
     }
 }
