@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsers()
     {
-        return _dbContext.Users.AsNoTracking();
+        return _dbContext.Users.AsNoTracking().Include(u => u.Role);
     }
     public async Task<IEnumerable<User>> GetAllUsersByRoleId(int roleid)
     {

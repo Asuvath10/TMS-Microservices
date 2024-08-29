@@ -32,7 +32,16 @@ builder.Services.AddCors((setup) =>
 
 builder.Services.AddHttpClient<IPLCallService, PLCallService>(client =>
             {
-                client.BaseAddress = new Uri(builder.Configuration["APIGateWay:BaseUrl"]);
+                client.BaseAddress = new Uri(builder.Configuration["PLService:BaseUrl"]);
+            })
+            //Set lifetime to five minutes
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+            // Added retrypolicy for overcome socket exception.
+            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
+
+builder.Services.AddHttpClient<IUserCallService, UserCallService>(client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["UserService:BaseUrl"]);
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -54,8 +63,9 @@ builder.Services.AddSingleton<IPDFGenerationService>(provider =>
 {
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
     var plService = provider.GetRequiredService<IPLCallService>();
+    var userService = provider.GetRequiredService<IUserCallService>();
     ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-    return new PdfGenerationService(FirebaseStorageService, plService);
+    return new PdfGenerationService(FirebaseStorageService, plService, userService);
 });
 
 var app = builder.Build();
