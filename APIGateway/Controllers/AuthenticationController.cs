@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using APIGateway.Interfaces;
 using APIGateway.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGateway.Controllers

@@ -34,13 +34,15 @@ public class AuthenticationService : IAuthenticationService
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
+        var token = new JwtSecurityTokenHandler().CreateJwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(10),
+            new ClaimsIdentity(claims),
+            DateTime.Now,
+            DateTime.Now.AddDays(1),
+            DateTime.Now,
             signingCredentials: creds);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        var tokenstring = new JwtSecurityTokenHandler().WriteToken(token);
+        return tokenstring;
     }
 }

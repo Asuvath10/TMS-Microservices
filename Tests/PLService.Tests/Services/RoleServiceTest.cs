@@ -37,5 +37,23 @@ namespace PLservice.Tests.Services
             _mockRepo.Verify(repo => repo.GetRoles(), Times.Once);
         }
 
+        [Fact]
+        public async Task GetAllRoles_ReturnsAllRoles()
+        {
+            // Arrange
+            var expectedRoles = RoleMockData.GetRoles();
+            _mockRepo.Setup(repo => repo.GetRoles())
+                     .ReturnsAsync(expectedRoles);
+
+            // Act
+            var result = await _Service.GetRoles();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedRoles.Count, result.Count());
+            Assert.Contains(result, u => u.Id == 1);
+            Assert.Contains(result, u => u.Id == 2);
+            _mockRepo.Verify(repo => repo.GetRoles(), Times.Once);
+        }
     }
 }

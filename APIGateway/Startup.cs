@@ -20,6 +20,8 @@ using System.Linq;
 using GlobalException;
 using policy;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.IO;
 
 namespace APIGateway
 {
@@ -35,7 +37,6 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
 
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
 
@@ -56,9 +57,12 @@ namespace APIGateway
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    TokenDecryptionKey = new SymmetricSecurityKey(key)
+
                 };
             });
+            services.AddControllers();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddAuthorization();
 
@@ -66,7 +70,7 @@ namespace APIGateway
             services.AddHttpClient<IProposalLetterManagement, ProposalLetterManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["ProposalService:BaseUrl"]);
-                client.Timeout= TimeSpan.FromSeconds(30);
+                client.Timeout = TimeSpan.FromSeconds(30);
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -77,7 +81,7 @@ namespace APIGateway
             services.AddHttpClient<IUserManagement, UserManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["UserService:BaseUrl"]);
-                client.Timeout= TimeSpan.FromSeconds(30);
+                client.Timeout = TimeSpan.FromSeconds(30);
             })
             //Set lifetime to five minutes
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))
@@ -88,7 +92,7 @@ namespace APIGateway
             services.AddHttpClient<IDocumentManagement, DocumentManagement>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["DocumentService:BaseUrl"]);
-                client.Timeout= TimeSpan.FromSeconds(30);
+                client.Timeout = TimeSpan.FromSeconds(30);
 
             })
             //Set lifetime to five minutes
@@ -96,16 +100,15 @@ namespace APIGateway
             // Added retrypolicy for overcome socket exception.
             .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
 
-            // Adding Ocelot service
-            services.AddOcelot();
-
-            //services.AddEndpointsApiExplorer();
+            //services.AddEndpointsApiExplorer();   
             services.AddSwaggerGen(c =>
             {
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
                 c.CustomSchemaIds(type => type.FullName);
+                // var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                // c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APIGateway", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
@@ -134,7 +137,7 @@ namespace APIGateway
             {
                 setup.AddPolicy("default", (options) =>
                 {
-                    options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                    options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
         }
@@ -149,9 +152,9 @@ namespace APIGateway
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIGateway v1"));
             }
 
-            app.UseMiddleware<GlobalExceptionMiddleware>();
-
             app.UseCors("default");
+
+            app.UseMiddleware<GlobalExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
@@ -165,8 +168,6 @@ namespace APIGateway
             {
                 endpoints.MapControllers();
             });
-
-            await app.UseOcelot();
         }
     }
 }

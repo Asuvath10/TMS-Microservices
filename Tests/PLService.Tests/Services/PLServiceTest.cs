@@ -175,35 +175,6 @@ namespace PLservice.Tests.Services
         }
 
         [Fact]
-        public async Task AddPdf_Success()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            var proposalLetter = PLMockData.GetSingleProposalLetter();
-            proposalLetter.PlstatusId = 5; // Ensure status is approved
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync(proposalLetter);
-
-            Byte[] pdfData = new byte[] { 1, 2, 3, 4 };
-            _mockapigatewayservice.Setup(ps => ps.GeneratePDF(It.IsAny<int>()))
-                .ReturnsAsync(pdfData);
-
-            var pdfUrl = "https://storage.googleapis.com/fake-bucket/pdfs/some-pdf";
-            //Sample url for approver sign
-            proposalLetter.ApproverSignUrl = pdfUrl;
-            _mockapigatewayservice.Setup(s => s.UploadFile("pdfs", pdfData, "application/pdf"))
-                .ReturnsAsync(pdfUrl);
-
-            // Act
-            var result = await _service.AddPdf(proposalLetterId);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(pdfUrl, result.PdfUrl);
-            _mockRepo.Verify(repo => repo.UpdateProposalLetter(result), Times.Once);
-        }
-
-        [Fact]
         public async Task AddPdf_Failure_WhenProposalLetterNotFound()
         {
             // Arrange

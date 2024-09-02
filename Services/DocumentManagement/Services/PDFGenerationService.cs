@@ -8,6 +8,7 @@ using DocumentManagement.Interfaces;
 using SixLabors.ImageSharp;
 using Newtonsoft.Json;
 using TMS.Models;
+using SixLabors.ImageSharp.Processing;
 
 namespace DocumentManagement.Services
 {
