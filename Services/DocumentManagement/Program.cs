@@ -64,7 +64,7 @@ builder.Services.AddSingleton<IPDFGenerationService>(provider =>
     var FirebaseStorageService = provider.GetRequiredService<IFirebaseStorageService>();
     var plService = provider.GetRequiredService<IPLCallService>();
     var userService = provider.GetRequiredService<IUserCallService>();
-    ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+    ComponentInfo.SetLicense("Gembox:License");
     return new PdfGenerationService(FirebaseStorageService, plService, userService);
 });
 
@@ -76,9 +76,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentManagement v1"));
 }
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseCors("default");
 app.UseRouting();
-// app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseEndpoints(endpoints =>
 {

@@ -135,26 +135,6 @@ namespace APIGateway.Services
             var response = await _httpClient.DeleteAsync($"/api/PL/{id}");
             return response.IsSuccessStatusCode;
         }
-        public async Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, byte[] signature)
-        {
-            // Call to the PLManagement service to add signature
-            var content = new ByteArrayContent(signature);
-            var response = await _httpClient.PutAsync($"/api/PL/{proposalLetterId}/signature", content);
-            response.EnsureSuccessStatusCode();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
-            return proposalLetter;
-        }
-
-        public async Task<ProposalLetter> GeneratePdf(int proposalLetterId)
-        {
-            // Call to the PLManagement service to generate PDF
-            var response = await _httpClient.PutAsync($"/api/PL/{proposalLetterId}/generate-pdfurl", null);
-            response.EnsureSuccessStatusCode();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var proposalLetter = JsonConvert.DeserializeObject<ProposalLetter>(responseContent);
-            return proposalLetter;
-        }
 
         //Form calls 
         public async Task<List<Form>> GetAllForms()

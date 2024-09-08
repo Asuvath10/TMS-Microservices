@@ -77,6 +77,7 @@ namespace DocumentManagement.Services
 
                 // var image = Path.Combine(Directory.GetCurrentDirectory(), "Assets", "sign.png");
                 // var signatureBytes = await File.ReadAllBytesAsync(image);
+                
                 // Create a new footer.
                 var footer = new HeaderFooter(document, HeaderFooterType.FooterDefault);
                 var footerParagraph = new Paragraph(document);

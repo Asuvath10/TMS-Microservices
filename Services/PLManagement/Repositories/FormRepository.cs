@@ -37,6 +37,10 @@ public class FormRepository : IFormRepository
 
     public async Task<int> CreateForm(Form form)
     {
+        if (form != null)
+        {
+            form.CreatedOn = DateTime.UtcNow;
+        }
         _dbContext.Forms.Add(form);
         await _dbContext.SaveChangesAsync();
         return form.Id;

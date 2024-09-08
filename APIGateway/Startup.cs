@@ -100,15 +100,12 @@ namespace APIGateway
             // Added retrypolicy for overcome socket exception.
             .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
 
-            //services.AddEndpointsApiExplorer();   
             services.AddSwaggerGen(c =>
             {
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.IgnoreObsoleteActions();
                 c.IgnoreObsoleteProperties();
                 c.CustomSchemaIds(type => type.FullName);
-                // var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                // c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APIGateway", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {

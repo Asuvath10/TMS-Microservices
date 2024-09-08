@@ -14,8 +14,6 @@ namespace PLManagement.Interfaces.services
         Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
         Task<bool> DeleteProposalLetter(int id);
-        Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, Byte[] signature);
-        Task<ProposalLetter> AddPdf(int proposalLetterId);
         Task<IEnumerable<ProposalLetter>> GetAllPLsByStatusId(int statusId);
         Task<IEnumerable<ProposalLetter>> GetAllPLsByPreparerId(int preparerId);
         Task<IEnumerable<ProposalLetter>> GetAllPLsByReviewerId(int reviewerId);

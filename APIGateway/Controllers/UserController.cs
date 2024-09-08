@@ -96,6 +96,7 @@ namespace APIGateway.Controllers
         }
 
         // DELETE: User/{id}
+        [Obsolete]
         [HttpPut("DisableUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

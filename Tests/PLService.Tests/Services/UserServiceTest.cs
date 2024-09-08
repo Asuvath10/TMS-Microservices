@@ -64,7 +64,6 @@ namespace PLservice.Tests.Services
             var result = await _userService.CreateUser(NewUser);
 
             //Assert
-            Assert.NotNull(result);
             Assert.Equal(NewUser.Id, result);
         }
 

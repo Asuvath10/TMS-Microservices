@@ -55,5 +55,62 @@ namespace PLservice.Tests.MockData
                 ApproverId = 23
             };
         }
+
+        public static IEnumerable<Form> GetAllForm()
+        {
+            return new List<Form>(){
+                new Form{
+                    Id=1,
+                    Name="Form 16",
+                    Plid=17,
+                    Content= "Form content",
+                    CreatedOn=DateTime.UtcNow
+                },
+                new Form{
+                    Id=2,
+                    Name="Form 17",
+                    Plid=18,
+                    Content= "Form content",
+                    CreatedOn=DateTime.UtcNow
+                }
+            };
+        }
+        public static List<Form> GetallFormsByPLId()
+        {
+            return new List<Form>(){
+                new Form{
+                    Id=1,
+                    Name="Form 16",
+                    Plid=17,
+                    Content= "Form content",
+                    CreatedOn=DateTime.UtcNow
+                },
+                new Form{
+                    Id=2,
+                    Name="Form 17",
+                    Plid=17,
+                    Content= "Form content",
+                    CreatedOn=DateTime.UtcNow
+                }
+                // new Form{
+                //     Id=3,
+                //     Name="Form 18",
+                //     Plid=17,
+                //     Content= "Form content",
+                //     CreatedOn=DateTime.UtcNow
+                // }
+            };
+        }
+        public static Form GetFormById()
+        {
+            return new Form
+            {
+                Id = 2,
+                Name = "Form 17",
+                Plid = 17,
+                Content = "Form content",
+                CreatedOn = DateTime.UtcNow
+            };
+        }
     }
 }

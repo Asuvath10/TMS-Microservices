@@ -103,19 +103,5 @@ namespace PLManagement
             }
             return Ok("Proposal Letter Deleted Successfully");
         }
-
-        [HttpPut("{PLid}/signature")]
-        public async Task<IActionResult> AddSignature(int PLid, Byte[] signature)
-        {
-            var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
-            return Ok(proposalLetter);
-        }
-
-        [HttpPut("{PLid}/generate-pdfurl")]
-        public async Task<IActionResult> GeneratePdf(int PLid)
-        {
-            var proposalLetter = await _service.AddPdf(PLid);
-            return Ok(proposalLetter);
-        }
     }
 }

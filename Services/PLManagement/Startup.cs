@@ -36,7 +36,6 @@ namespace PLManagement
             services.AddControllers();
             services.AddHttpClient();
             services.AddTransient<IPLService, PLService>();
-            services.AddTransient<IApiGatewayService, ApiGatewayService>();
             services.AddTransient<IFormService, FormService>();
             services.AddTransient<IPLStatusService, PLStatusService>();
             services.AddTransient<IPLRepository, PLRepository>();
@@ -44,14 +43,7 @@ namespace PLManagement
             services.AddTransient<IPLStatusRepository, PLStatusRepository>();
             //Added dbcontext
             services.AddDbContext<PLManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddHttpClient<IApiGatewayService, ApiGatewayService>(client =>
-            {
-                client.BaseAddress = new Uri(Configuration["APIGateWay:BaseUrl"]);
-            })
-            //Set lifetime to five minutes
-            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
-            // Added retrypolicy for overcome socket exception.
-            .AddHttpMessageHandler(() => new PolicyHttpMessageHandler(RetryPolicy.GetRetryPolicy()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PLManagement", Version = "v1" });

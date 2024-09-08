@@ -4,6 +4,7 @@ using Moq;
 using PLManagement.Interfaces.Repos;
 using TMS.Models;
 using PLManagement.Interfaces;
+using PLManagement.Interfaces.services;
 
 namespace PLservice.Tests.Services
 {
@@ -11,14 +12,11 @@ namespace PLservice.Tests.Services
     {
         private readonly PLService _service;
         private readonly Mock<IPLRepository> _mockRepo;
-        private readonly Mock<IApiGatewayService> _mockapigatewayservice;
 
         public PLServiceTest()
         {
             _mockRepo = new Mock<IPLRepository>();
-            _mockapigatewayservice = new Mock<IApiGatewayService>();
-
-            _service = new PLService(_mockRepo.Object, _mockapigatewayservice.Object);
+            _service = new PLService(_mockRepo.Object);
         }
 
         [Fact]
@@ -121,83 +119,6 @@ namespace PLservice.Tests.Services
             // Assert
             Assert.False(result);
             _mockRepo.Verify(repo => repo.DeleteProposalLetter(nonExistingProposalLetterId), Times.Once);
-        }
-        [Fact]
-        public async Task AddSignatureAsync_Success()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            var proposalLetter = PLMockData.GetSingleProposalLetter();
-            proposalLetter.PlstatusId = 4;
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync(proposalLetter);
-            var signature = new Byte[] { 1, 2, 3, 4, 5 };
-            var signatureUrl = "https://storage.googleapis.com/fake-bucket/signatures/some-signature";
-            _mockapigatewayservice.Setup(s => s.UploadFile(It.IsAny<string>(), It.IsAny<byte[]>(), "image/png"))
-                .ReturnsAsync(signatureUrl);
-
-            // Act
-            var result = await _service.AddSignatureAsync(proposalLetterId, signature);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.NotNull(result.ApproverSignUrl);
-            Assert.Equal(5, result.PlstatusId);
-            _mockRepo.Verify(repo => repo.UpdateProposalLetter(result), Times.Once);
-        }
-
-        [Fact]
-        public async Task AddSignatureAsync_Failure_WhenProposalLetterNotFound()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            var signature = new Byte[] { 1, 2, 3, };
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync((ProposalLetter)null);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId, signature));
-        }
-
-        [Fact]
-        public async Task AddSignatureAsync_Failure_WhenProposalLetterStatusisNotinPendingApproval()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            var proposalLetter = PLMockData.GetSingleProposalLetter();
-            proposalLetter.PlstatusId = 3; // Status is not pending approval
-            var signature = new Byte[] { 1, 2, 3 };
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync(proposalLetter);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddSignatureAsync(proposalLetterId, signature));
-        }
-
-        [Fact]
-        public async Task AddPdf_Failure_WhenProposalLetterNotFound()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync((ProposalLetter)null);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddPdf(proposalLetterId));
-        }
-
-        [Fact]
-        public async Task AddPdf_Failure_WhenStatusNotApproved()
-        {
-            // Arrange
-            var proposalLetterId = 1;
-            var proposalLetter = PLMockData.GetSingleProposalLetter();
-            proposalLetter.PlstatusId = 4; // Status is not approved
-            _mockRepo.Setup(repo => repo.GetProposalLetterById(proposalLetterId))
-                .ReturnsAsync(proposalLetter);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddPdf(proposalLetterId));
         }
     }
 }

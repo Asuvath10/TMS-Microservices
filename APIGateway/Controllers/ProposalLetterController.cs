@@ -17,7 +17,6 @@ namespace APIGateway.Controllers
     public class ProposalLetterController : ControllerBase
     {
         private readonly IProposalLetterManagement _service;
-
         public ProposalLetterController(IProposalLetterManagement service)
         {
             _service = service;
@@ -49,30 +48,35 @@ namespace APIGateway.Controllers
             var proposalLetters = await _service.GetAllProposals();
             return Ok(proposalLetters);
         }
+
         [HttpGet("GetallPLByUserId")]
         public async Task<IActionResult> GetAllProposalLettersByUserId(int userid)
         {
             var proposalLetters = await _service.GetProposalLettersByUserId(userid);
             return Ok(proposalLetters);
         }
+
         [HttpGet("GetallPLByStatusId/{statusid}")]
         public async Task<IActionResult> GetAllProposalLettersByStatusId(int statusid)
         {
             var proposalLetters = await _service.GetProposalLettersByStatusId(statusid);
             return Ok(proposalLetters);
         }
+
         [HttpGet("GetallPLByReviewerId/{reviewerId}")]
         public async Task<IActionResult> GetAllProposalLettersByReviewerId(int reviewerId)
         {
             var proposalLetters = await _service.GetProposalLettersByReviewerId(reviewerId);
             return Ok(proposalLetters);
         }
+
         [HttpGet("GetallPLByPreparerId/{preparerId}")]
         public async Task<IActionResult> GetAllProposalLettersByPreparerId(int preparerId)
         {
             var proposalLetters = await _service.GetProposalLettersByPreparerId(preparerId);
             return Ok(proposalLetters);
         }
+
         [HttpGet("GetallPLByApproverId/{approverId}")]
         public async Task<IActionResult> GetAllProposalLettersByApproverId(int approverId)
         {
@@ -130,36 +134,6 @@ namespace APIGateway.Controllers
             }
 
             return Ok("Proposal letter deleted successfully.");
-        }
-
-        // POST: ProposalLetter/{PLid}/signature
-        [HttpPut("{PLid}/signature")]
-        public async Task<IActionResult> AddSignature(int PLid, [FromBody] byte[] signature)
-        {
-            try
-            {
-                var proposalLetter = await _service.AddSignatureAsync(PLid, signature);
-                return Ok(proposalLetter);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        // put: ProposalLetter/{PLid}/generate-pdf
-        [HttpPut("{PLid}/generate-pdfurl")]
-        public async Task<IActionResult> GeneratePdf(int PLid)
-        {
-            try
-            {
-                var proposalLetter = await _service.GeneratePdf(PLid);
-                return Ok(proposalLetter);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         // Forms Endpoint

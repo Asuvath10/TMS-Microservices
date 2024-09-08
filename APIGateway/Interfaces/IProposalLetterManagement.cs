@@ -20,8 +20,6 @@ namespace APIGateway.Interfaces
         Task<int> CreateProposalLetter(ProposalLetter proposalLetter);
         Task<ProposalLetter> UpdateProposalLetter(ProposalLetter proposalLetter);
         Task<bool> DeleteProposalLetter(int id);
-        Task<ProposalLetter> GeneratePdf(int proposalLetterId);
-        Task<ProposalLetter> AddSignatureAsync(int proposalLetterId, byte[] signature);
         Task<List<Form>> GetAllForms();
         Task<List<Form>> GetallFormsByPLId(int PLid);
         Task<Form> GetFormById(int id);
